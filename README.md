@@ -2,7 +2,7 @@
 
 한/영 블로그. [Astro](https://astro.build)로 만들고 GitHub Pages로 무료 배포합니다.
 
-**주소:** https://juheeeehuj.github.io
+**주소:** https://juheeoh.com
 
 ## 글 쓰기
 
@@ -45,14 +45,12 @@ npm run build    # 배포와 같은 빌드 (에러 확인용)
 | 글 페이지 레이아웃      | `src/layouts/BlogPost.astro`     |
 | 배포 설정               | `.github/workflows/deploy.yml`   |
 
-## 개인 도메인 연결하기 (나중에)
+## 도메인 (juheeoh.com)
 
-1. 도메인을 산다 (가비아, Cloudflare, Namecheap 등).
-2. `public/CNAME` 파일을 만들고 도메인 한 줄만 적는다. 예: `juhee.dev`
-3. `astro.config.mjs` 의 `SITE` 를 `https://juhee.dev` 로 바꾼다.
-4. 도메인 업체 DNS 설정:
-   - 루트 도메인(`juhee.dev`): A 레코드 4개 → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - `www` 서브도메인: CNAME → `juheeeehuj.github.io`
-5. GitHub 레포 → Settings → Pages → Custom domain 에 도메인 입력, **Enforce HTTPS** 체크.
-
-DNS 반영은 몇 분에서 하루까지 걸릴 수 있다.
+- 구입처: 가비아. 만기일 2027-09-18이니 **연장**을 잊지 않는다.
+- DNS (가비아 → DNS 관리):
+  - `@` A 레코드 4개 → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+  - `www` CNAME → `juheeeehuj.github.io.`
+- GitHub: 레포 Settings → Pages → Custom domain = `juheeoh.com`, Enforce HTTPS 체크.
+  GitHub Actions 로 배포하므로 `public/CNAME` 파일은 필요 없다.
+- 도메인을 바꾸면 `astro.config.mjs` 의 `SITE` 도 같이 바꾼다.

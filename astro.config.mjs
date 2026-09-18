@@ -4,8 +4,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 
-// 배포 주소. 개인 도메인을 연결하면 여기와 public/CNAME 을 같이 바꾼다.
-const SITE = 'https://juheeeehuj.github.io';
+// 배포 주소 (개인 도메인). 도메인 연결 자체는 GitHub 레포 Settings → Pages 에서 한다.
+const SITE = 'https://juheeoh.com';
 
 // https://astro.build/config
 export default defineConfig({
