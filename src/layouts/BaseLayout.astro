@@ -15,9 +15,13 @@ interface Props {
 	hreflang?: Partial<Record<Lang, string>>;
 	type?: 'website' | 'article';
 	image?: ImageMetadata;
+	/** 메뉴에서 강조할 주소. 생략하면 현재 경로로 판단한다. */
+	navActive?: string;
+	/** 큰 프로필 헤더는 홈에서만 쓴다 */
+	header?: 'personal' | 'compact';
 }
 
-const { title, description, lang, type, image } = Astro.props;
+const { title, description, lang, type, image, navActive, header = 'compact' } = Astro.props;
 const path = Astro.url.pathname;
 const other = otherLang(lang);
 const alternates =
@@ -31,11 +35,11 @@ const hreflang = Astro.props.hreflang ?? alternates;
 	<head>
 		<BaseHead title={title} description={description} lang={lang} hreflang={hreflang} type={type} image={image} />
 	</head>
-	<body>
-		<Header lang={lang} alternates={alternates} />
+	<body id="top">
+		<Header lang={lang} alternates={alternates} active={navActive} variant={header} />
 		<main>
 			<slot />
 		</main>
-		<Footer />
+		<Footer lang={lang} />
 	</body>
 </html>

@@ -1,0 +1,63 @@
+---
+// 알약 모양 메뉴 (Katen navbar). 활성 항목은 핑크→오렌지 그라데이션.
+interface Props {
+	links: { href: string; label: string; active: boolean }[];
+	align?: 'center' | 'start';
+}
+
+const { links, align = 'center' } = Astro.props;
+---
+
+<nav aria-label="Main">
+	<ul class:list={['nav-list', align]}>
+		{
+			links.map((l) => (
+				<li class:list={{ active: l.active }}>
+					<a class="nav-link" href={l.href} aria-current={l.active ? 'page' : undefined}>
+						{l.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>
+
+<style>
+	.nav-list {
+		display: flex;
+		gap: 2px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-family: var(--font-head);
+		font-size: 14px;
+	}
+	.center {
+		justify-content: center;
+	}
+	.nav-link {
+		display: block;
+		padding: 0.439rem 1rem;
+		border-radius: 25px;
+		color: var(--menu);
+		white-space: nowrap;
+	}
+	.nav-link:hover {
+		color: var(--heading);
+	}
+	.active .nav-link {
+		background: var(--gradient);
+		background-size: 200% auto;
+		color: #fff;
+	}
+	@media (max-width: 767px) {
+		.nav-list {
+			justify-content: flex-start;
+			overflow-x: auto;
+			scrollbar-width: none;
+		}
+		.nav-list::-webkit-scrollbar {
+			display: none;
+		}
+	}
+</style>

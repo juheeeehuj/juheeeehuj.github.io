@@ -1,0 +1,44 @@
+---
+import { categories, type Category } from '../../../categories';
+import PostGrid from '../../../components/PostGrid.astro';
+import { categoryLabels, getPosts, languages, ui, type Lang } from '../../../i18n/ui';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+	return (Object.keys(languages) as Lang[]).flatMap((lang) =>
+		categories.map((category) => ({ params: { lang, category } })),
+	);
+}
+
+const { lang, category } = Astro.params as { lang: Lang; category: Category };
+const t = ui[lang];
+const label = categoryLabels[lang][category];
+const posts = (await getPosts(lang)).filter((p) => p.data.category === category);
+---
+
+<BaseLayout title={`${label} | ${t.siteTitle}`} description={t.siteDescription} lang={lang}>
+	<section class="container page-header">
+		<h1>{label}</h1>
+		<p>{posts.length} {t.posts}</p>
+	</section>
+	<section class="container">
+		<PostGrid lang={lang} posts={posts} />
+	</section>
+</BaseLayout>
+
+<style>
+	.page-header {
+		margin: 40px auto;
+		text-align: center;
+	}
+	h1 {
+		margin: 0 0 6px;
+		font-size: 32px;
+	}
+	p {
+		margin: 0;
+		color: var(--text-subtle);
+		font-family: var(--font-head);
+		font-size: 14px;
+	}
+</style>

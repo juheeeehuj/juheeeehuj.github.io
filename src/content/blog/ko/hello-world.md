@@ -3,6 +3,7 @@ title: '블로그를 시작합니다'
 description: 'Astro로 만들고 GitHub Pages로 배포한 첫 글입니다.'
 pubDate: 2026-09-18
 heroImage: '../../../assets/hello-world.jpg'
+category: product
 tags: ['astro', 'blog']
 ---
 

@@ -1,0 +1,65 @@
+---
+import { pageUrl, ui, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+	current: number;
+	total: number;
+}
+
+const { lang, current, total } = Astro.props;
+const pages = Array.from({ length: total }, (_, i) => i + 1);
+---
+
+{
+	total > 1 && (
+		<nav class="pagination" aria-label={ui[lang].pagination}>
+			<ul>
+				{pages.map((p) => (
+					<li>
+						<a
+							class:list={['page-link', { active: p === current }]}
+							href={pageUrl(lang, p)}
+							aria-current={p === current ? 'page' : undefined}
+						>
+							{p}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+	)
+}
+
+<style>
+	.pagination ul {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		margin: 40px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.page-link {
+		display: block;
+		width: 45px;
+		height: 45px;
+		border: 1px solid var(--border);
+		border-radius: 50%;
+		color: var(--text-muted);
+		font-size: 14px;
+		line-height: 43px;
+		text-align: center;
+		transition: color 0.15s ease-in-out;
+	}
+	.page-link:hover,
+	.page-link.active {
+		border-color: transparent;
+		background: var(--gradient-v);
+		background-size: auto 200%;
+		color: #fff;
+	}
+	.page-link.active {
+		box-shadow: var(--shadow-btn);
+	}
+</style>

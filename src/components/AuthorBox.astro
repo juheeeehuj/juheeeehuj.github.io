@@ -1,0 +1,61 @@
+---
+// 글 아래 작성자 소개 (Katen about-author)
+import { ui, type Lang } from '../i18n/ui';
+import Avatar from './Avatar.astro';
+import SocialIcons from './SocialIcons.astro';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+
+<aside class="about-author">
+	<a class="thumb" href={`/${lang}/about/`} tabindex="-1" aria-hidden="true"><Avatar size={100} /></a>
+	<div class="details">
+		<h2 class="name"><a href={`/${lang}/about/`}>{t.author}</a></h2>
+		<p>{t.authorBio}</p>
+		<SocialIcons />
+	</div>
+</aside>
+
+<style>
+	.about-author {
+		display: flex;
+		gap: 30px;
+		align-items: flex-start;
+		margin-top: 50px;
+		padding: 30px;
+		border-radius: var(--radius);
+		background: var(--author-bg);
+	}
+	.thumb {
+		display: inline-flex;
+		flex: 0 0 auto;
+	}
+	.name {
+		margin: 0 0 10px;
+		font-size: 20px;
+	}
+	.name a {
+		color: var(--heading);
+	}
+	.name a:hover {
+		color: var(--pink);
+	}
+	p {
+		margin: 0 0 12px;
+	}
+	@media (max-width: 575px) {
+		.about-author {
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+		.about-author :global(.social-icons) {
+			justify-content: center;
+		}
+	}
+</style>

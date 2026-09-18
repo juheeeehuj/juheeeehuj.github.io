@@ -1,42 +1,65 @@
 /* ===========================================================================
-   디자인 토큰 — 색·폰트·폭은 여기서만 바꾼다
+   디자인 토큰 — Katen(personal) 테마 색·폰트. 색은 여기서만 바꾼다.
    =========================================================================== */
 :root {
 	--bg: #ffffff;
-	--surface: #f4f4f5;
-	--surface-2: #e4e4e7;
-	--text: #18181b;
-	--text-muted: #52525b;
-	--text-subtle: #71717a;
-	--border: #e4e4e7;
-	--accent: #2f5bea;
+	--card: #ffffff;
+	--surface: #f5f6f8;
+	--surface-2: #ebebeb;
+	--heading: #203656;
+	--text: var(--heading);
+	--body: #707a88;
+	--text-muted: #8f9bad;
+	--text-subtle: #9faabb;
+	--menu: #79889e;
+	--border: #ebebeb;
+	--pink: #fe4f70;
+	--orange: #ffa387;
+	--accent: var(--pink);
 	--accent-fg: #ffffff;
-	--code-bg: #f4f4f5;
+	--overlay: #203656;
+	--code-bg: #f5f6f8;
+	--author-bg: #f1f8ff;
+	--quote-bg: #fff8fa;
+	--mark-bg: #fcf8e3;
+	/* 핑크→오렌지. background-size 200% 로 두고 hover 때 위치를 옮긴다 */
+	--gradient: linear-gradient(to right, #fe4f70 0%, #ffa387 51%, #fe4f70 100%);
+	--gradient-v: linear-gradient(to top, #ffa387 0%, #fe4f70 51%, #ffa387 100%);
+	--shadow-btn: 0 2px 4px rgba(0, 0, 0, 0.15);
 
+	--font-head:
+		'Poppins', 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+		sans-serif;
 	--font-sans:
-		'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Segoe UI',
-		Roboto, sans-serif;
+		'Roboto', 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+		sans-serif;
 	--font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
 
-	--width-page: 56rem;
-	--width-prose: 44rem;
-	--radius: 16px;
-	--radius-sm: 10px;
+	--container: 1140px;
+	--width-prose: 46rem;
+	--radius: 10px;
+	--radius-sm: 8px;
 
 	color-scheme: light;
 }
 
+/* 다크 — Katen 에는 없어서 네이비(#203656)를 바탕으로 만든 팔레트 */
 html.dark {
-	--bg: #111113;
-	--surface: #1c1c1f;
-	--surface-2: #2a2a2e;
-	--text: #ececef;
-	--text-muted: #a1a1aa;
-	--text-subtle: #8b8b94;
-	--border: #27272a;
-	--accent: #8aa8ff;
-	--accent-fg: #111113;
-	--code-bg: #1c1c1f;
+	--bg: #0f1a2c;
+	--card: #14213a;
+	--surface: #1a2944;
+	--surface-2: #233553;
+	--heading: #eef2f8;
+	--body: #b3bfd1;
+	--text-muted: #8f9bad;
+	--text-subtle: #7d8aa0;
+	--menu: #9aa7bb;
+	--border: #22324f;
+	--overlay: #0b1322;
+	--code-bg: #14213a;
+	--author-bg: #1a2944;
+	--quote-bg: rgba(254, 79, 112, 0.08);
+	--mark-bg: rgba(255, 196, 0, 0.22);
 
 	color-scheme: dark;
 }
@@ -51,28 +74,39 @@ html.dark {
 }
 
 html {
-	font-family: var(--font-sans);
-	font-size: 17px;
-	line-height: 1.7;
 	-webkit-text-size-adjust: 100%;
 }
 
 body {
 	margin: 0;
 	background: var(--bg);
-	color: var(--text);
+	color: var(--text-muted);
+	font-family: var(--font-sans);
+	font-size: 15px;
+	line-height: 1.7;
 	word-break: keep-all; /* 한글 단어 중간에서 줄바꿈하지 않게 */
 	overflow-wrap: break-word;
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-main {
-	max-width: var(--width-page);
-	margin: 0 auto;
-	padding: 2rem 1rem 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--heading);
+	font-family: var(--font-head);
+	font-weight: 700;
+	line-height: 1.4;
 }
 
 a {
-	color: var(--accent);
+	color: var(--pink);
+	text-decoration: none;
+	transition: color 0.2s ease-in-out;
 }
 
 img {
@@ -80,9 +114,20 @@ img {
 	height: auto;
 }
 
+button {
+	font: inherit;
+}
+
 ::selection {
-	background: var(--accent);
-	color: var(--accent-fg);
+	background: var(--pink);
+	color: #fff;
+}
+
+.container {
+	width: 100%;
+	max-width: var(--container);
+	margin-inline: auto;
+	padding-inline: 16px;
 }
 
 .sr-only {
@@ -95,42 +140,141 @@ img {
 }
 
 /* ===========================================================================
+   Katen 공통 요소
+   =========================================================================== */
+
+/* 카테고리 칩 (핑크→오렌지 알약) */
+.category-badge {
+	display: inline-block;
+	padding: 6px 11px;
+	border-radius: 25px;
+	background: var(--gradient);
+	background-size: 200% auto;
+	color: #fff;
+	font-size: 13px;
+	line-height: 1;
+	transition: background-position 0.3s ease-in-out;
+}
+.category-badge:hover {
+	color: #fff;
+	background-position: right center;
+}
+
+/* 동그란 그라데이션 버튼 */
+.icon-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 37px;
+	height: 37px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: var(--gradient-v);
+	background-size: auto 200%;
+	box-shadow: var(--shadow-btn);
+	color: #fff;
+	cursor: pointer;
+	transition: background-position 0.2s ease-in-out;
+}
+.icon-button:hover {
+	color: #fff;
+	background-position: bottom center;
+}
+
+/* 글 메타: 항목 사이 핑크 점 */
+.meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0 0.8rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	color: var(--text-subtle);
+	font-size: 14px;
+}
+.meta li {
+	display: inline-flex;
+	align-items: center;
+}
+.meta li:not(:last-child)::after {
+	content: '';
+	width: 3px;
+	height: 3px;
+	margin-left: 0.8rem;
+	border-radius: 50%;
+	background: var(--pink);
+}
+
+/* ===========================================================================
    본문 (마크다운이 렌더링되는 영역)
    =========================================================================== */
 .prose {
-	font-size: 1.05rem;
+	color: var(--body);
+	font-size: 16px;
+	line-height: 1.8;
 }
 .prose h2,
 .prose h3,
 .prose h4 {
-	margin: 2.5em 0 0.75em;
-	line-height: 1.35;
-	letter-spacing: -0.01em;
+	margin: 2.2em 0 0.7em;
 }
 .prose h2 {
-	font-size: 1.5rem;
+	font-size: 1.6rem;
 }
 .prose h3 {
-	font-size: 1.25rem;
+	font-size: 1.3rem;
 }
 .prose p,
 .prose ul,
 .prose ol {
-	margin: 0 0 1.25em;
+	margin: 0 0 1.3em;
+}
+.prose ul li {
+	list-style-type: circle;
 }
 .prose li + li {
 	margin-top: 0.3em;
 }
+.prose mark {
+	padding: 0.1em 0.2em;
+	background: var(--mark-bg);
+	color: inherit;
+}
+.prose figure {
+	margin: 2rem 0;
+}
+.prose figure img {
+	margin: 0 auto;
+}
+.prose figcaption {
+	margin-top: 0.6rem;
+	color: var(--text-subtle);
+	font-size: 14px;
+	text-align: center;
+}
+.prose a {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+.prose strong {
+	color: var(--heading);
+}
 .prose img {
 	display: block;
 	margin: 2rem auto;
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius);
 }
 .prose blockquote {
-	margin: 1.5em 0;
-	padding: 0.25em 0 0.25em 1.25em;
-	border-left: 3px solid var(--accent);
-	color: var(--text-muted);
+	margin: 0 0 20px;
+	padding: 20px;
+	border-left: 3px solid var(--pink);
+	border-radius: 5px;
+	background: var(--quote-bg);
+	color: var(--heading);
+	font-size: 18px;
+	line-height: 1.6;
 }
 .prose blockquote > :last-child {
 	margin-bottom: 0;
@@ -148,21 +292,28 @@ img {
 }
 .prose th,
 .prose td {
-	padding: 0.5em 0.75em;
+	padding: 0.6em 0.8em;
 	border-bottom: 1px solid var(--border);
 	text-align: left;
+}
+.prose th {
+	color: var(--heading);
+	font-family: var(--font-head);
+	font-weight: 600;
 }
 .prose code {
 	padding: 0.15em 0.4em;
 	border-radius: 6px;
 	background: var(--code-bg);
+	color: var(--heading);
 	font-family: var(--font-mono);
 	font-size: 0.875em;
 }
 .prose pre {
 	margin: 1.5em 0;
 	padding: 1.1em 1.25em;
-	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
 	overflow-x: auto;
 	font-size: 0.875rem;
 	line-height: 1.6;
@@ -170,6 +321,7 @@ img {
 .prose pre code {
 	padding: 0;
 	background: none;
+	color: inherit;
 	font-size: inherit;
 }
 

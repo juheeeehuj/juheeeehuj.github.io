@@ -1,0 +1,162 @@
+---
+// 글 목록 카드 (Katen post-grid)
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { categoryLabels, categoryUrl, postUrl, slugFromId, ui, type Lang } from '../i18n/ui';
+import Avatar from './Avatar.astro';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	lang: Lang;
+	post: CollectionEntry<'blog'>;
+}
+
+const { lang, post } = Astro.props;
+const { title, description, pubDate, category, heroImage } = post.data;
+const t = ui[lang];
+const url = postUrl(lang, slugFromId(post.id));
+---
+
+<article class="post-grid">
+	<div class="thumb">
+		{
+			category && (
+				<a class="category-badge" href={categoryUrl(lang, category)}>
+					{categoryLabels[lang][category]}
+				</a>
+			)
+		}
+		<a class="inner" href={url} tabindex="-1" aria-hidden="true">
+			{heroImage ? <Image src={heroImage} width={640} alt="" /> : <span class="placeholder" />}
+		</a>
+	</div>
+
+	<div class="details">
+		<ul class="meta">
+			<li class="author"><Avatar size={30} />{t.author}</li>
+			<li><FormattedDate date={pubDate} lang={lang} month="short" /></li>
+		</ul>
+		<h3 class="post-title"><a href={url}>{title}</a></h3>
+		<p class="excerpt">{description}</p>
+	</div>
+
+	<div class="post-bottom">
+		<button class="share" type="button" data-share={url} aria-label={t.share} title={t.share}>
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"></path></svg>
+			<span class="copied" data-copied hidden>{t.copied}</span>
+		</button>
+		<a class="more" href={url} aria-label={t.readPost}>
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg>
+		</a>
+	</div>
+</article>
+
+<style>
+	.post-grid {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+	}
+	.thumb {
+		position: relative;
+		margin: -1px -1px 0;
+	}
+	.category-badge {
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		z-index: 1;
+	}
+	.inner {
+		display: block;
+		aspect-ratio: 3 / 2;
+		overflow: hidden;
+		border-top-left-radius: var(--radius);
+		border-top-right-radius: var(--radius);
+	}
+	.inner :global(img),
+	.placeholder {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease-in-out;
+	}
+	.placeholder {
+		background: linear-gradient(135deg, rgba(254, 79, 112, 0.18) 0%, rgba(255, 163, 135, 0.35) 100%);
+	}
+	.thumb:hover :global(img),
+	.thumb:hover .placeholder {
+		transform: scale(1.07);
+	}
+
+	.details {
+		flex: 1;
+		padding: 30px;
+	}
+	.author {
+		gap: 12px;
+	}
+	.post-title {
+		margin: 1rem 0;
+		font-size: 20px;
+	}
+	.post-title a {
+		color: var(--heading);
+	}
+	.post-title a:hover {
+		color: var(--pink);
+	}
+	.excerpt {
+		margin: 0;
+		color: var(--text-muted);
+		font-size: 16px;
+	}
+
+	.post-bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 0 30px;
+		padding: 20px 0;
+		border-top: 1px solid var(--border);
+	}
+	.share,
+	.more {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 0;
+		border: 0;
+		background: none;
+		color: var(--text-subtle);
+		cursor: pointer;
+	}
+	.share:hover,
+	.more:hover {
+		color: var(--pink);
+	}
+	.copied {
+		font-size: 13px;
+	}
+</style>
+
+<script>
+	// 공유 버튼: 글 주소를 복사하고 잠깐 "복사했어요"를 보여준다
+	document.addEventListener('click', async (e) => {
+		const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.post-grid [data-share]');
+		if (!btn) return;
+		try {
+			await navigator.clipboard.writeText(new URL(btn.dataset.share!, location.href).href);
+		} catch {
+			return;
+		}
+		const label = btn.querySelector<HTMLElement>('[data-copied]');
+		if (!label) return;
+		label.hidden = false;
+		setTimeout(() => (label.hidden = true), 1600);
+	});
+</script>

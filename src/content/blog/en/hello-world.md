@@ -3,6 +3,7 @@ title: 'Starting a blog'
 description: 'The first post, built with Astro and deployed on GitHub Pages.'
 pubDate: 2026-09-18
 heroImage: '../../../assets/hello-world.jpg'
+category: product
 tags: ['astro', 'blog']
 ---
 

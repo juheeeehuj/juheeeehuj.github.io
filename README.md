@@ -19,7 +19,9 @@
    pubDate: 2026-09-18
    # updatedDate: 2026-09-20            # (선택) 수정일
    # heroImage: '../../../assets/x.jpg' # (선택) 대표 이미지. src/assets/ 에 넣는다
+   category: design                     # product | design | ai (메뉴·카테고리 페이지)
    tags: ['design']
+   # featured: true                     # (선택) 홈 상단 슬라이드에 올린다. 3개 이상일 때 보인다
    # draft: true                        # (선택) true 면 배포에서 빠진다
    ---
    ```
@@ -38,8 +40,9 @@ npm run build    # 배포와 같은 빌드 (에러 확인용)
 
 | 바꾸고 싶은 것          | 파일                             |
 | ----------------------- | -------------------------------- |
-| 사이트 이름·소개 문구   | `src/i18n/ui.ts`                 |
+| 사이트 이름·소개 문구·SNS 주소 | `src/i18n/ui.ts`          |
 | 소개(About) 페이지      | `src/pages/[lang]/about.astro`   |
+| 프로필 사진             | `public/avatar.jpg` (정사각형)   |
 | 색·폰트·폭              | `src/styles/global.css` 맨 위    |
 | 헤더 / 푸터             | `src/components/Header.astro` · `Footer.astro` |
 | 글 페이지 레이아웃      | `src/layouts/BlogPost.astro`     |

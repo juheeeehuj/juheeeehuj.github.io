@@ -1,0 +1,255 @@
+---
+// 검색 버튼 + 전체 화면 검색 팝업 (Katen search-popup)
+// "/" 또는 Cmd/Ctrl+K 로도 열린다. 글 목록은 /<lang>/search.json 을 처음 열 때 한 번 불러온다.
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+
+<button class="icon-button" type="button" data-search-open aria-label={t.search} title={`${t.search} (/)`}>
+	<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m20 20-4.8-4.8"></path></svg>
+</button>
+
+<dialog class="search-popup" data-search data-index={`/${lang}/search.json`} aria-label={t.search}>
+	<button class="btn-close" type="button" data-search-close aria-label={t.close}>
+		<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+	</button>
+	<div class="search-content">
+		<p class="hint">{t.searchHint}</p>
+		<form class="search-form" role="search" data-search-form>
+			<input type="search" name="q" placeholder={t.searchPlaceholder} autocomplete="off" aria-label={t.search} data-search-input />
+			<button class="icon-button submit" type="submit" aria-label={t.search}>
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m20 20-4.8-4.8"></path></svg>
+			</button>
+		</form>
+		<ul class="results" data-search-results aria-live="polite"></ul>
+		<p class="empty" data-search-empty hidden>{t.noResults}</p>
+	</div>
+</dialog>
+
+<style>
+	.search-popup {
+		width: 100%;
+		max-width: none;
+		height: 100%;
+		max-height: none;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		background: var(--bg);
+		color: inherit;
+	}
+	.search-popup[open] {
+		animation: grow-out 0.35s ease-in-out;
+	}
+	.search-popup::backdrop {
+		background: transparent;
+	}
+	@keyframes grow-out {
+		from {
+			opacity: 0;
+			transform: scale(0.98);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+	.btn-close {
+		position: absolute;
+		top: 30px;
+		right: 30px;
+		display: inline-flex;
+		padding: 8px;
+		border: 0;
+		background: none;
+		color: var(--heading);
+		cursor: pointer;
+	}
+	.btn-close:hover {
+		color: var(--pink);
+	}
+	.search-content {
+		width: 100%;
+		max-width: 650px;
+		margin: 22vh auto 0;
+		padding: 0 20px;
+	}
+	.hint {
+		margin: 0 0 1.5rem;
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 24px;
+		font-weight: 700;
+		text-align: center;
+	}
+	.search-form {
+		display: flex;
+		gap: 10px;
+	}
+	input {
+		flex: 1;
+		min-width: 0;
+		height: 54px;
+		padding: 0 24px;
+		border: 1px solid var(--border);
+		border-radius: 30px;
+		background: var(--card);
+		color: var(--heading);
+		font: inherit;
+		font-size: 16px;
+		outline: none;
+	}
+	input:focus {
+		border-color: var(--pink);
+	}
+	.submit {
+		width: 54px;
+		height: 54px;
+		flex: 0 0 auto;
+	}
+	.results {
+		max-height: 50vh;
+		margin: 1.5rem 0 0;
+		padding: 0;
+		overflow-y: auto;
+		list-style: none;
+	}
+	.results :global(a) {
+		display: block;
+		padding: 14px 4px;
+		border-bottom: 1px solid var(--border);
+	}
+	.results :global(.r-title) {
+		display: block;
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 1.4;
+	}
+	.results :global(a:hover .r-title),
+	.results :global(a:focus-visible .r-title) {
+		color: var(--pink);
+	}
+	.results :global(.r-meta) {
+		display: block;
+		margin-top: 4px;
+		color: var(--text-subtle);
+		font-size: 13px;
+	}
+	.empty {
+		margin: 1.5rem 0 0;
+		text-align: center;
+	}
+</style>
+
+<script>
+	type Item = {
+		title: string;
+		description: string;
+		url: string;
+		date: string;
+		category: string;
+		tags: string[];
+		text: string;
+	};
+
+	const dialog = document.querySelector<HTMLDialogElement>('[data-search]')!;
+	const input = dialog.querySelector<HTMLInputElement>('[data-search-input]')!;
+	const list = dialog.querySelector<HTMLUListElement>('[data-search-results]')!;
+	const empty = dialog.querySelector<HTMLElement>('[data-search-empty]')!;
+	let index: Item[] | null = null;
+
+	async function load() {
+		if (!index) index = await (await fetch(dialog.dataset.index!)).json();
+		return index!;
+	}
+
+	function search(items: Item[], query: string) {
+		const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+		return items
+			.map((item) => {
+				const title = item.title.toLowerCase();
+				const desc = item.description.toLowerCase();
+				const meta = `${item.category} ${item.tags.join(' ')}`.toLowerCase();
+				const text = item.text.toLowerCase();
+				const all = `${title} ${desc} ${meta} ${text}`;
+				if (!terms.every((t) => all.includes(t))) return null;
+				// 제목에 걸리면 가장 위로
+				const score = terms.reduce(
+					(s, t) =>
+						s +
+						(title.includes(t) ? 10 : 0) +
+						(desc.includes(t) ? 4 : 0) +
+						(meta.includes(t) ? 4 : 0) +
+						(text.includes(t) ? 1 : 0),
+					0,
+				);
+				return { item, score };
+			})
+			.filter((r): r is { item: Item; score: number } => r !== null)
+			.sort((a, b) => b.score - a.score)
+			.slice(0, 10)
+			.map((r) => r.item);
+	}
+
+	async function run() {
+		const q = input.value.trim();
+		list.replaceChildren();
+		empty.hidden = true;
+		if (!q) return;
+		const found = search(await load(), q);
+		empty.hidden = found.length > 0;
+		for (const item of found) {
+			const a = document.createElement('a');
+			a.href = item.url;
+			const title = document.createElement('span');
+			title.className = 'r-title';
+			title.textContent = item.title;
+			const meta = document.createElement('span');
+			meta.className = 'r-meta';
+			meta.textContent = [item.category, item.date].filter(Boolean).join(' · ');
+			a.append(title, meta);
+			const li = document.createElement('li');
+			li.append(a);
+			list.append(li);
+		}
+	}
+
+	function open() {
+		if (dialog.open) return;
+		dialog.showModal();
+		input.focus();
+		input.select();
+		load();
+	}
+
+	document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', open));
+	dialog.querySelector('[data-search-close]')!.addEventListener('click', () => dialog.close());
+	input.addEventListener('input', run);
+	// 검색창에 글자가 있으면 브라우저가 ESC 로 글자만 지운다. 안내문대로 바로 닫는다.
+	input.addEventListener('keydown', (e) => {
+		if (e.key !== 'Escape') return;
+		e.preventDefault();
+		dialog.close();
+	});
+	dialog.querySelector('[data-search-form]')!.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const first = list.querySelector('a');
+		if (first) location.href = first.href;
+	});
+	document.addEventListener('keydown', (e) => {
+		const el = e.target as HTMLElement;
+		const typing = el.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(el.tagName);
+		if ((e.key === '/' && !typing) || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) {
+			e.preventDefault();
+			open();
+		}
+	});
+</script>

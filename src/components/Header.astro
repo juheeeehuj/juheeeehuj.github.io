@@ -1,79 +1,198 @@
 ---
-import { ui, type Lang } from '../i18n/ui';
+// 헤더 두 가지 (Katen)
+//   personal: 홈 전용. 가운데 프로필·이름·소개, 아래 알약 메뉴
+//   compact : 글·카테고리·소개 페이지. 한 줄에 로고 · 메뉴 · 아이콘
+import { categories } from '../categories';
+import { categoryLabels, categoryUrl, ui, type Lang } from '../i18n/ui';
+import Avatar from './Avatar.astro';
 import LanguageToggle from './LanguageToggle.astro';
+import NavLinks from './NavLinks.astro';
+import Search from './Search.astro';
+import SocialIcons from './SocialIcons.astro';
 import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
 	lang: Lang;
 	alternates: Record<Lang, string>;
+	/** 강조할 메뉴 주소 (글 페이지에서는 그 글의 카테고리) */
+	active?: string;
+	variant?: 'personal' | 'compact';
 }
 
-const { lang, alternates } = Astro.props;
+const { lang, alternates, active, variant = 'compact' } = Astro.props;
 const t = ui[lang];
-const path = Astro.url.pathname;
+const path = active ?? Astro.url.pathname;
+const home = `/${lang}/`;
 const links = [
-	{ href: `/${lang}/`, label: t.navHome, active: path === `/${lang}/` || path.startsWith(`/${lang}/blog/`) },
+	{
+		href: home,
+		label: t.navHome,
+		active: path === home || path.startsWith(`/${lang}/page/`),
+	},
+	...categories.map((c) => ({
+		href: categoryUrl(lang, c),
+		label: categoryLabels[lang][c],
+		active: path.startsWith(categoryUrl(lang, c)),
+	})),
 	{ href: `/${lang}/about/`, label: t.navAbout, active: path.startsWith(`/${lang}/about`) },
 ];
 ---
 
-<header>
-	<nav>
-		<a class="site-title" href={`/${lang}/`}>{t.siteTitle}</a>
-		<div class="links">
-			{
-				links.map((l) => (
-					<a href={l.href} class:list={{ active: l.active }} aria-current={l.active ? 'page' : undefined}>
-						{l.label}
+<header class:list={['site-header', variant]}>
+	{
+		variant === 'personal' ? (
+			<div class="container header-top">
+				<div class="left">
+					<SocialIcons />
+				</div>
+				<div class="center">
+					<a class="avatar-link" href={home} aria-hidden="true" tabindex="-1">
+						<Avatar size={80} />
 					</a>
-				))
-			}
-		</div>
-		<div class="controls">
-			<LanguageToggle lang={lang} alternates={alternates} />
-			<ThemeToggle lang={lang} />
-		</div>
-	</nav>
+					<a class="text-logo" href={home}>{t.siteTitle}<span class="dot">.</span></a>
+					<span class="slogan">{t.siteDescription}</span>
+				</div>
+				<div class="right">
+					<Search lang={lang} />
+					<LanguageToggle lang={lang} alternates={alternates} />
+					<ThemeToggle lang={lang} />
+				</div>
+			</div>
+		) : (
+			<div class="container compact-row">
+				<a class="text-logo" href={home}>{t.siteTitle}<span class="dot">.</span></a>
+				<div class="compact-nav">
+					<NavLinks links={links} align="start" />
+				</div>
+				<div class="right">
+					<span class="socials">
+						<SocialIcons />
+					</span>
+					<Search lang={lang} />
+					<LanguageToggle lang={lang} alternates={alternates} />
+					<ThemeToggle lang={lang} />
+				</div>
+			</div>
+		)
+	}
+
+	{
+		variant === 'personal' && (
+			<div class="container personal-nav">
+				<NavLinks links={links} />
+			</div>
+		)
+	}
 </header>
 
 <style>
-	header {
-		border-bottom: 1px solid var(--border);
-	}
-	nav {
+	.right {
 		display: flex;
+		justify-content: flex-end;
 		align-items: center;
-		gap: 1.25rem;
-		max-width: var(--width-page);
-		height: 3.75rem;
-		margin: 0 auto;
-		padding: 0 1rem;
+		gap: 10px;
 	}
-	.site-title {
+	.text-logo {
+		display: block;
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 30px;
 		font-weight: 700;
-		color: var(--text);
-		text-decoration: none;
+		line-height: 1;
+		white-space: nowrap;
 	}
-	.links {
-		display: flex;
+	.text-logo .dot {
+		margin-left: 3px;
+		color: var(--pink);
+		font-size: 44px;
+		line-height: 0;
+	}
+
+	/* ── personal (홈) ── */
+	.header-top {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
 		gap: 1rem;
-		margin-right: auto;
+		padding-top: 30px;
+		padding-bottom: 30px;
 	}
-	.links a {
-		color: var(--text-muted);
-		text-decoration: none;
-		font-size: 0.95rem;
+	.center {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
 	}
-	.links a:hover,
-	.links a.active {
-		color: var(--text);
+	.avatar-link {
+		display: inline-flex;
+		margin-bottom: 14px;
 	}
-	.links a.active {
-		font-weight: 600;
+	.personal .text-logo {
+		margin: 0 0 5px;
 	}
-	.controls {
+	.slogan {
+		color: var(--text-subtle);
+		font-family: var(--font-head);
+		font-size: 14px;
+	}
+
+	/* ── compact (글·카테고리·소개) ── */
+	.compact-row {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		justify-content: space-between;
+		gap: 1rem 2rem;
+		padding-top: 30px;
+	}
+	.compact .text-logo {
+		font-size: 26px;
+	}
+	.compact .text-logo .dot {
+		font-size: 38px;
+	}
+	.socials {
+		display: inline-flex;
+		margin-right: 14px;
+	}
+
+	.personal-nav {
+		padding: 20px 0;
+		border-top: 1px solid var(--border);
+	}
+
+	/* 넓은 화면: 로고 · 메뉴 · 아이콘 한 줄 / 좁은 화면: 메뉴가 아래 줄로 */
+	.compact-row {
+		flex-wrap: wrap;
+		padding-bottom: 30px;
+	}
+	.compact-nav {
+		flex: 1;
+		min-width: 0;
+	}
+	@media (max-width: 991px) {
+		.compact-nav {
+			flex-basis: 100%;
+			order: 3;
+			margin: 0 -1rem;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.header-top {
+			grid-template-columns: 1fr;
+		}
+		.left,
+		.socials {
+			display: none;
+		}
+		.personal .right {
+			justify-content: center;
+		}
+		.compact .text-logo {
+			font-size: 22px;
+		}
+		.compact-nav {
+			margin: 0;
+		}
 	}
 </style>

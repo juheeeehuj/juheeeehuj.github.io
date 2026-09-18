@@ -1,5 +1,9 @@
 ---
-import { languages, type Lang } from '../../i18n/ui';
+// 소개 페이지 (Katen about + 포트폴리오 "More about me" 구성)
+import { Image } from 'astro:assets';
+import aboutPhoto from '../../assets/about.jpg';
+import SocialIcons from '../../components/SocialIcons.astro';
+import { languages, social, ui, type Lang } from '../../i18n/ui';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export function getStaticPaths() {
@@ -7,30 +11,251 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params as { lang: Lang };
+const t = ui[lang];
 
-// 소개 문구. 언어별로 여기만 고치면 된다.
+// 소개 문구는 여기만 고치면 된다
 const content = {
 	en: {
 		title: 'About',
-		body: ["Hi, I'm Juhee Oh.", 'Write a short introduction here.'],
+		greeting: 'Hey there, I’m Juhee Oh',
+		bio: 'I’m a product designer with a strong customer-facing background. By working directly at user touchpoints, I listen deeply to users’ stories and turn them into meaningful digital experiences. I especially specialize in user-centered design, dynamic design systems, and iteration. I design with empathy at every touchpoint—so every experience truly serves the user.',
+		resume: 'Check my resume',
+		email: 'Email',
+		interestsTitle: 'My Interests',
+		interests: ['Sharing Music', 'Filming', 'Animal Shelter Volunteering', 'Strength Training'],
 	},
 	ko: {
 		title: '소개',
-		body: ['안녕하세요, 오주희입니다.', '여기에 자기소개를 적어주세요.'],
+		greeting: '안녕하세요, 오주희입니다',
+		bio: '고객 접점에서 일해온 경험이 탄탄한 프로덕트 디자이너입니다. 사용자와 직접 만나는 자리에서 그들의 이야기를 깊이 듣고, 의미 있는 디지털 경험으로 바꿉니다. 특히 사용자 중심 디자인, 유연한 디자인 시스템, 반복 개선에 강합니다. 모든 접점에서 공감을 바탕으로 디자인해, 모든 경험이 정말로 사용자에게 도움이 되도록 합니다.',
+		resume: '이력서 보기',
+		email: '이메일',
+		interestsTitle: '관심사',
+		interests: ['음악 나누기', '영상 촬영', '유기동물 보호소 봉사', '근력 운동'],
 	},
 }[lang];
 ---
 
-<BaseLayout title={content.title} description={content.body[0]} lang={lang}>
-	<article class="prose">
-		<h1>{content.title}</h1>
-		{content.body.map((p) => <p>{p}</p>)}
-	</article>
+<BaseLayout title={`${content.title} | ${t.siteTitle}`} description={content.bio} lang={lang}>
+	<section class="page-header">
+		<div class="container">
+			<h1>{content.title}</h1>
+			<nav aria-label={t.breadcrumb}>
+				<ol class="breadcrumb">
+					<li><a href={`/${lang}/`}>{t.navHome}</a></li>
+					<li aria-current="page">{content.title}</li>
+				</ol>
+			</nav>
+		</div>
+	</section>
+
+	<div class="container">
+		<section class="intro">
+			<Image class="photo" src={aboutPhoto} width={900} alt={t.author} />
+			<div class="intro-text">
+				<h2>{content.greeting}</h2>
+				<p>{content.bio}</p>
+				<div class="actions">
+					<a class="btn-default" href={social.resume} target="_blank" rel="noopener">{content.resume}</a>
+					<a class="email" href={`mailto:${social.email}`}>{content.email}</a>
+				</div>
+				<hr />
+				<SocialIcons />
+			</div>
+		</section>
+
+		<section class="interests" aria-labelledby="interests-title">
+			<header class="section-header">
+				<h2 id="interests-title">{content.interestsTitle}</h2>
+				<svg class="wave" width="33" height="6" viewBox="0 0 33 6" fill="none" aria-hidden="true"><path d="M1 3c2.7-2.7 5.3-2.7 8 0s5.3 2.7 8 0 5.3-2.7 8 0 5.3 2.7 7 0" stroke="url(#w)" stroke-width="2" stroke-linecap="round"></path><defs><linearGradient id="w" x1="0" x2="33" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fe4f70"></stop><stop offset="1" stop-color="#ffa387"></stop></linearGradient></defs></svg>
+			</header>
+			<ol class="interest-list">
+				{
+					content.interests.map((item, i) => (
+						<li>
+							<span class="num">{String(i + 1).padStart(2, '0')}</span>
+							<span class="label">{item}</span>
+						</li>
+					))
+				}
+			</ol>
+		</section>
+	</div>
 </BaseLayout>
 
 <style>
-	article {
-		max-width: var(--width-prose);
-		margin: 2rem auto 0;
+	/* Katen page-header: 연한 파란 띠 + 가운데 제목·브레드크럼 */
+	.page-header {
+		padding: 40px 0;
+		background: var(--author-bg);
+		text-align: center;
+	}
+	.page-header h1 {
+		margin: 0 0 6px;
+		font-size: 32px;
+	}
+	.breadcrumb {
+		display: flex;
+		justify-content: center;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		color: var(--text-subtle);
+		font-size: 14px;
+	}
+	.breadcrumb li + li::before {
+		content: '/';
+		margin-right: 0.5rem;
+	}
+	.breadcrumb a {
+		color: var(--text-subtle);
+	}
+	.breadcrumb a:hover {
+		color: var(--pink);
+	}
+
+	.intro {
+		display: grid;
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+		gap: 40px;
+		align-items: center;
+		margin-top: 60px;
+		padding: 30px;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+	}
+	.photo {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: var(--radius);
+	}
+	.intro h2 {
+		margin: 0 0 16px;
+		font-size: 30px;
+		line-height: 1.3;
+	}
+	.intro p {
+		margin: 0 0 24px;
+		color: var(--body);
+		font-size: 16px;
+		line-height: 1.8;
+	}
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 20px;
+	}
+	.btn-default {
+		display: inline-block;
+		padding: 9.5px 36px;
+		border-radius: 25px;
+		background: var(--gradient);
+		background-size: 200% auto;
+		color: #fff;
+		font-family: var(--font-head);
+		font-size: 14px;
+		transition: background-position 0.3s ease-in-out;
+	}
+	.btn-default:hover {
+		color: #fff;
+		background-position: right center;
+	}
+	.email {
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 14px;
+		font-weight: 600;
+	}
+	.email:hover {
+		color: var(--pink);
+	}
+	hr {
+		margin: 24px 0;
+		border: 0;
+		border-top: 1px solid var(--border);
+	}
+
+	.interests {
+		margin-top: 60px;
+	}
+	.section-header {
+		margin-bottom: 30px;
+	}
+	.section-header h2 {
+		margin: 0;
+		font-size: 24px;
+	}
+	.wave {
+		display: block;
+		margin-top: 10px;
+	}
+	/* 포트폴리오의 번호 타일을 Katen 카드로. 짝수 칸은 살짝 내려 계단처럼 */
+	.interest-list {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 24px;
+		margin: 0;
+		padding: 0 0 40px;
+		list-style: none;
+	}
+	.interest-list li {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 220px;
+		padding: 30px;
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--card);
+		transition: transform 0.3s ease-in-out;
+	}
+	.interest-list li:nth-child(even) {
+		transform: translateY(40px);
+	}
+	.num {
+		background: var(--gradient);
+		background-size: 200% auto;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		font-family: var(--font-head);
+		font-size: 40px;
+		font-weight: 700;
+		line-height: 1;
+	}
+	.label {
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 20px;
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	@media (max-width: 991px) {
+		.intro {
+			grid-template-columns: 1fr;
+		}
+		.interest-list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+	@media (max-width: 575px) {
+		.intro {
+			padding: 20px;
+		}
+		.intro h2 {
+			font-size: 24px;
+		}
+		.interest-list li {
+			min-height: 160px;
+			padding: 20px;
+		}
+		.interest-list li:nth-child(even) {
+			transform: translateY(24px);
+		}
 	}
 </style>

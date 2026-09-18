@@ -2,7 +2,31 @@
 
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import { satteri } from '@astrojs/markdown-satteri';
 import { defineConfig } from 'astro/config';
+import { defineHastPlugin } from 'satteri';
+
+// 본문에 이미지만 있는 문단을 <figure> 로 감싸고 alt 를 캡션(<figcaption>)으로 보여준다.
+// Astro 7 의 기본 마크다운 처리기(Sätteri)용 플러그인이다. rehype 플러그인은 여기서 동작하지 않는다.
+const figureCaptions = defineHastPlugin({
+	name: 'figure-captions',
+	element: {
+		filter: ['p'],
+		visit(node, ctx) {
+			const kids = node.children.filter((c) => !(c.type === 'text' && !c.value.trim()));
+			const img = kids[0];
+			if (kids.length !== 1 || img.type !== 'element' || img.tagName !== 'img') return;
+			const alt = String(img.properties?.alt ?? '').trim();
+			const caption = { type: 'element', tagName: 'figcaption', properties: {}, children: [{ type: 'text', value: alt }] };
+			ctx.replaceNode(node, {
+				type: 'element',
+				tagName: 'figure',
+				properties: {},
+				children: alt ? [img, caption] : [img],
+			});
+		},
+	},
+});
 
 // 배포 주소 (개인 도메인). 도메인 연결 자체는 GitHub 레포 Settings → Pages 에서 한다.
 const SITE = 'https://juheeoh.com';
@@ -30,6 +54,7 @@ export default defineConfig({
 		shikiConfig: {
 			themes: { light: 'github-light', dark: 'github-dark' },
 		},
+		processor: satteri({ hastPlugins: [figureCaptions] }),
 	},
 
 	integrations: [

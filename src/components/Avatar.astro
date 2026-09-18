@@ -1,0 +1,43 @@
+---
+// 프로필 사진. public/avatar.jpg 를 넣으면 사진이, 없으면 이니셜이 나온다.
+import fs from 'node:fs';
+
+interface Props {
+	size?: number;
+}
+
+const { size = 80 } = Astro.props;
+const hasPhoto = fs.existsSync('public/avatar.jpg');
+---
+
+{
+	hasPhoto ? (
+		<img class="avatar" src="/avatar.jpg" width={size} height={size} alt="" style={`--size:${size}px`} />
+	) : (
+		<span class="avatar initials" style={`--size:${size}px`} aria-hidden="true">
+			JO
+		</span>
+	)
+}
+
+<style>
+	.avatar {
+		display: inline-flex;
+		flex: 0 0 auto;
+		width: var(--size);
+		height: var(--size);
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	.initials {
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(135deg, #fe4f70 0%, #ffa387 100%);
+		color: #fff;
+		font-family: var(--font-head);
+		font-size: calc(var(--size) * 0.34);
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		line-height: 1;
+	}
+</style>
