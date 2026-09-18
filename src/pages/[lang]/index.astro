@@ -1,0 +1,132 @@
+---
+import { Image } from 'astro:assets';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { getPosts, languages, postUrl, slugFromId, ui, type Lang } from '../../i18n/ui';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+	return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = ui[lang];
+const posts = await getPosts(lang);
+---
+
+<BaseLayout title={t.siteTitle} description={t.siteDescription} lang={lang}>
+	<section class="intro">
+		<h1>{t.siteTitle}</h1>
+		<p>{t.siteDescription}</p>
+	</section>
+
+	<h2 class="section-title">{t.posts}</h2>
+	{posts.length === 0 && <p class="empty">{t.noPosts}</p>}
+	<ul class="posts">
+		{
+			posts.map((post) => (
+				<li>
+					<a href={postUrl(lang, slugFromId(post.id))}>
+						{post.data.heroImage && <Image class="thumb" width={480} src={post.data.heroImage} alt="" />}
+						<div class="text">
+							<h3>{post.data.title}</h3>
+							<p class="desc">{post.data.description}</p>
+							<p class="date">
+								<FormattedDate date={post.data.pubDate} lang={lang} />
+								{post.data.draft && <span class="draft">draft</span>}
+							</p>
+						</div>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</BaseLayout>
+
+<style>
+	.intro {
+		margin: 2rem 0 3.5rem;
+	}
+	.intro h1 {
+		margin: 0 0 0.5rem;
+		font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+		letter-spacing: -0.03em;
+	}
+	.intro p {
+		margin: 0;
+		color: var(--text-muted);
+		font-size: 1.1rem;
+	}
+	.section-title {
+		margin: 0 0 1rem;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+	.empty {
+		color: var(--text-muted);
+	}
+	.posts {
+		display: grid;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.posts a {
+		display: flex;
+		gap: 1.25rem;
+		align-items: center;
+		padding: 1rem;
+		margin: 0 -1rem;
+		border-radius: var(--radius);
+		color: inherit;
+		text-decoration: none;
+	}
+	.posts a:hover {
+		background: var(--surface);
+	}
+	.thumb {
+		flex: 0 0 auto;
+		width: 9rem;
+		height: 6rem;
+		object-fit: cover;
+		border-radius: var(--radius-sm);
+	}
+	.text {
+		min-width: 0;
+	}
+	h3 {
+		margin: 0 0 0.25rem;
+		font-size: 1.15rem;
+		line-height: 1.4;
+	}
+	.desc {
+		margin: 0 0 0.35rem;
+		color: var(--text-muted);
+	}
+	.date {
+		margin: 0;
+		color: var(--text-subtle);
+		font-size: 0.85rem;
+	}
+	.draft {
+		margin-left: 0.5rem;
+		padding: 0 0.4rem;
+		border-radius: 4px;
+		background: var(--surface-2);
+		color: var(--text-muted);
+	}
+	@media (max-width: 36rem) {
+		.posts a {
+			flex-direction: column;
+			align-items: stretch;
+		}
+		.thumb {
+			width: 100%;
+			height: auto;
+			aspect-ratio: 16 / 9;
+		}
+	}
+</style>

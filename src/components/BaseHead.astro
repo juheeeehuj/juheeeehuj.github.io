@@ -1,0 +1,75 @@
+---
+// 모든 페이지의 <head>. SEO 태그(canonical·hreflang·OG)를 한 곳에서 관리한다.
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '../styles/global.css';
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+import { defaultLang, ui, type Lang } from '../i18n/ui';
+
+interface Props {
+	title: string;
+	description: string;
+	lang: Lang;
+	/** 실제로 존재하는 언어별 같은 페이지 주소 (hreflang 용) */
+	hreflang?: Partial<Record<Lang, string>>;
+	type?: 'website' | 'article';
+	image?: ImageMetadata;
+}
+
+const { title, description, lang, hreflang = {}, type = 'website', image } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const alternates = Object.entries(hreflang).map(([l, path]) => ({
+	lang: l,
+	href: new URL(path!, Astro.site).href,
+}));
+// x-default 는 묶음 안의 모든 페이지가 같은 곳을 가리켜야 해서 기본 언어로 고정한다
+const xDefault = alternates.find((a) => a.lang === defaultLang)?.href ?? alternates[0]?.href;
+
+const ogImage = image
+	? new URL((await getImage({ src: image, width: 1200, format: 'jpg' })).src, Astro.site).href
+	: undefined;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link
+	rel="alternate"
+	type="application/rss+xml"
+	title={ui[lang].siteTitle}
+	href={new URL(`/${lang}/rss.xml`, Astro.site)}
+/>
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+{alternates.map(({ lang: l, href }) => <link rel="alternate" hreflang={l} href={href} />)}
+{xDefault && <link rel="alternate" hreflang="x-default" href={xDefault} />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={ui[lang].siteTitle} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+
+<!-- 첫 페인트 전에 테마를 정해서 깜빡임을 막는다. 저장된 선택이 없으면 OS 설정을 따른다. -->
+<script is:inline>
+	(() => {
+		let theme = null;
+		try {
+			theme = localStorage.getItem('theme');
+		} catch (_) {}
+		if (theme !== 'dark' && theme !== 'light') {
+			theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		}
+		document.documentElement.classList.toggle('dark', theme === 'dark');
+	})();
+</script>

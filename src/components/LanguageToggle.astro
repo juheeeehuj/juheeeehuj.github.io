@@ -1,0 +1,52 @@
+---
+// 한/영 전환. 번역본이 있으면 같은 글로, 없으면 상대 언어 홈으로 간다.
+import { languages, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+	alternates: Record<Lang, string>;
+}
+
+const { lang, alternates } = Astro.props;
+---
+
+<div class="lang-toggle" role="group" aria-label="Language">
+	{
+		(Object.keys(languages) as Lang[]).map((l) => (
+			<a
+				href={alternates[l]}
+				class:list={['lang-btn', { active: l === lang }]}
+				aria-current={l === lang ? 'true' : undefined}
+				hreflang={l}
+				lang={l}
+			>
+				{l.toUpperCase()}
+			</a>
+		))
+	}
+</div>
+
+<style>
+	.lang-toggle {
+		display: inline-flex;
+		padding: 0.15rem;
+		gap: 0.1rem;
+		border-radius: 999px;
+		background: var(--surface);
+	}
+	.lang-btn {
+		padding: 0.2rem 0.6rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--text-muted);
+		text-decoration: none;
+		border-radius: 999px;
+	}
+	.lang-btn:hover {
+		color: var(--text);
+	}
+	.lang-btn.active {
+		color: var(--accent-fg);
+		background: var(--accent);
+	}
+</style>

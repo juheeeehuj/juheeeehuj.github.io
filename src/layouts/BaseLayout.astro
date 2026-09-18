@@ -1,0 +1,41 @@
+---
+import type { ImageMetadata } from 'astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { otherLang, type Lang } from '../i18n/ui';
+
+interface Props {
+	title: string;
+	description: string;
+	lang: Lang;
+	/** 언어 토글이 이동할 주소. 생략하면 같은 경로에서 언어만 바꾼다. */
+	alternates?: Record<Lang, string>;
+	/** 실제로 존재하는 번역만 (hreflang). 생략하면 alternates 전체. */
+	hreflang?: Partial<Record<Lang, string>>;
+	type?: 'website' | 'article';
+	image?: ImageMetadata;
+}
+
+const { title, description, lang, type, image } = Astro.props;
+const path = Astro.url.pathname;
+const other = otherLang(lang);
+const alternates =
+	Astro.props.alternates ??
+	({ [lang]: path, [other]: path.replace(`/${lang}/`, `/${other}/`) } as Record<Lang, string>);
+const hreflang = Astro.props.hreflang ?? alternates;
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<BaseHead title={title} description={description} lang={lang} hreflang={hreflang} type={type} image={image} />
+	</head>
+	<body>
+		<Header lang={lang} alternates={alternates} />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>

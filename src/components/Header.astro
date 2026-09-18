@@ -1,0 +1,79 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+import LanguageToggle from './LanguageToggle.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+	lang: Lang;
+	alternates: Record<Lang, string>;
+}
+
+const { lang, alternates } = Astro.props;
+const t = ui[lang];
+const path = Astro.url.pathname;
+const links = [
+	{ href: `/${lang}/`, label: t.navHome, active: path === `/${lang}/` || path.startsWith(`/${lang}/blog/`) },
+	{ href: `/${lang}/about/`, label: t.navAbout, active: path.startsWith(`/${lang}/about`) },
+];
+---
+
+<header>
+	<nav>
+		<a class="site-title" href={`/${lang}/`}>{t.siteTitle}</a>
+		<div class="links">
+			{
+				links.map((l) => (
+					<a href={l.href} class:list={{ active: l.active }} aria-current={l.active ? 'page' : undefined}>
+						{l.label}
+					</a>
+				))
+			}
+		</div>
+		<div class="controls">
+			<LanguageToggle lang={lang} alternates={alternates} />
+			<ThemeToggle lang={lang} />
+		</div>
+	</nav>
+</header>
+
+<style>
+	header {
+		border-bottom: 1px solid var(--border);
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		max-width: var(--width-page);
+		height: 3.75rem;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+	.site-title {
+		font-weight: 700;
+		color: var(--text);
+		text-decoration: none;
+	}
+	.links {
+		display: flex;
+		gap: 1rem;
+		margin-right: auto;
+	}
+	.links a {
+		color: var(--text-muted);
+		text-decoration: none;
+		font-size: 0.95rem;
+	}
+	.links a:hover,
+	.links a.active {
+		color: var(--text);
+	}
+	.links a.active {
+		font-weight: 600;
+	}
+	.controls {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+</style>

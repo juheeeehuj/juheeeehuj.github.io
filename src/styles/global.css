@@ -1,0 +1,181 @@
+/* ===========================================================================
+   디자인 토큰 — 색·폰트·폭은 여기서만 바꾼다
+   =========================================================================== */
+:root {
+	--bg: #ffffff;
+	--surface: #f4f4f5;
+	--surface-2: #e4e4e7;
+	--text: #18181b;
+	--text-muted: #52525b;
+	--text-subtle: #71717a;
+	--border: #e4e4e7;
+	--accent: #2f5bea;
+	--accent-fg: #ffffff;
+	--code-bg: #f4f4f5;
+
+	--font-sans:
+		'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Segoe UI',
+		Roboto, sans-serif;
+	--font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+
+	--width-page: 56rem;
+	--width-prose: 44rem;
+	--radius: 16px;
+	--radius-sm: 10px;
+
+	color-scheme: light;
+}
+
+html.dark {
+	--bg: #111113;
+	--surface: #1c1c1f;
+	--surface-2: #2a2a2e;
+	--text: #ececef;
+	--text-muted: #a1a1aa;
+	--text-subtle: #8b8b94;
+	--border: #27272a;
+	--accent: #8aa8ff;
+	--accent-fg: #111113;
+	--code-bg: #1c1c1f;
+
+	color-scheme: dark;
+}
+
+/* ===========================================================================
+   기본
+   =========================================================================== */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	font-family: var(--font-sans);
+	font-size: 17px;
+	line-height: 1.7;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+	word-break: keep-all; /* 한글 단어 중간에서 줄바꿈하지 않게 */
+	overflow-wrap: break-word;
+}
+
+main {
+	max-width: var(--width-page);
+	margin: 0 auto;
+	padding: 2rem 1rem 0;
+}
+
+a {
+	color: var(--accent);
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+::selection {
+	background: var(--accent);
+	color: var(--accent-fg);
+}
+
+.sr-only {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* ===========================================================================
+   본문 (마크다운이 렌더링되는 영역)
+   =========================================================================== */
+.prose {
+	font-size: 1.05rem;
+}
+.prose h2,
+.prose h3,
+.prose h4 {
+	margin: 2.5em 0 0.75em;
+	line-height: 1.35;
+	letter-spacing: -0.01em;
+}
+.prose h2 {
+	font-size: 1.5rem;
+}
+.prose h3 {
+	font-size: 1.25rem;
+}
+.prose p,
+.prose ul,
+.prose ol {
+	margin: 0 0 1.25em;
+}
+.prose li + li {
+	margin-top: 0.3em;
+}
+.prose img {
+	display: block;
+	margin: 2rem auto;
+	border-radius: var(--radius-sm);
+}
+.prose blockquote {
+	margin: 1.5em 0;
+	padding: 0.25em 0 0.25em 1.25em;
+	border-left: 3px solid var(--accent);
+	color: var(--text-muted);
+}
+.prose blockquote > :last-child {
+	margin-bottom: 0;
+}
+.prose hr {
+	margin: 3em 0;
+	border: none;
+	border-top: 1px solid var(--border);
+}
+.prose table {
+	width: 100%;
+	margin: 1.5em 0;
+	border-collapse: collapse;
+	font-size: 0.95em;
+}
+.prose th,
+.prose td {
+	padding: 0.5em 0.75em;
+	border-bottom: 1px solid var(--border);
+	text-align: left;
+}
+.prose code {
+	padding: 0.15em 0.4em;
+	border-radius: 6px;
+	background: var(--code-bg);
+	font-family: var(--font-mono);
+	font-size: 0.875em;
+}
+.prose pre {
+	margin: 1.5em 0;
+	padding: 1.1em 1.25em;
+	border-radius: var(--radius-sm);
+	overflow-x: auto;
+	font-size: 0.875rem;
+	line-height: 1.6;
+}
+.prose pre code {
+	padding: 0;
+	background: none;
+	font-size: inherit;
+}
+
+/* 코드 블록 색 — Astro 기본 하이라이터(Shiki)를 다크 모드에 맞춘다 */
+html.dark .astro-code,
+html.dark .astro-code span {
+	color: var(--shiki-dark) !important;
+	background-color: var(--shiki-dark-bg) !important;
+}

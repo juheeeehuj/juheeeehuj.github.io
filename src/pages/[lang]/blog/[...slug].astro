@@ -1,0 +1,39 @@
+---
+import { render } from 'astro:content';
+import { getPosts, langFromId, otherLang, postUrl, slugFromId, type Lang } from '../../../i18n/ui';
+import BlogPost from '../../../layouts/BlogPost.astro';
+
+export async function getStaticPaths() {
+	const posts = await getPosts();
+	const ids = new Set(posts.map((p) => p.id));
+
+	return posts.map((post) => {
+		const lang = langFromId(post.id);
+		const slug = slugFromId(post.id);
+		const other = otherLang(lang);
+		// ko/와 en/에 같은 파일명이 있으면 번역 짝
+		const hasTranslation = ids.has(`${other}/${slug}`);
+
+		const hreflang: Partial<Record<Lang, string>> = { [lang]: postUrl(lang, slug) };
+		if (hasTranslation) hreflang[other] = postUrl(other, slug);
+
+		// 번역본이 없으면 토글은 상대 언어 홈으로
+		const alternates = {
+			[lang]: postUrl(lang, slug),
+			[other]: hasTranslation ? postUrl(other, slug) : `/${other}/`,
+		} as Record<Lang, string>;
+
+		return {
+			params: { lang, slug },
+			props: { post, lang, alternates, hreflang, hasTranslation },
+		};
+	});
+}
+
+const { post, lang, alternates, hreflang, hasTranslation } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogPost {...post.data} lang={lang} alternates={alternates} hreflang={hreflang} hasTranslation={hasTranslation}>
+	<Content />
+</BlogPost>
