@@ -13,7 +13,7 @@ export const defaultLang: Lang = 'en';
 export const ui = {
 	en: {
 		siteTitle: 'Juhee Oh',
-		siteDescription: 'Notes on what I make and learn.',
+		siteDescription: 'Where product, design, and AI meet.',
 		navHome: 'Home',
 		navAbout: 'About',
 		posts: 'Posts',
@@ -26,7 +26,7 @@ export const ui = {
 	},
 	ko: {
 		siteTitle: 'Juhee Oh',
-		siteDescription: '만들고 배운 것을 기록합니다.',
+		siteDescription: '프로덕트, 디자인, AI가 만나는 곳.',
 		navHome: '홈',
 		navAbout: '소개',
 		posts: '글',
