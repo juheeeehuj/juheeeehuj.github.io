@@ -10,7 +10,7 @@ This is the first post. It lives in `src/content/blog/en/hello-world.md`.
 
 ## Switching languages
 
-Put a Korean version in `src/content/blog/ko/` with **the same file name**, and the `KO / EN` button in the top right switches between the two.
+Put a Korean version in `src/content/blog/ko/` with **the same file name**, and the `EN / KO` button in the top right switches between the two.
 
 ## What you can write in Markdown
 

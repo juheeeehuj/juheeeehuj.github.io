@@ -1,31 +1,18 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export const languages = {
-	ko: '한국어',
 	en: 'English',
+	ko: '한국어',
 } as const;
 
 export type Lang = keyof typeof languages;
 
-export const defaultLang: Lang = 'ko';
+export const defaultLang: Lang = 'en';
 
 // 화면 문구 (글 내용이 아니라 제목·버튼 등)
 export const ui = {
-	ko: {
-		siteTitle: 'Juhee',
-		siteDescription: '만들고 배운 것을 기록합니다.',
-		navHome: '홈',
-		navAbout: '소개',
-		posts: '글',
-		noPosts: '아직 글이 없습니다.',
-		updatedOn: '수정',
-		backToList: '← 전체 글',
-		noTranslation: '이 글은 아직 영어판이 없습니다.',
-		themeToggle: '다크 모드 전환',
-		locale: 'ko-KR',
-	},
 	en: {
-		siteTitle: 'Juhee',
+		siteTitle: 'Juhee Oh',
 		siteDescription: 'Notes on what I make and learn.',
 		navHome: 'Home',
 		navAbout: 'About',
@@ -36,6 +23,19 @@ export const ui = {
 		noTranslation: 'This post is not available in Korean yet.',
 		themeToggle: 'Toggle dark mode',
 		locale: 'en-US',
+	},
+	ko: {
+		siteTitle: 'Juhee Oh',
+		siteDescription: '만들고 배운 것을 기록합니다.',
+		navHome: '홈',
+		navAbout: '소개',
+		posts: '글',
+		noPosts: '아직 글이 없습니다.',
+		updatedOn: '수정',
+		backToList: '← 전체 글',
+		noTranslation: '이 글은 아직 영어판이 없습니다.',
+		themeToggle: '다크 모드 전환',
+		locale: 'ko-KR',
 	},
 } as const;
 

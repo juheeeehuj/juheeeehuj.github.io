@@ -10,13 +10,13 @@ const { lang } = Astro.params as { lang: Lang };
 
 // 소개 문구. 언어별로 여기만 고치면 된다.
 const content = {
-	ko: {
-		title: '소개',
-		body: ['안녕하세요, 주희입니다.', '여기에 자기소개를 적어주세요.'],
-	},
 	en: {
 		title: 'About',
-		body: ["Hi, I'm Juhee.", 'Write a short introduction here.'],
+		body: ["Hi, I'm Juhee Oh.", 'Write a short introduction here.'],
+	},
+	ko: {
+		title: '소개',
+		body: ['안녕하세요, 오주희입니다.', '여기에 자기소개를 적어주세요.'],
 	},
 }[lang];
 ---
