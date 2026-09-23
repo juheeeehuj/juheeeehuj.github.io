@@ -1,7 +1,7 @@
 ---
 // 케이스스터디 페이지가 없는 작업 목록 (원래 포트폴리오의 얇은 줄 목록).
 //   - link 가 있으면 줄 전체가 그 주소(PDF)를 새 탭에서 연다
-//   - locked 면 자물쇠와 "준비 중" 표시만 있고 누를 수 없다
+//   - locked 면 자물쇠와 "비공개" 표시만 있고 누를 수 없다
 //   - 마우스를 올리면 커버가 커서 옆에 떠서 따라온다 (마우스 기기에서만)
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
@@ -33,7 +33,7 @@ const t = ui[lang];
 					{w.data.locked ? (
 						<span class="state locked">
 							<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3Z"></path></svg>
-							{t.inProgress}
+							{t.private}
 						</span>
 					) : (
 						<span class="state open">
