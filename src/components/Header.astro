@@ -1,9 +1,8 @@
 ---
 // 헤더 두 가지 (Katen)
 //   personal: 홈 전용. 가운데 프로필·이름·소개, 아래 알약 메뉴
-//   compact : 글·카테고리·소개 페이지. 한 줄에 로고 · 메뉴 · 아이콘
-import { categories } from '../categories';
-import { categoryLabels, categoryUrl, ui, type Lang } from '../i18n/ui';
+//   compact : 그 밖의 페이지. 한 줄에 로고 · 메뉴 · 아이콘
+import { blogUrl, ui, type Lang } from '../i18n/ui';
 import Avatar from './Avatar.astro';
 import LanguageToggle from './LanguageToggle.astro';
 import NavLinks from './NavLinks.astro';
@@ -14,7 +13,7 @@ import ThemeToggle from './ThemeToggle.astro';
 interface Props {
 	lang: Lang;
 	alternates: Record<Lang, string>;
-	/** 강조할 메뉴 주소 (글 페이지에서는 그 글의 카테고리) */
+	/** 강조할 메뉴 주소. 생략하면 현재 경로로 판단한다 */
 	active?: string;
 	variant?: 'personal' | 'compact';
 }
@@ -23,17 +22,12 @@ const { lang, alternates, active, variant = 'compact' } = Astro.props;
 const t = ui[lang];
 const path = active ?? Astro.url.pathname;
 const home = `/${lang}/`;
+const blog = blogUrl(lang);
 const links = [
-	{
-		href: home,
-		label: t.navHome,
-		active: path === home || path.startsWith(`/${lang}/page/`),
-	},
-	...categories.map((c) => ({
-		href: categoryUrl(lang, c),
-		label: categoryLabels[lang][c],
-		active: path.startsWith(categoryUrl(lang, c)),
-	})),
+	{ href: home, label: t.navHome, active: path === home },
+	{ href: `/${lang}/work/`, label: t.navWork, active: path.startsWith(`/${lang}/work`) },
+	// 카테고리(프로덕트·디자인·AI)와 글은 모두 블로그 안에 있다
+	{ href: blog, label: t.navBlog, active: path.startsWith(blog) },
 	{ href: `/${lang}/about/`, label: t.navAbout, active: path.startsWith(`/${lang}/about`) },
 ];
 ---
@@ -136,7 +130,7 @@ const links = [
 		font-size: 14px;
 	}
 
-	/* ── compact (글·카테고리·소개) ── */
+	/* ── compact (홈 밖의 페이지) ── */
 	.compact-row {
 		display: flex;
 		align-items: center;

@@ -47,6 +47,8 @@ export default defineConfig({
 	// GitHub Pages 는 서버 리디렉트가 없어서 '/' 는 기본 언어로 보내는 스텁 페이지가 된다
 	redirects: {
 		'/': '/en/',
+		// 카테고리가 블로그 안으로 들어가기 전 주소
+		'/[lang]/category/[category]': '/[lang]/blog/category/[category]',
 	},
 
 	// 코드 블록: 라이트/다크 두 벌 색을 같이 뽑고 global.css 가 html.dark 일 때 다크 색으로 바꾼다

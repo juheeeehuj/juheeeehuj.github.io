@@ -1,0 +1,28 @@
+---
+// 블로그 안의 카테고리 메뉴: 전체 · 프로덕트 · 디자인 · AI
+import { categories, type Category } from '../categories';
+import { blogUrl, categoryLabels, categoryUrl, ui, type Lang } from '../i18n/ui';
+import NavLinks from './NavLinks.astro';
+
+interface Props {
+	lang: Lang;
+	/** 지금 보고 있는 카테고리. 생략하면 전체 */
+	current?: Category;
+}
+
+const { lang, current } = Astro.props;
+const links = [
+	{ href: blogUrl(lang), label: ui[lang].allCategories, active: !current },
+	...categories.map((c) => ({ href: categoryUrl(lang, c), label: categoryLabels[lang][c], active: c === current })),
+];
+---
+
+<div class="category-nav">
+	<NavLinks links={links} />
+</div>
+
+<style>
+	.category-nav {
+		margin-top: 20px;
+	}
+</style>

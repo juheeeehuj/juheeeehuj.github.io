@@ -6,7 +6,7 @@ import AuthorBox from '../components/AuthorBox.astro';
 import Avatar from '../components/Avatar.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import ShareLinks from '../components/ShareLinks.astro';
-import { categoryLabels, categoryUrl, ui, type Lang } from '../i18n/ui';
+import { blogUrl, categoryLabels, categoryUrl, ui, type Lang } from '../i18n/ui';
 import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & {
@@ -41,12 +41,13 @@ const selfUrl = new URL(Astro.url.pathname, Astro.site).href;
 	hreflang={hreflang}
 	type="article"
 	image={heroImage}
-	navActive={category ? categoryUrl(lang, category) : `/${lang}/`}
+	navActive={blogUrl(lang)}
 >
 	<div class="container post-wrap">
 		<nav aria-label={t.breadcrumb}>
 			<ol class="breadcrumb">
 				<li><a href={`/${lang}/`}>{t.navHome}</a></li>
+				<li><a href={blogUrl(lang)}>{t.navBlog}</a></li>
 				{
 					category && (
 						<li>

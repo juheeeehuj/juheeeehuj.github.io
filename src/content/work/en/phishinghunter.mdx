@@ -1,0 +1,194 @@
+---
+title: Detecting and Preventing Voice Phishing Scams
+description: Phishing Hunter aims to prevent scam damage before it happens and minimize recovery effort and cost after incidents. By providing real-time AI alerts, it helps users recognize threats early and take immediate action.
+kicker: Service Design
+cover: ../../../assets/work/phishing/cover.png
+projectType: Team Project (80%)
+duration: 8 Weeks
+role: Research, UX/UI Design, Prototyping, Usability Test
+tools: [Figma, FigJam]
+order: 2
+featured: true
+---
+
+<Block kicker="Background" title="Why Does Voice Phishing Keep Increasing — And Why Won’t It Stop?" sub="Is This Just a Technical Problem — or Something More Deeply Rooted?" layout="side" big>
+That was the very first question that sparked this project. Despite years of public awareness campaigns, voice phishing in Korea continues to increase, causing serious financial loss and emotional trauma for countless victims. That’s why I approached this project as a way to create meaningful design solutions.
+
+<Figure slot="media" src="phishing/voice-phishing-trends.png" caption="Trends in Voice Phishing Incidents and Damages" width={400} />
+</Block>
+
+<Block kicker="Main Features" />
+
+<Feature after="phishing/main-feature-alert" caption="Incoming Call Risk Alert" title="AI Warns You Before You Answer" reverse>
+AI analyzes incoming calls and highlights potential scam risks before the call is answered. By showing clear visual warnings at the right moment, it helps users pause and make safer decisions.
+</Feature>
+
+<Feature after="phishing/main-feature-report" caption="Report in Main Home" title="One-Stop Report: Turning Scam Awareness into Immediate Action" reverse>
+Easily report suspicious calls in one tap right after AI detection. It guides you through the reporting process. No more confusion or delays - everything you need is handled in one place.
+</Feature>
+
+<Feature after="phishing/main-feature-tracking" caption="Tracking Alerts After Incident Report" title="Follow Your Report Until It’s Resolved" reverse>
+Users can easily track their report status after submission. Clear updates and notifications provide reassurance, letting users know they are still being protected until the case is resolved.
+</Feature>
+
+<Phase id="empathize" label="Empathize">When Are Users Most Vulnerable to Scams?</Phase>
+
+<Block kicker="Desk Research" title="Breaking Down the 4 Stages of a Scam">
+We conducted desk research using 10 news reports, 10 academic studies, and conversations from online scam communities, and analyzed the data, which showed that digital scams occur in 4 stages.
+
+<Figure slot="media" src="phishing/composite-academic-findings.png" caption="Academic Research Findings" />
+</Block>
+
+<Block title="Insights from Desk Research">
+This four-stage structure became a key framework for clearly understanding why users fail to recognize risk at each stage and where they are most vulnerable.
+
+<Stages slot="media" stages={[
+  { title: 'Pre-incident', points: ['Lack of user preparedness', 'Insufficient information', 'Low awareness of risks'] },
+  { title: 'During Incident', points: ['Loss of judgement due to urgency and fear'] },
+  { title: 'Post-incident', points: ['Delayed recognition', 'Late awareness'] },
+  { title: 'Recovery', points: ['Difficulty of recovery'] },
+]} />
+</Block>
+
+<Block kicker="1:1 Depth Interview" title="The Most Critical Moments Are Before and During the Scam" layout="side">
+We conducted semi-structured interviews with 5 participants to understand the pain points users experience across the 4 stages of digital scams. Through this, we discovered that users feel the most confusion and pressure before and during the scam.
+
+<Figure slot="media" src="phishing/interview-participant.png" caption="Interview with Participant A" width={420} />
+
+<Grid slot="below" panel items={[
+  { src: 'phishing/composite-interview-protocol.png', caption: 'Interview Protocol' },
+  { src: 'phishing/composite-interview-responses.png', caption: 'Interview Responses' },
+  { src: 'phishing/interview-mapping', caption: 'Mapping Interview Insights' },
+  { src: 'phishing/composite-affinity-mapping.png', caption: 'Affinity Mapping' },
+]} />
+</Block>
+
+<Block kicker="Define the Problem" title="To Prevent Harm, Act Before or During the Scam">
+Most pain points arise before and during the incident. However, the recovery is complex and stressful. Therefore, the solution should focus on stopping the scam before it happens.
+
+<Figure slot="media" src="phishing/intervention-stages.png" caption="Key Stage to Step In" />
+</Block>
+
+<Phase id="define" toc="Define" label="Define: Problem Statement">Users Want to Prevent Scams, But Most Solutions Act Too Late.</Phase>
+
+<Block kicker="Persona and User Journey Map" title="Two Personas Reveal Where Users Are Most at Risk">
+Using the interview insights, we developed two personas and journey maps to clearly identify users’ key problems and pain points.
+
+<div slot="media">
+
+One persona represents a man in his 50s who is vulnerable to scams due to lower digital literacy, financial stability, and strong family responsibilities.
+
+<Row items={[{ src: 'phishing/persona-lee.png', caption: 'Lee’s Persona' }, { src: 'phishing/journey-map-lee.png', caption: 'Lee’s Journey Map' }]} />
+
+The other persona represents a young woman with no work experience or financial literacy, making her highly susceptible to financial fraud.
+
+<Row items={[{ src: 'phishing/persona-park.png', caption: 'Park’s Persona' }, { src: 'phishing/journey-map-park.png', caption: 'Park’s Journey Map' }]} />
+</div>
+</Block>
+
+<Phase id="ideate" label="Ideate">How Might We Intervene Early in the Pre-Incident Stage?</Phase>
+
+<Block kicker="Ideation (Brainstorming)" title="18 AI Ideas to Warn, and Pause Risky Actions Early" layout="side">
+We analyzed 14 user behavior and risk-related data points. Through broad ideation, we generated 18 AI-driven intervention ideas. From these, we narrowed down MVP focused on early risk detection, emotional calming, and pausing risky actions before damage occurs.
+
+<Figure slot="media" src="phishing/brainstorming.png" caption="AI-Driven MVP Feature Brainstorming" width={400} />
+</Block>
+
+<Block kicker="MoSCoW Prioritization" title="Focusing on What Truly Prevents Damage" layout="side">
+We prioritized features using the MoSCoW method to focus on the most essential functions—those that help detect phishing early, alert users, and minimize potential damage.
+
+<Figure slot="media" src="phishing/moscow-prioritization.png" caption="MoSCoW" width={400} />
+</Block>
+
+<Block kicker="Storyboard" title="What Changes When Early Warning Exists?">
+This storyboard demonstrates how AI automatic detection intervenes before users fall for a scam - warning them in real time and stopping harmful actions early.
+
+<Grid slot="media" cols={3} caption="Storyboard" items={[
+  { src: 'phishing/storyboard-1.png' }, { src: 'phishing/storyboard-2.png' }, { src: 'phishing/storyboard-3.png' },
+  { src: 'phishing/storyboard-4.png' }, { src: 'phishing/storyboard-5.png' }, { src: 'phishing/storyboard-6.png' },
+]} />
+</Block>
+
+<Block kicker="User Flow" title="Don’t Make Users Work. AI Works Everything.">
+This user flow shows how AI reduces user effort by automatically detecting scams, delivering timely warnings, and guiding users through safe actions.
+
+<Figure slot="media" src="phishing/user-flow.png" caption="User Flow" />
+</Block>
+
+<Block kicker="Sketches" title="Sketching Fast to Explore Safer Interactions">
+I quickly sketched to explore layout and interaction ideas before prototyping.
+
+<Row slot="media" items={[{ src: 'phishing/sketching', caption: 'Sketching' }, { src: 'phishing/composite-crazy-eights.png', caption: 'Crazy 8s' }]} />
+</Block>
+
+<Band>
+<Block kicker="Low-Fidelity Wireframe" title="Visualizing Key Flows Before High-Fidelity Design">
+We designed low-fidelity wireframes to explore key layout options based on my sketches. Before moving to high-fidelity prototypes, we focused on visualizing ideas such as user flow quickly, rather than refining visual details.
+
+<div slot="media">
+<Figure src="phishing/wireframe-1.png" />
+<Figure src="phishing/wireframe-2.png" />
+</div>
+</Block>
+</Band>
+
+<Phase id="prototype" label="Prototype">Can Users Recognize the Warning Signs?</Phase>
+
+<Block kicker="Design System" title="Establishing Consistency and Efficiency">
+I built a design system to ensure visual consistency, scalability, and efficient prototyping across the app.
+
+<Grid slot="media" items={[
+  { src: 'phishing/composite-ds-typography.png', label: '01. Typography' },
+  { src: 'phishing/composite-ds-characters.png', label: '02. Characters' },
+  { src: 'phishing/composite-ds-colors.png', label: '03. Colors' },
+  { src: 'phishing/composite-ds-components.png', label: '04. Components' },
+  { src: 'phishing/composite-ds-warning-signs.png', label: '05. Warning Signs' },
+  { src: 'phishing/composite-ds-light-dark.png', label: '06. Light/Dark Mode' },
+]} />
+</Block>
+
+<Band>
+<Block id="final-designs" toc="Final Designs" kicker="Final Designs" title="Detecting and Preventing Voice Phishing Scams" big />
+
+<Feature after="phishing/final-design-alert" caption="Incoming Call Risk Alert" kicker="Alerting" title="AI Detects Different Warning Signs Based on Report History">
+The AI provides different warning signs based on the number of scam reports associated with the caller. When the risk is high, the system automatically ends the call and seamlessly guides users into the reporting flow.
+</Feature>
+
+<Feature after="phishing/final-design-report" caption="Report in Main Home Screen" kicker="One-Stop Report" title="Fast and Simple Reporting">
+Post-incident, users can quickly report a scam from the home screen by filling in the report details. Once the report is completed, they can access More on anti-phishing services to check My Report Status and follow next steps.
+</Feature>
+
+<Feature after="phishing/final-design-tracking" caption="Check Progress" kicker="Tracking" title="Stay Informed, Stay Reassured">
+After submitting a report, users receive real-time updates on its progress. Clear notifications help users understand which stage their case is in, providing reassurance and transparency even after the report is completed.
+</Feature>
+
+<Feature after="phishing/final-design-notification" caption="View Notification" kicker="Notification" title="Immediate Updates, No Guesswork">
+Phishing Hunter sends clear, real-time notifications when action is needed. Even after an incident, users stay informed and reassured through proactive alerts.
+</Feature>
+</Band>
+
+<Block id="usability-test" toc="Usability Test" kicker="Usability Test" title="Evaluating and Improving Experience">
+We conducted a usability test with 8 participants across 4 tasks to observe how users interacted with the product in real scenarios.
+
+<div slot="media">
+<Row items={[{ src: 'phishing/usability-participant-a.png', caption: 'Usability Test with Participant A' }, { src: 'phishing/usability-participant-b.png', caption: 'Usability Test with Participant B' }]} />
+
+With an average SUS score of **86.3**, Phishing Hunter achieved an excellent usability rating. However, a few specific things received relatively lower scores. We looked deeper into these responses to understand why users felt uncertain in those areas.
+
+<Row items={[{ src: 'phishing/sus-score.png', caption: 'SUS Score' }, { src: 'phishing/sus-analysis.png', caption: 'Data Analysis' }]} />
+</div>
+</Block>
+
+<Takeaways kicker="Takeaways" title="What I Focused On">
+<Takeaway n="01" title="Understanding Hidden Pain Points">
+Users often explain what feels difficult, but the real problems are not always clearly stated. By looking beyond words and focusing on user behavior and data, I learned how to uncover deeper pain points that users may not be aware of themselves.
+</Takeaway>
+
+<Takeaway n="02" title="Understanding the Role of Technology">
+I realized how technologies like AI, ML, DL and NLP help detect scam patterns that people often miss. Instead of focusing only on screens and UI, I began to think about scam prevention as a system that can spot risks early and step in at the right moment to protect users.
+</Takeaway>
+
+<Takeaway n="03" title="Designing Within Technical and Policy Constraints">
+Working on a finance-related domain helped me understand how much design is affected by technical limits and rules. I learned that good UX design is not only about how things look, but about making thoughtful decisions that also consider technology, security, and policies.
+</Takeaway>
+</Takeaways>

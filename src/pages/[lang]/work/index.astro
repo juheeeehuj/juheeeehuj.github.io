@@ -1,0 +1,84 @@
+---
+// 작업 전체 목록. order 순, 큰 카드 두 줄. 페이지 없는 작업(PDF·준비 중)은 아래 줄 목록으로.
+import MoreWork from '../../../components/MoreWork.astro';
+import WorkCard from '../../../components/WorkCard.astro';
+import { getWork, hasPage, languages, ui, type Lang } from '../../../i18n/ui';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+	return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = ui[lang];
+const all = await getWork(lang);
+const work = all.filter(hasPage);
+const more = all.filter((w) => !hasPage(w));
+---
+
+<BaseLayout title={`${t.workTitle} | ${t.siteTitle}`} description={t.workIntro} lang={lang}>
+	<section class="page-header">
+		<div class="container">
+			<h1>{t.workTitle}</h1>
+			<p>{t.workIntro}</p>
+		</div>
+	</section>
+
+	<div class="container">
+		<ul class="work-list">
+			{
+				work.map((w) => (
+					<li>
+						<WorkCard lang={lang} work={w} />
+					</li>
+				))
+			}
+		</ul>
+		{
+			more.length > 0 && (
+				<section class="more" aria-label={t.moreWork}>
+					<MoreWork lang={lang} work={more} />
+				</section>
+			)
+		}
+	</div>
+</BaseLayout>
+
+<style>
+	.page-header {
+		padding: 40px 0;
+		background: var(--author-bg);
+		text-align: center;
+	}
+	.page-header h1 {
+		margin: 0 0 6px;
+		font-size: 32px;
+	}
+	.page-header p {
+		margin: 0;
+		color: var(--text-subtle);
+		font-size: 15px;
+	}
+
+	.work-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 30px;
+		margin: 60px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.more {
+		margin-top: 80px;
+	}
+	@media (max-width: 767px) {
+		.work-list {
+			grid-template-columns: minmax(0, 1fr);
+			margin-top: 40px;
+		}
+	}
+</style>
+
+<script>
+	import '../../../scripts/motion';
+</script>

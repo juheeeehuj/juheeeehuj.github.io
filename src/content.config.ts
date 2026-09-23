@@ -24,4 +24,34 @@ const blog = defineCollection({
 		}),
 });
 
-export const collections = { blog };
+// 작업(케이스스터디)은 src/content/work/<lang>/<slug>.mdx 에 둔다. 번역 짝 규칙은 blog 와 같다.
+//   - 이미지는 src/assets/work/<slug>/, 영상·PDF 는 public/work/<slug>/ 에 둔다
+//   - link 나 locked 가 있는 작업은 상세 페이지 없이 목록 아래 한 줄로만 보인다
+const work = defineCollection({
+	loader: glob({ base: './src/content/work', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			// 제목 위 작은 라벨 (예: App Redesign)
+			kicker: z.string(),
+			cover: image(),
+			projectType: z.string().optional(),
+			duration: z.string(),
+			role: z.string().optional(),
+			tools: z.array(z.string()).default([]),
+			// 케이스스터디 페이지 대신 이 주소(예: PDF)를 연다
+			link: z.string().optional(),
+			// true 면 아직 준비 중: 목록에 자물쇠로만 보이고 페이지는 만들지 않는다
+			locked: z.boolean().default(false),
+			// 목록에 보이는 연도 (예: 2026)
+			year: z.string().optional(),
+			// 목록 정렬 순서 (작을수록 앞)
+			order: z.number(),
+			// true 면 홈 Selected Work 에 올라간다
+			featured: z.boolean().default(false),
+			draft: z.boolean().default(false),
+		}),
+});
+
+export const collections = { blog, work };

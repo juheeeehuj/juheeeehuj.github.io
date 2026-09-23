@@ -1,0 +1,18 @@
+---
+// 회고: 왼쪽에 라벨 + 제목, 오른쪽에 번호 매긴 항목들(Takeaway)
+interface Props {
+	kicker: string;
+	title: string;
+	id?: string;
+	toc?: string;
+}
+const { kicker, title, id, toc } = Astro.props;
+---
+
+<section class="case-takeaways" id={id} data-toc={toc && id ? `${id}|${toc}` : undefined}>
+	<div>
+		<p class="kicker">{kicker}</p>
+		<h3 class="block-title">{title}</h3>
+	</div>
+	<div class="takeaway-list"><slot /></div>
+</section>

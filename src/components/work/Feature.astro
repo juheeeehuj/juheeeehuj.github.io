@@ -1,0 +1,75 @@
+---
+// 화면 한 장면: 왼쪽에 폰 화면, 오른쪽에 글.
+//   주요 기능  : As is(작게) + To be(크게, 아래 캡션) · 제목 · 설명
+//   최종 디자인: 화면 하나(아래 캡션) · 작은 라벨(1/4) · 제목 · 설명
+//   개선       : Initial(작게) ▶ Refined(크게) · 작은 제목 · 사용자 발화(크게) · 설명
+// reverse 면 글이 왼쪽, 화면이 오른쪽.
+// before/after 는 이미지 이름이면 이미지, 확장자 없으면 영상으로 본다.
+import { Image } from 'astro:assets';
+import { isImage, workImage, workVideo } from './media';
+
+interface Props {
+	after: string;
+	before?: string;
+	beforeLabel?: string;
+	afterLabel?: string;
+	/** 큰 화면 아래 캡션 */
+	caption?: string;
+	/** 제목 위 작은 회색 라벨 */
+	kicker?: string;
+	title?: string;
+	/** 사용자 발화 (크게) */
+	quote?: string;
+	/** 전 → 후 사이 화살표 */
+	arrow?: boolean;
+	reverse?: boolean;
+}
+
+const { after, before, beforeLabel, afterLabel, caption, kicker, title, quote, arrow = false, reverse = false } = Astro.props;
+
+async function screen(name: string) {
+	if (isImage(name)) return { img: workImage(name) };
+	return { video: await workVideo(name) };
+}
+const afterScreen = await screen(after);
+const beforeScreen = before ? await screen(before) : undefined;
+---
+
+<section class:list={['case-feature', { pair: !!before, reverse }]}>
+	<div class="screens">
+		{
+			beforeScreen && (
+				<figure class="screen before">
+					{beforeLabel && <figcaption class="screen-label">{beforeLabel}</figcaption>}
+					{beforeScreen.img ? (
+						<Image src={beforeScreen.img} width={180} densities={[1, 2]} quality={90} alt={beforeLabel ?? ''} />
+					) : (
+						<video data-autoplay src={beforeScreen.video!.src} poster={beforeScreen.video!.poster} muted loop playsinline preload="none" />
+					)}
+				</figure>
+			)
+		}
+		{arrow && <span class="arrow" aria-hidden="true">▶</span>}
+		<figure class="screen after">
+			{afterLabel && <figcaption class="screen-label accent">{afterLabel}</figcaption>}
+			{
+				afterScreen.img ? (
+					<Image src={afterScreen.img} width={260} densities={[1, 2]} quality={90} alt={caption ?? afterLabel ?? ''} />
+				) : (
+					<video data-autoplay src={afterScreen.video!.src} poster={afterScreen.video!.poster} muted loop playsinline preload="none" />
+				)
+			}
+			{caption && <figcaption class="screen-caption">{caption}</figcaption>}
+		</figure>
+	</div>
+	<div class="text">
+		{kicker && <p class="feature-kicker">{kicker}</p>}
+		{title && <h3 class="feature-title">{title}</h3>}
+		{quote && <p class="feature-quote">“{quote}”</p>}
+		<slot />
+	</div>
+</section>
+
+<script>
+	import './autoplay';
+</script>

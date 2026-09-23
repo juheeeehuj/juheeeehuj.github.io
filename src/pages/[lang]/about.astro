@@ -2,6 +2,10 @@
 // 소개 페이지 (Katen about + 포트폴리오 "More about me" 구성)
 import { Image } from 'astro:assets';
 import aboutPhoto from '../../assets/about.jpg';
+import filmingPhoto from '../../assets/about/interest-filming.jpg';
+import musicPhoto from '../../assets/about/interest-music.jpg';
+import trainingPhoto from '../../assets/about/interest-training.jpg';
+import volunteeringPhoto from '../../assets/about/interest-volunteering.jpg';
 import SocialIcons from '../../components/SocialIcons.astro';
 import { languages, social, ui, type Lang } from '../../i18n/ui';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -12,6 +16,8 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: Lang };
 const t = ui[lang];
+// 관심사 카드 뒷면 사진 (content.interests 와 같은 순서)
+const interestPhotos = [musicPhoto, filmingPhoto, volunteeringPhoto, trainingPhoto];
 
 // 소개 문구는 여기만 고치면 된다
 const content = {
@@ -56,7 +62,7 @@ const content = {
 				<h2>{content.greeting}</h2>
 				<p>{content.bio}</p>
 				<div class="actions">
-					<a class="btn-default" href={social.resume} target="_blank" rel="noopener">{content.resume}</a>
+					<a class="btn-default" href={social.resume[lang]} target="_blank" rel="noopener">{content.resume}</a>
 					<a class="email" href={`mailto:${social.email}`}>{content.email}</a>
 				</div>
 				<hr />
@@ -72,9 +78,17 @@ const content = {
 			<ol class="interest-list">
 				{
 					content.interests.map((item, i) => (
-						<li>
-							<span class="num">{String(i + 1).padStart(2, '0')}</span>
-							<span class="label">{item}</span>
+						<li class="interest" tabindex="0" data-flip>
+							<div class="card" data-flip-card>
+								<div class="face front">
+									<span class="num">{String(i + 1).padStart(2, '0')}</span>
+									<span class="label">{item}</span>
+								</div>
+								<div class="face back">
+									<Image src={interestPhotos[i]} widths={[400, 800]} sizes="(max-width: 575px) 50vw, 270px" alt={item} />
+									<span class="chip">{item}</span>
+								</div>
+							</div>
 						</li>
 					))
 				}
@@ -202,19 +216,63 @@ const content = {
 		padding: 0 0 40px;
 		list-style: none;
 	}
-	.interest-list li {
+	/* 카드는 앞면(번호·이름)과 뒷면(사진) 두 장. 올리면 Y축으로 뒤집혀 사진이 나온다 */
+	.interest {
+		height: 300px;
+		perspective: 1900px;
+		cursor: pointer;
+		outline: none;
+		transition: transform 0.3s ease-in-out;
+	}
+	.interest:nth-child(even) {
+		transform: translateY(40px);
+	}
+	.card {
+		position: relative;
+		height: 100%;
+		transform-style: preserve-3d;
+	}
+	.face {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		border-radius: var(--radius);
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+	}
+	.front {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		min-height: 220px;
 		padding: 30px;
 		border: 1px solid var(--border);
-		border-radius: var(--radius);
 		background: var(--card);
-		transition: transform 0.3s ease-in-out;
 	}
-	.interest-list li:nth-child(even) {
-		transform: translateY(40px);
+	.interest:focus-visible .front {
+		border-color: var(--pink);
+	}
+	.back {
+		transform: rotateY(180deg);
+		background: var(--surface);
+	}
+	.back img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.chip {
+		position: absolute;
+		bottom: 16px;
+		left: 16px;
+		padding: 6px 12px;
+		border-radius: 25px;
+		background: var(--gradient);
+		background-size: 200% auto;
+		color: #fff;
+		font-family: var(--font-head);
+		font-size: 13px;
+		line-height: 1.2;
 	}
 	.num {
 		background: var(--gradient);
@@ -250,12 +308,45 @@ const content = {
 		.intro h2 {
 			font-size: 24px;
 		}
-		.interest-list li {
-			min-height: 160px;
+		.interest {
+			height: 220px;
+		}
+		.front {
 			padding: 20px;
 		}
-		.interest-list li:nth-child(even) {
+		.interest:nth-child(even) {
 			transform: translateY(24px);
 		}
 	}
 </style>
+
+<script>
+	// 관심사 카드 뒤집기 (GSAP). 마우스는 올리면 뒤집히고 벗어나면 돌아온다.
+	// 터치는 누를 때마다, 키보드는 Tab 으로 들어오면 뒤집힌다. 동작 줄이기 설정이면 바로 바뀐다.
+	import gsap from 'gsap';
+
+	const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	for (const item of document.querySelectorAll<HTMLElement>('[data-flip]')) {
+		const card = item.querySelector<HTMLElement>('[data-flip-card]')!;
+		let flipped = false;
+		const flip = (on: boolean) => {
+			flipped = on;
+			gsap.to(card, { rotationY: on ? 180 : 0, duration: reduce ? 0 : 1.4, ease: 'power2.inOut', overwrite: true });
+		};
+
+		item.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && flip(true));
+		item.addEventListener('pointerleave', (e) => e.pointerType === 'mouse' && flip(false));
+		item.addEventListener('click', (e) => {
+			if ((e as PointerEvent).pointerType !== 'mouse') flip(!flipped);
+		});
+		item.addEventListener('focus', () => item.matches(':focus-visible') && flip(true));
+		item.addEventListener('blur', () => flip(false));
+		item.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				flip(!flipped);
+			}
+		});
+	}
+</script>

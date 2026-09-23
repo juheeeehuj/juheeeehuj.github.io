@@ -1,0 +1,39 @@
+---
+// 블로그·카테고리 목록 위의 띠: 제목 + 소개 + 카테고리 메뉴
+import type { Category } from '../categories';
+import { ui, type Lang } from '../i18n/ui';
+import CategoryNav from './CategoryNav.astro';
+
+interface Props {
+	lang: Lang;
+	title: string;
+	current?: Category;
+}
+
+const { lang, title, current } = Astro.props;
+---
+
+<section class="page-header">
+	<div class="container">
+		<h1>{title}</h1>
+		<p>{ui[lang].blogIntro}</p>
+		<CategoryNav lang={lang} current={current} />
+	</div>
+</section>
+
+<style>
+	.page-header {
+		padding: 40px 0 30px;
+		background: var(--author-bg);
+		text-align: center;
+	}
+	h1 {
+		margin: 0 0 6px;
+		font-size: 32px;
+	}
+	p {
+		margin: 0;
+		color: var(--text-subtle);
+		font-size: 15px;
+	}
+</style>

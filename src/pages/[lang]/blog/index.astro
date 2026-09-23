@@ -1,0 +1,17 @@
+---
+import BlogFeed from '../../../components/BlogFeed.astro';
+import { getPosts, languages, ui, type Lang } from '../../../i18n/ui';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+	return (Object.keys(languages) as Lang[]).map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = ui[lang];
+const posts = await getPosts(lang);
+---
+
+<BaseLayout title={`${t.navBlog} | ${t.siteTitle}`} description={t.blogIntro} lang={lang}>
+	<BlogFeed lang={lang} posts={posts} page={1} />
+</BaseLayout>

@@ -1,0 +1,228 @@
+---
+// 그림 크게 보기: 본문 그림(.zoom 링크)을 누르면 페이지를 어둡게 덮고 원본을 크게 보여준다.
+//   - 닫기: × 버튼, 그림 바깥 누르기, ESC
+//   - 같은 페이지의 다른 그림으로: ← → 버튼 또는 방향키
+//   - 아주 긴 그림(전체 페이지 화면 등)은 폭에 맞추고 세로로 스크롤한다
+// 자바스크립트가 없으면 링크 그대로 원본이 새 탭에서 열린다.
+import { ui, type Lang } from '../../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+const t = ui[Astro.props.lang];
+---
+
+<dialog class="lightbox" aria-label={t.viewLarger} data-lightbox>
+	<div class="lb-stage" data-lb-stage>
+		<figure class="lb-figure">
+			<img data-lb-img alt="" />
+			<figcaption data-lb-caption></figcaption>
+		</figure>
+	</div>
+	<button class="lb-btn lb-close" type="button" aria-label={t.close} data-lb-close>
+		<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+	</button>
+	<button class="lb-btn lb-prev" type="button" aria-label={t.prevImage} data-lb-prev>
+		<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>
+	</button>
+	<button class="lb-btn lb-next" type="button" aria-label={t.nextImage} data-lb-next>
+		<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg>
+	</button>
+	<p class="lb-count" data-lb-count aria-live="polite"></p>
+</dialog>
+
+<style>
+	.lightbox {
+		width: 100vw;
+		max-width: none;
+		height: 100dvh;
+		max-height: none;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		color: #fff;
+	}
+	.lightbox::backdrop {
+		background: rgba(11, 19, 34, 0.86);
+	}
+	.lightbox[open] {
+		animation: lb-in 0.2s ease-out;
+	}
+	@keyframes lb-in {
+		from {
+			opacity: 0;
+		}
+	}
+
+	/* 그림 영역: 화면 가운데. 긴 그림이면 이 영역이 세로로 스크롤된다 */
+	.lb-stage {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		padding: 64px 72px 40px;
+		overflow: auto;
+		overscroll-behavior: contain;
+	}
+	.lb-figure {
+		margin: auto;
+		text-align: center;
+	}
+	.lb-figure img {
+		display: block;
+		max-width: min(1600px, calc(100vw - 144px));
+		max-height: calc(100dvh - 140px);
+		width: auto;
+		height: auto;
+		margin: 0 auto;
+		border-radius: 8px;
+		background: #fff;
+		cursor: zoom-out;
+	}
+	.tall .lb-stage {
+		align-items: flex-start;
+	}
+	.tall .lb-figure img {
+		max-width: min(1000px, calc(100vw - 144px));
+		max-height: none;
+	}
+	.lb-figure figcaption {
+		margin-top: 14px;
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 14px;
+	}
+	.lb-figure figcaption:empty {
+		display: none;
+	}
+
+	.lb-btn {
+		position: fixed;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		padding: 0;
+		border: 0;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.12);
+		color: #fff;
+		cursor: pointer;
+		transition: background 0.2s;
+	}
+	.lb-btn:hover,
+	.lb-btn:focus-visible {
+		background: var(--pink);
+		outline: none;
+	}
+	.lb-close {
+		top: 16px;
+		right: 16px;
+	}
+	.lb-prev,
+	.lb-next {
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.lb-prev {
+		left: 16px;
+	}
+	.lb-next {
+		right: 16px;
+	}
+	.lb-btn[hidden] {
+		display: none;
+	}
+	.lb-count {
+		position: fixed;
+		top: 26px;
+		left: 50%;
+		margin: 0;
+		color: rgba(255, 255, 255, 0.7);
+		font-family: var(--font-head);
+		font-size: 13px;
+		transform: translateX(-50%);
+	}
+
+	@media (max-width: 767px) {
+		.lb-stage {
+			padding: 64px 12px 24px;
+		}
+		.lb-figure img,
+		.tall .lb-figure img {
+			max-width: calc(100vw - 24px);
+		}
+		.lb-prev,
+		.lb-next {
+			top: auto;
+			bottom: 16px;
+			transform: none;
+		}
+	}
+</style>
+
+<script>
+	const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+	const links = [...document.querySelectorAll<HTMLAnchorElement>('.case-body a.zoom')];
+
+	if (dialog && links.length) {
+		const img = dialog.querySelector<HTMLImageElement>('[data-lb-img]')!;
+		const caption = dialog.querySelector<HTMLElement>('[data-lb-caption]')!;
+		const count = dialog.querySelector<HTMLElement>('[data-lb-count]')!;
+		const stage = dialog.querySelector<HTMLElement>('[data-lb-stage]')!;
+		const prev = dialog.querySelector<HTMLButtonElement>('[data-lb-prev]')!;
+		const next = dialog.querySelector<HTMLButtonElement>('[data-lb-next]')!;
+		let index = 0;
+
+		const show = (i: number) => {
+			index = (i + links.length) % links.length;
+			const link = links[index];
+			const thumb = link.querySelector('img');
+			const text = link.closest('figure')?.querySelector(':scope > figcaption')?.textContent?.trim() ?? '';
+
+			// 이미 받아 둔 작은 그림을 먼저 보여주고, 원본이 오면 바꾼다
+			img.src = thumb?.currentSrc || link.href;
+			img.alt = thumb?.alt ?? '';
+			const w = thumb?.naturalWidth || 1;
+			const h = thumb?.naturalHeight || 1;
+			dialog.classList.toggle('tall', h / w > 1.5);
+			const full = new Image();
+			full.onload = () => links[index] === link && (img.src = link.href);
+			full.src = link.href;
+
+			caption.textContent = text;
+			count.textContent = links.length > 1 ? `${index + 1} / ${links.length}` : '';
+			prev.hidden = next.hidden = links.length < 2;
+			stage.scrollTo(0, 0);
+		};
+
+		links.forEach((link, i) =>
+			link.addEventListener('click', (e) => {
+				// 새 탭으로 열려는 클릭(⌘·Ctrl·가운데 버튼)은 그대로 둔다
+				if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+				e.preventDefault();
+				show(i);
+				dialog.showModal();
+			}),
+		);
+
+		dialog.querySelector('[data-lb-close]')!.addEventListener('click', () => dialog.close());
+		prev.addEventListener('click', () => show(index - 1));
+		next.addEventListener('click', () => show(index + 1));
+		// 그림 밖(어두운 곳)이나 그림 자체를 누르면 닫는다
+		stage.addEventListener('click', (e) => {
+			if (!(e.target as HTMLElement).closest('figcaption')) dialog.close();
+		});
+		dialog.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') show(index - 1);
+			if (e.key === 'ArrowRight') show(index + 1);
+		});
+		// 열려 있는 동안 뒤 페이지가 스크롤되지 않게
+		dialog.addEventListener('close', () => (document.documentElement.style.overflow = ''));
+		new MutationObserver(() => {
+			if (dialog.open) document.documentElement.style.overflow = 'hidden';
+		}).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+	}
+</script>

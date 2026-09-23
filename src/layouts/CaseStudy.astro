@@ -1,0 +1,805 @@
+---
+// 작업(케이스스터디) 상세. 색·글꼴은 블로그를 따르고, 덩어리 구성은 원래 포트폴리오를 따른다.
+//   hero(라벨·제목·커버) → 개요(설명 | 프로젝트 정보) → 본문 덩어리들 → 다른 프로젝트
+// 본문 폭은 1000px. 목차는 본문에서 data-toc 가 붙은 덩어리(Phase·Block·Takeaways)를 모아 만든다.
+import { Image } from 'astro:assets';
+import Lightbox from '../components/work/Lightbox.astro';
+import type { CollectionEntry } from 'astro:content';
+import { slugFromId, ui, workUrl, type Lang } from '../i18n/ui';
+import BaseLayout from './BaseLayout.astro';
+
+type Props = CollectionEntry<'work'>['data'] & {
+	lang: Lang;
+	alternates: Record<Lang, string>;
+	hreflang: Partial<Record<Lang, string>>;
+	others: CollectionEntry<'work'>[];
+};
+
+const {
+	title,
+	description,
+	kicker,
+	cover,
+	projectType,
+	duration,
+	role,
+	tools,
+	lang,
+	alternates,
+	hreflang,
+	others,
+} = Astro.props;
+const t = ui[lang];
+const facts = [
+	[t.projectType, projectType],
+	[t.duration, duration],
+	[t.role, role],
+	[t.tools, tools.join(', ')],
+];
+
+const body = await Astro.slots.render('default');
+const toc = [
+	{ id: 'overview', label: t.overview },
+	...[...body.matchAll(/data-toc="([^"|]+)\|([^"]+)"/g)].map((m) => ({ id: m[1], label: m[2] })),
+];
+---
+
+<BaseLayout
+	title={`${title} | ${t.siteTitle}`}
+	description={description}
+	lang={lang}
+	alternates={alternates}
+	hreflang={hreflang}
+	type="article"
+	image={cover}
+	navActive={`/${lang}/work/`}
+>
+	<article class="case">
+		<header class="container case-hero">
+			<nav aria-label={t.breadcrumb}>
+				<ol class="breadcrumb">
+					<li><a href={`/${lang}/`}>{t.navHome}</a></li>
+					<li><a href={`/${lang}/work/`}>{t.workTitle}</a></li>
+					<li class="current" aria-current="page">{title}</li>
+				</ol>
+			</nav>
+			<span class="category-badge">{kicker}</span>
+			<h1 class="title">{title}</h1>
+			<Image class="cover" src={cover} widths={[800, 1200, 1600, 2280]} sizes="(max-width: 1172px) 100vw, 1140px" alt="" loading="eager" />
+		</header>
+
+		<nav class="toc" aria-label={t.contents} data-toc-nav>
+			<ul class="container">
+				{
+					toc.map((h) => (
+						<li>
+							<a href={`#${h.id}`}>{h.label}</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+
+		<div class="container case-body">
+			<section class="case-block side overview" id="overview">
+				<div class="block-text">
+					<p class="kicker">{t.projectOverview}</p>
+					<p>{description}</p>
+				</div>
+				<dl class="facts">
+					{
+						facts.map(([label, value]) => (
+							<div>
+								<dt>{label}</dt>
+								<dd>{value}</dd>
+							</div>
+						))
+					}
+				</dl>
+			</section>
+
+			<Fragment set:html={body} />
+		</div>
+
+		{
+			others.length > 0 && (
+				<section class="container others" aria-labelledby="others-title">
+					<h2 id="others-title">{t.otherProjects}</h2>
+					<ul>
+						{others.map((w) => (
+							<li>
+								<a href={workUrl(lang, slugFromId(w.id))}>
+									<Image src={w.data.cover} widths={[560, 1120]} sizes="(max-width: 767px) 100vw, 555px" alt="" />
+									<span class="kicker">{w.data.kicker}</span>
+									<span class="other-title">{w.data.title}</span>
+								</a>
+							</li>
+						))}
+					</ul>
+					<a class="back" href={`/${lang}/work/`}>{t.backToWork}</a>
+				</section>
+			)
+		}
+	</article>
+	<Lightbox lang={lang} />
+</BaseLayout>
+
+<style>
+	.case-hero {
+		margin-top: 20px;
+	}
+	.breadcrumb {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0 0 30px;
+		padding: 0;
+		list-style: none;
+		color: var(--text-subtle);
+		font-size: 14px;
+	}
+	.breadcrumb li + li::before {
+		content: '/';
+		margin-right: 0.5rem;
+	}
+	.breadcrumb a {
+		color: var(--text-subtle);
+	}
+	.breadcrumb a:hover {
+		color: var(--pink);
+	}
+	.title {
+		max-width: 760px;
+		margin: 16px 0 36px;
+		font-size: 44px;
+		line-height: 1.2;
+	}
+	.cover {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: var(--radius);
+	}
+
+	/* 목차: 스크롤해도 위에 붙어 있고, 지금 읽는 단계가 그라데이션 알약으로 켜진다 */
+	.toc {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		margin-top: 40px;
+		border-block: 1px solid var(--border);
+		background: var(--bg);
+	}
+	.toc ul {
+		display: flex;
+		gap: 2px;
+		margin: 0 auto;
+		padding-block: 10px;
+		list-style: none;
+		overflow-x: auto;
+		scrollbar-width: none;
+		font-family: var(--font-head);
+		font-size: 13px;
+	}
+	.toc ul::-webkit-scrollbar {
+		display: none;
+	}
+	.toc a {
+		display: block;
+		padding: 0.35rem 0.9rem;
+		border-radius: 25px;
+		color: var(--menu);
+		white-space: nowrap;
+	}
+	.toc a:hover {
+		color: var(--heading);
+	}
+	.toc a[aria-current='true'] {
+		background: var(--gradient);
+		background-size: 200% auto;
+		color: #fff;
+	}
+
+	.facts {
+		display: grid;
+		gap: 14px;
+		margin: 0;
+	}
+	.facts div {
+		display: grid;
+		grid-template-columns: 120px 1fr;
+		gap: 16px;
+	}
+	.facts dt {
+		color: var(--pink);
+		font-family: var(--font-head);
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.9;
+		text-transform: uppercase;
+	}
+	.facts dd {
+		margin: 0;
+		color: var(--heading);
+		font-size: 15px;
+	}
+
+	.others {
+		margin-top: 100px;
+		padding-top: 50px;
+		border-top: 1px solid var(--border);
+	}
+	.others h2 {
+		margin: 0 0 24px;
+		font-size: 24px;
+	}
+	.others ul {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.others a {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		color: var(--heading);
+	}
+	.others img {
+		width: 100%;
+		height: auto;
+		margin-bottom: 10px;
+		border-radius: var(--radius);
+		transition: transform 0.3s ease-in-out;
+	}
+	.others a:hover img {
+		transform: translateY(-4px);
+	}
+	.others a:hover .other-title {
+		color: var(--pink);
+	}
+	.other-title {
+		font-family: var(--font-head);
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 1.4;
+		transition: color 0.2s;
+	}
+	.back {
+		display: inline-block;
+		margin-top: 40px;
+		font-family: var(--font-head);
+		font-size: 14px;
+	}
+
+	@media (max-width: 767px) {
+		.title {
+			font-size: 28px;
+		}
+		.breadcrumb .current {
+			display: none;
+		}
+		.facts div {
+			grid-template-columns: 100px 1fr;
+		}
+		.others ul {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* ─────────────── 본문 덩어리 (MDX 컴포넌트) ─────────────── */
+	.case-body {
+		max-width: calc(1000px + 32px);
+		color: var(--body);
+		font-size: 16px;
+		line-height: 1.75;
+	}
+	.case-body :global(p) {
+		margin: 0 0 1em;
+	}
+	.case-body :global([id]) {
+		scroll-margin-top: 70px;
+	}
+
+	/* 라벨 (SECONDARY RESEARCH 등) */
+	.case-body :global(.kicker) {
+		margin: 0 0 8px;
+		background: var(--gradient);
+		background-size: 200% auto;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		font-family: var(--font-head);
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	/* 덩어리 */
+	.case-body :global(.case-block) {
+		margin-block: 90px;
+	}
+	.case-body :global(.block-title) {
+		margin: 0 0 14px;
+		font-size: 22px;
+		line-height: 1.4;
+	}
+	.case-body :global(.case-block.big .block-title) {
+		font-size: 34px;
+		line-height: 1.25;
+	}
+	.case-body :global(.block-sub) {
+		margin: 28px 0 10px;
+		font-size: 19px;
+		line-height: 1.4;
+	}
+	/* side: 글 왼쪽 반, 그림 오른쪽 */
+	/* 윗선을 맞춘다: 왼쪽 라벨 첫 줄과 오른쪽 그림(또는 프로젝트 정보 첫 줄)의 위가 같은 높이 */
+	.case-body :global(.case-block.side) {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 60px;
+		align-items: start;
+	}
+	.case-body :global(.case-block.side .block-text > .kicker) {
+		margin-top: -0.35em;
+	}
+	/* 개요는 오른쪽이 그림이 아니라 글(프로젝트 정보)이라 글자 줄끼리 맞춘다 */
+	.case-body :global(.case-block.side.overview .block-text > .kicker) {
+		margin-top: 0;
+	}
+	.case-body :global(.case-block.side .block-media) {
+		justify-self: center;
+		width: 100%;
+	}
+	/* stack: 글은 반 폭, 그림은 아래 전체 폭 */
+	.case-body :global(.case-block.stack .block-text) {
+		max-width: 520px;
+	}
+	.case-body :global(.case-block.stack .block-media) {
+		margin-top: 28px;
+	}
+	.case-body :global(.block-below) {
+		grid-column: 1 / -1;
+		margin-top: 12px;
+	}
+	.case-body :global(.block-text > p:last-child) {
+		margin-bottom: 0;
+	}
+
+	/* 그림·영상 */
+	.case-body :global(.case-figure) {
+		margin-inline: auto;
+	}
+	/* 그림이 연달아 오면 그림 사이를 넉넉히 (와이어프레임처럼 여백 없이 꽉 찬 그림) */
+	.case-body :global(.case-figure + .case-figure) {
+		margin-top: 72px;
+	}
+	.case-body :global(.case-row + .case-figure),
+	.case-body :global(.case-figure + p),
+	.case-body :global(.case-row + p),
+	.case-body :global(p + .case-figure),
+	.case-body :global(.case-row + .case-row) {
+		margin-top: 28px;
+	}
+	.case-body :global(.media-item) {
+		margin: 0;
+	}
+	.case-body :global(.media-item img),
+	.case-body :global(.media-item video) {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: var(--radius-sm);
+	}
+	.case-body :global(.case-figure.square img) {
+		border-radius: 0;
+	}
+	.case-body :global(.zoom) {
+		display: block;
+		cursor: zoom-in;
+	}
+	.case-body :global(figcaption) {
+		margin-top: 10px;
+		color: var(--text-subtle);
+		font-size: 13px;
+		line-height: 1.5;
+		text-align: center;
+	}
+	/* 한 줄: 비율만큼 폭을 나눠 높이를 맞춘다 */
+	.case-body :global(.case-row) {
+		margin: 0;
+	}
+	.case-body :global(.row-items) {
+		display: flex;
+		gap: 16px;
+		align-items: flex-start;
+	}
+	.case-body :global(.row-items > .media-item) {
+		flex: var(--ratio) 1 0;
+		min-width: 0;
+	}
+
+	/* 같은 폭 칸 (Before/After·그리드 시스템·반응형 화면·디자인 시스템 패널) */
+	.case-body :global(.case-grid) {
+		margin: 0;
+	}
+	.case-body :global(.grid-items) {
+		display: grid;
+		gap: 28px 24px;
+		align-items: start;
+	}
+	.case-body :global(.case-grid.panel) {
+		padding: 24px;
+		border-radius: var(--radius);
+		background: var(--surface);
+	}
+	.case-body :global(.grid-label) {
+		margin: 0 0 4px;
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 16px;
+		font-weight: 600;
+	}
+	.case-body :global(.grid-label.accent) {
+		color: var(--pink);
+	}
+	.case-body :global(.grid-note) {
+		margin: 0 0 12px;
+		color: var(--text-subtle);
+		font-size: 13px;
+	}
+	.case-body :global(.grid-label + .media-item) {
+		margin-top: 12px;
+	}
+	.case-body :global(.case-grid + .case-grid) {
+		margin-top: 28px;
+	}
+
+	/* 단계 흐름도 */
+	.case-body :global(.case-stages) {
+		display: grid;
+		grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+		gap: 28px;
+		margin: 28px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.case-body :global(.case-stages > li) {
+		position: relative;
+	}
+	.case-body :global(.case-stages > li + li::before) {
+		content: '▶';
+		position: absolute;
+		top: 11px;
+		left: -20px;
+		color: var(--pink);
+		font-size: 11px;
+	}
+	.case-body :global(.stage-title) {
+		margin: 0 0 8px;
+		padding: 9px 8px;
+		border-radius: var(--radius-sm);
+		background: color-mix(in srgb, var(--pink) 14%, transparent);
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 15px;
+		font-weight: 600;
+		text-align: center;
+	}
+	.case-body :global(.case-stages ul) {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-size: 14px;
+		line-height: 1.5;
+		text-align: center;
+	}
+	.case-body :global(.case-stages ul li) {
+		padding: 10px 4px;
+		border-bottom: 1px solid var(--border);
+	}
+
+	/* 배경색 구역 */
+	.case-body :global(.case-band) {
+		margin-block: 90px 0;
+		padding: 1px 16px 80px;
+		background: var(--surface);
+	}
+	.case-body :global(.band-inner) {
+		max-width: 1000px;
+		margin-inline: auto;
+	}
+	.case-body :global(.case-band .case-block:first-child) {
+		margin-top: 70px;
+	}
+	.case-body :global(.case-band .case-grid.panel) {
+		background: var(--bg);
+	}
+	.case-body :global(.case-band + .case-phase),
+	.case-body :global(.case-phase + .case-band),
+	.case-body :global(.case-band + .case-band) {
+		margin-top: 0;
+	}
+
+	/* 두 칸 (페르소나) */
+	.case-body :global(.case-columns) {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px;
+		margin-top: 28px;
+	}
+	.case-body :global(.case-columns > div) {
+		display: flex;
+		flex-direction: column;
+	}
+	.case-body :global(.case-columns > div > .case-figure) {
+		margin-top: auto;
+		width: 100%;
+	}
+
+	/* 단계 띠 */
+	.case-body :global(.bleed) {
+		width: 100vw;
+		margin-inline: calc(50% - 50vw);
+	}
+	.case-body :global(.case-phase) {
+		margin-block: 90px 0;
+		padding: 56px 16px;
+		background: var(--surface);
+	}
+	.case-body :global(.phase-inner),
+	.case-body :global(.statement-inner) {
+		max-width: 1000px;
+		margin-inline: auto;
+	}
+	.case-body :global(.phase-label) {
+		margin: 0 0 10px;
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+	}
+	.case-body :global(.phase-question) {
+		max-width: 600px;
+		margin: 0;
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 34px;
+		font-weight: 700;
+		line-height: 1.25;
+	}
+	.case-body :global(.case-phase + .case-block) {
+		margin-top: 70px;
+	}
+
+	/* 문제 정의 띠 */
+	.case-body :global(.case-statement) {
+		margin-block: 90px 0;
+		padding: 56px 16px;
+		background: var(--overlay);
+	}
+	.case-body :global(.case-statement .phase-label) {
+		color: rgba(255, 255, 255, 0.7);
+	}
+	.case-body :global(.statement-body p) {
+		max-width: 800px;
+		margin: 0;
+		color: #fff;
+		font-family: var(--font-head);
+		font-size: 26px;
+		font-weight: 700;
+		line-height: 1.4;
+	}
+
+	.case-body :global(.case-statement + .case-phase) {
+		margin-top: 0;
+	}
+
+	/* 폰 화면 장면 */
+	.case-body :global(.case-feature) {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 60px;
+		align-items: center;
+		margin-block: 70px;
+	}
+	/* 라벨만 있는 덩어리(주요 기능·최종 디자인·개선) 바로 뒤 장면은 붙여 둔다 */
+	.case-body :global(.case-block + .case-feature) {
+		margin-top: 40px;
+	}
+	.case-body :global(.case-feature .screens) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 36px;
+	}
+	.case-body :global(.case-feature .screen) {
+		margin: 0;
+		text-align: center;
+	}
+	.case-body :global(.case-feature .screen img),
+	.case-body :global(.case-feature .screen video) {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+	.case-body :global(.case-feature .screen.after) {
+		flex: 0 1 250px;
+	}
+	.case-body :global(.case-feature .screen.before) {
+		flex: 0 1 160px;
+	}
+	/* 글 왼쪽, 화면 오른쪽 */
+	.case-body :global(.case-feature.reverse .screens) {
+		order: 2;
+	}
+	/* 폰 옆에 겹쳐 띄우는 작은 카드 */
+	.case-body :global(.case-feature .screen.after) {
+		position: relative;
+	}
+	/* 녹화 영상에 기기 테두리가 이미 들어 있어서 바깥 흰 여백만 잘라낸다 */
+	.case-body :global(.case-feature video) {
+		clip-path: inset(0.3% 0.8% 0.6% 1.5% round 13% / 6.3%);
+	}
+	/* 기존 앱 캡처는 테두리가 없어서 그림자로 화면처럼 띄운다 */
+	.case-body :global(.case-feature .screen.before img) {
+		filter: drop-shadow(0 8px 20px rgba(32, 54, 86, 0.14));
+	}
+	.case-body :global(.screen-label) {
+		margin: 0 0 12px;
+		color: var(--text-subtle);
+		font-family: var(--font-head);
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+	.case-body :global(.screen-label.accent) {
+		color: var(--pink);
+		font-size: 17px;
+	}
+	.case-body :global(.screen-caption) {
+		margin-top: 12px;
+	}
+	.case-body :global(.case-feature .arrow) {
+		color: var(--pink);
+		font-size: 18px;
+	}
+	.case-body :global(.feature-kicker) {
+		margin: 0 0 8px;
+		color: var(--text-subtle);
+		font-family: var(--font-head);
+		font-size: 14px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+	}
+	.case-body :global(.feature-title) {
+		margin: 0 0 16px;
+		font-size: 26px;
+		line-height: 1.3;
+	}
+	.case-body :global(.feature-quote) {
+		margin: 0 0 16px;
+		color: var(--heading);
+		font-family: var(--font-head);
+		font-size: 22px;
+		font-weight: 700;
+		line-height: 1.4;
+	}
+	.case-body :global(.case-feature .text p:last-child) {
+		margin-bottom: 0;
+	}
+
+	/* 회고 */
+	.case-body :global(.case-takeaways) {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+		gap: 40px;
+		margin-block: 90px;
+	}
+	.case-body :global(.takeaway + .takeaway) {
+		margin-top: 28px;
+	}
+	.case-body :global(.takeaway h4) {
+		display: flex;
+		gap: 10px;
+		align-items: baseline;
+		margin: 0 0 8px;
+		font-size: 18px;
+	}
+	.case-body :global(.takeaway .num) {
+		background: var(--gradient);
+		background-size: 200% auto;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+	.case-body :global(.takeaway p) {
+		margin: 0;
+	}
+
+	@media (max-width: 991px) {
+		.case-body :global(.case-block.side),
+		.case-body :global(.case-feature),
+		.case-body :global(.case-takeaways) {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+		.case-body :global(.case-feature.reverse .screens) {
+			order: 0;
+		}
+		.case-body :global(.case-block.big .block-title),
+		.case-body :global(.phase-question) {
+			font-size: 28px;
+		}
+	}
+	@media (max-width: 767px) {
+		.case-body :global(.case-block) {
+			margin-block: 64px;
+		}
+		.case-body :global(.row-items) {
+			flex-wrap: wrap;
+		}
+		.case-body :global(.row-items > .media-item) {
+			flex: 1 1 40%;
+		}
+		.case-body :global(.case-columns) {
+			grid-template-columns: 1fr;
+		}
+		.case-body :global(.grid-items) {
+			grid-template-columns: 1fr !important;
+		}
+		.case-body :global(.case-stages) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.case-body :global(.case-stages > li::before) {
+			display: none;
+		}
+		.case-body :global(.case-feature .screens) {
+			gap: 16px;
+		}
+		.case-body :global(.phase-question) {
+			font-size: 24px;
+		}
+		.case-body :global(.statement-body p) {
+			font-size: 20px;
+		}
+	}
+</style>
+
+<script>
+	import '../scripts/motion';
+
+	// 목차: 지금 화면 위쪽에 있는 덩어리를 켠다
+	const toc = document.querySelector<HTMLElement>('[data-toc-nav]');
+	if (toc) {
+		const list = toc.querySelector('ul')!;
+		const links = [...toc.querySelectorAll<HTMLAnchorElement>('a')];
+		const targets = links
+			.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1))))
+			.filter((el): el is HTMLElement => !!el);
+		const update = () => {
+			const line = toc.getBoundingClientRect().bottom + 40;
+			let current = -1;
+			targets.forEach((el, i) => {
+				if (el.getBoundingClientRect().top <= line) current = i;
+			});
+			links.forEach((a, i) => {
+				const on = i === current;
+				if (on && a.getAttribute('aria-current') !== 'true') {
+					list.scrollTo({ left: a.offsetLeft - 16, behavior: 'smooth' });
+				}
+				a.setAttribute('aria-current', String(on));
+			});
+		};
+		addEventListener('scroll', update, { passive: true });
+		update();
+	}
+</script>

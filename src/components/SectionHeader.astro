@@ -1,0 +1,44 @@
+---
+// 홈 섹션 제목: 왼쪽에 제목 + 물결, 오른쪽에 "전체 보기" 링크 (Katen section-header)
+interface Props {
+	title: string;
+	id: string;
+	more?: { href: string; label: string };
+}
+const { title, id, more } = Astro.props;
+---
+
+<header class="section-header">
+	<div>
+		<h2 id={id}>{title}</h2>
+		<svg class="wave" width="33" height="6" viewBox="0 0 33 6" fill="none" aria-hidden="true"><path d="M1 3c2.7-2.7 5.3-2.7 8 0s5.3 2.7 8 0 5.3-2.7 8 0 5.3 2.7 7 0" stroke={`url(#wave-${id})`} stroke-width="2" stroke-linecap="round"></path><defs><linearGradient id={`wave-${id}`} x1="0" x2="33" y1="0" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fe4f70"></stop><stop offset="1" stop-color="#ffa387"></stop></linearGradient></defs></svg>
+	</div>
+	{more && <a class="more" href={more.href}>{more.label} →</a>}
+</header>
+
+<style>
+	.section-header {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 30px;
+	}
+	h2 {
+		margin: 0;
+		font-size: 24px;
+	}
+	.wave {
+		display: block;
+		margin-top: 10px;
+	}
+	.more {
+		color: var(--text-subtle);
+		font-family: var(--font-head);
+		font-size: 14px;
+		white-space: nowrap;
+	}
+	.more:hover {
+		color: var(--pink);
+	}
+</style>

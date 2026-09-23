@@ -1,0 +1,197 @@
+---
+title: WebMD 증상 체커, 믿고 쓸 수 있게
+description: WebMD 증상 체커는 증상을 입력하면 의심되는 질환을 알려줍니다. 하지만 사용자는 너무 많은 정보와 상관없는 결과 앞에서 자주 막힙니다. 이 프로젝트는 정보를 더 명확하고 관련 있게 만들고 결정을 돕는 방식으로, 사용자가 결과를 믿을 수 있게 하는 것을 목표로 했습니다.
+kicker: 앱 리디자인
+cover: ../../../assets/work/webmd/cover.png
+projectType: 팀 프로젝트 (기여도 70%)
+duration: 7주
+role: UX/UI 디자인, 사용자 리서치, 프로토타이핑, 사용성 테스트
+tools: [Figma, FigJam]
+order: 1
+featured: true
+---
+
+<Block kicker="배경" title="건강 정보를 검색하는 일은 왜 이렇게 불안할까요?" sub="가벼운 두통 하나가 괜한 불안으로 번질 수 있을까?" layout="side" big>
+몸이 안 좋으면 사람들은 병원에 가기 전에 먼저 인터넷을 찾아봅니다. 그런데 정보가 불분명하거나 너무 많으면 WebMD 같은 도구가 오히려 불안을 키웁니다. 이 프로젝트는 정보 구조와 인터랙션 흐름을 개선해, 사용자가 건강에 관한 결정을 더 자신 있게 내리도록 돕는 데 집중했습니다.
+
+<Figure slot="media" src="webmd/meme.png" caption="WebMD 하면 떠오르는 대표적인 밈" width={388} />
+</Block>
+
+<Block kicker="주요 기능" />
+
+<Feature before="webmd/main-feature-before-symptom.png" after="webmd/main-feature-symptom" beforeLabel="As is" afterLabel="To be" caption="증상 입력" title="더 구체적인 증상 질문">
+기존 흐름은 짧고 일반적인 질문 다섯 개만 물어서, 결과가 부정확하고 믿기 어렵게 느껴졌습니다. 상황에 맞춘 구체적인 질문으로 다시 설계해 결과의 정확도와 사용자의 신뢰를 높였습니다.
+</Feature>
+
+<Feature before="webmd/main-feature-before-results.png" after="webmd/main-feature-results" beforeLabel="As is" afterLabel="To be" caption="의심 질환" title="응답 데이터에 근거한 결과">
+기존 결과는 관련 없는 질환을 위에 보여주는 경우가 많아 신뢰를 떨어뜨렸습니다. 사용자의 응답 데이터를 바탕으로 결과 로직을 다시 짜서 관련성과 명확성을 높였습니다. 이제 사용자는 더 믿을 만하고 이해하기 쉬운 결과를 받습니다.
+</Feature>
+
+<Feature before="webmd/main-feature-before-details.png" after="webmd/main-feature-details" beforeLabel="As is" afterLabel="To be" caption="질환 상세" title="의학 정보를 간결하게">
+사용자는 800자가 넘는 빽빽한 글을 훑어야 해서 핵심 정보를 찾기 어려웠습니다. 섹션당 180자 정도의 간결한 아코디언으로 레이아웃을 바꿔, 훑어보고 이해하기 쉽게 만들었습니다.
+</Feature>
+
+<Phase id="discover" label="Discover">WebMD 증상 체커는 건강 정보를 많이 줍니다. 그런데 사용자는 그 정보를 제대로 쓸 수 있을까요?</Phase>
+
+<Block kicker="2차 리서치" title="WebMD가 자신 있는 결정을 돕지 못하는 이유: 정보는 너무 많고, 증상 질문은 너무 적다">
+사용자가 왜 WebMD로 결정을 내리기 어려워하는지 알아보려고, WebMD와 관련된 디지털 헬스 의사결정 행동 논문 23편을 검토했습니다. 질문은 적은데 정보는 많으면 정확도가 떨어지고 결정이 어려워진다는 가설을 세웠습니다.
+
+<Row slot="media" items={[{ src: 'webmd/composite-academic-research.png', caption: '학술 리서치' }, { src: 'webmd/secondary-research-insight.png', caption: '2차 리서치 인사이트' }]} />
+</Block>
+
+<Block kicker="앱 리뷰 분석" title="반복되는 혼란, 결과에 대한 낮은 신뢰" layout="side">
+사용자 리뷰로 어피니티 매핑을 해보니, 결과 정확도에 대한 불만과 주어진 정보로 무엇을 해야 할지 모르겠다는 어려움이 반복해서 나타났습니다.
+
+<Figure slot="media" src="webmd/app-review.png" width={330} />
+</Block>
+
+<Block kicker="설문" title="불분명한 건강 정보가 만드는 신뢰 문제" layout="side">
+WebMD 증상 체커를 쓸 때의 주요 불편을 알아보려고 9명에게 설문을 했습니다. 절반 넘는 응답자가 부정확하고 과한 정보 때문에 정작 필요한 걸 찾기 어려웠다고 답했습니다.
+
+<Figure slot="media" src="webmd/composite-survey.png" caption="설문 결과" width={333} />
+</Block>
+
+<Block kicker="1:1 심층 인터뷰" title="확신이 없으면 행동하지 못한다">
+증상 체커 결과에 대한 낮은 신뢰가 행동에 어떤 영향을 주는지 알아보려고 3명과 반구조화 인터뷰를 했습니다. 사용자는 결과를 받고 나서도 그 결과를 의심했고, 잘못된 결정을 할까 봐 두려워했습니다. 확신이 없다는 것이 행동을 가로막는 핵심 장벽이었습니다.
+
+<div slot="media">
+<Row items={[{ src: 'webmd/composite-interview-participants.png', caption: '참여자 인터뷰' }, { src: 'webmd/composite-interview-protocol.png', caption: '인터뷰 질문지' }]} />
+<Row items={[{ src: 'webmd/composite-interview-responses.png', caption: '인터뷰 응답' }, { src: 'webmd/composite-affinity-mapping.png', caption: '어피니티 매핑' }]} />
+</div>
+</Block>
+
+<Phase id="define" label="Define">사용자는 건강 정보를 믿지 못하고, 그래서 행동으로 옮기지 못합니다</Phase>
+
+<Block kicker="공감 지도" title="사용자의 감정, 니즈, 행동 이해하기">
+WebMD 증상 체커를 쓰는 경험을 더 잘 이해하려고 공감 지도를 만들었습니다. 이를 통해 핵심 감정(압도됨, 혼란), 핵심 니즈(더 명확한 정보, 믿을 수 있는 결과), 건강 정보를 찾아볼 때의 행동 패턴을 정리했습니다.
+
+<Figure slot="media" src="webmd/empathy-map.png" caption="공감 지도" />
+</Block>
+
+<Block kicker="페르소나와 사용자 여정 지도" title="타깃 사용자와 경험의 빈틈 정의하기">
+페르소나를 두 명 정의했습니다. 한 명은 다수의 WebMD 사용자를 대표하는 핵심 사용자이고, 다른 한 명은 불분명한 정보의 영향을 가장 크게 받는 극단적 사용자입니다.
+
+<Columns slot="media">
+<div>
+
+첫 번째 페르소나는 일반적인 WebMD 사용자입니다. 건강보험이 없는 학생으로, 안심하려고 증상 체커에 기대지만 불분명한 결과를 믿지 못해 자신 있게 행동하지 못합니다.
+
+<Figure src="webmd/persona-journey-1.png" caption="페르소나 & 사용자 여정 지도 1" width={490} />
+</div>
+<div>
+
+두 번째 페르소나는 극단적인 사례입니다. ADHD가 있는 숙련 사용자로, 글이 많은 WebMD의 정보에 크게 영향을 받아 쉽게 압도되고 결정을 내리기 어려워합니다.
+
+<Figure src="webmd/persona-journey-2.png" caption="페르소나 & 사용자 여정 지도 2" width={490} />
+</div>
+</Columns>
+</Block>
+
+<Statement label="문제 정의">
+증상 체커가 단순한 질문에만 의존해 불분명하고 지나치게 넓은 정보를 내놓기 때문에, 사용자는 건강에 관한 결정을 자신 있게 내리지 못한다.
+</Statement>
+
+<Phase id="develop" label="Develop">어떻게 하면 사용자가 증상 체커 결과를 믿고 행동으로 옮기게 할 수 있을까요?</Phase>
+
+<Block kicker="브레인스토밍" title="정보 과부하를 줄이고 자신 있는 결정을 돕는 방향 찾기">
+명확성을 높이고 사용자의 확신을 돕는 아이디어를 30개 넘게 냈습니다. 핵심 방향은 단순화, 신뢰 쌓기, 개인화, 흐름의 연속성이었습니다.
+
+<Row slot="media" items={[{ src: 'webmd/brainstorming', caption: '브레인스토밍 과정' }, { src: 'webmd/brainstorming-map.png', caption: '브레인스토밍 맵' }]} />
+</Block>
+
+<Block kicker="2×2 우선순위 매트릭스" title="신뢰 회복을 위해 정확도를 먼저: MVP 정하기" layout="side">
+사용자의 신뢰와 확신을 얼마나 효과적으로 되찾을 수 있는지를 기준으로 기능의 우선순위를 정했습니다. 정확도를 높이는 것이 사용자가 행동할 만큼 확신을 갖게 하는 가장 빠른 길이었기 때문에 정확도에 가장 집중했습니다.
+
+<Figure slot="media" src="webmd/prioritization-matrix.png" caption="우선순위 매트릭스" width={438} />
+</Block>
+
+<Block kicker="스토리보드" title="혼란 대신 안심을 느끼면 무엇이 달라질까?">
+더 명확하고 든든한 증상 체커 경험이 사용자가 증상을 이해하고, 결과를 믿고, 더 자신 있게 건강에 관한 결정을 내리도록 어떻게 돕는지 스토리보드로 그렸습니다.
+
+<Row slot="media" items={['webmd/storyboard-1.jpg', 'webmd/storyboard-2.jpg', 'webmd/storyboard-3.jpg', 'webmd/storyboard-4.jpg', 'webmd/storyboard-5.jpg']} caption="스토리보드" />
+</Block>
+
+<Block kicker="유저 플로우" title="압도하지 말고, 더 나은 결정을 돕기" layout="side">
+다시 설계한 증상 체커가 사용자를 한 단계씩 안내해, 불안하거나 헷갈리지 않고 증상을 정리하고 결과를 쉽게 이해하며 더 자신 있게 결정하도록 돕는 흐름입니다.
+
+<Figure slot="media" src="webmd/user-flow.png" caption="유저 플로우" width={406} />
+</Block>
+
+<Block kicker="스케치" title="빠른 스케치로 아이디어 나누기">
+리서치 후 빠른 스케치로 핵심 아이디어를 탐색하고 기능 방향을 맞췄습니다. 덕분에 초기에 콘셉트를 분명히 하고 팀 안에서 효율적으로 소통할 수 있었습니다.
+
+<Row slot="media" items={[{ src: 'webmd/sketching', caption: '스케치 과정' }, { src: 'webmd/crazy-eight.png', caption: '크레이지 8' }]} />
+</Block>
+
+<Phase id="deliver" label="Deliver">사용자는 더 자신 있게 건강에 관한 결정을 내릴 수 있을까요?</Phase>
+
+<Block kicker="와이어프레임" title="명확성과 결정 지원에 집중">
+구조만으로도 혼란을 줄이고 더 명확한 결정을 도울 수 있는지 확인하려고 로우파이 와이어프레임을 만들었습니다.
+
+<div slot="media">
+<Figure square src="webmd/wireframe-1.png" caption="와이어프레임 1–4" />
+<Figure square src="webmd/wireframe-2.png" caption="와이어프레임 5–8" />
+</div>
+</Block>
+
+<Block kicker="디자인 시스템" title="신뢰를 더하는 비주얼 시스템">
+정보 과부하를 막는 명확한 위계, 부담을 덜어주는 차분한 타이포그래피와 여백, 경험을 예측 가능하고 믿을 만하게 만드는 일관된 컴포넌트에 초점을 맞춰 디자인 시스템을 정의했습니다.
+
+<Row slot="media" items={[{ src: 'webmd/typography.png', caption: '타이포그래피' }, { src: 'webmd/colors.png', caption: '컬러' }, { src: 'webmd/components.png', caption: '컴포넌트' }]} />
+</Block>
+
+<Block id="final-designs" toc="최종 디자인" kicker="최종 디자인" title="해결책: 건강에 관한 결정에 신뢰와 명확함을" big />
+
+<Feature after="webmd/final-design-1" caption="증상 입력" kicker="최종 디자인 1/4" title="단계별 질문">
+상황에 맞춘 질문으로 사용자를 한 단계씩 안내합니다. 증상이 지속된 기간, 통증의 종류와 정도 같은 세부 정보를 입력하고, 놓치기 쉬운 동반 증상도 고를 수 있습니다.
+</Feature>
+
+<Feature after="webmd/final-design-2" caption="의심 질환" kicker="최종 디자인 2/4" title="우선순위가 보이는 결과">
+사용자의 응답을 바탕으로 결과를 시각화해 의심 질환을 빠르게 파악하게 합니다. 심각도로 걸러 보고, 일치도·빈도·희귀도 순으로 정렬할 수 있습니다.
+</Feature>
+
+<Feature after="webmd/final-design-3" caption="질환 상세" kicker="최종 디자인 3/4" title="훑어보기 쉬운 의학 정보">
+의학 정보를 명확한 아코디언 섹션으로 정리해 훑어보기 쉽게 했습니다. 원하는 섹션만 골라 보고, 질환 상세 화면에서 바로 증상을 기록할 수 있습니다.
+</Feature>
+
+<Feature after="webmd/final-design-4" caption="시각 자료" kicker="최종 디자인 4/4" title="이미지로 이해 돕기">
+의학 용어를 이해하기 쉽게 시각 자료를 제공하되, 민감한 이미지를 볼지 말지는 사용자가 정할 수 있게 했습니다.
+</Feature>
+
+<Block id="usability-test" toc="사용성 테스트" kicker="사용성 테스트" title="실제로 쓸 때 명확하고 자신 있게 느껴지는가">
+참여자 8명과 핵심 과제 5개로 사용성 테스트를 진행해, 사용자가 실제 상황에서 새 경험을 어떻게 쓰는지 관찰했습니다. 평균 SUS 점수는 84.38점이었습니다.
+
+<div slot="media">
+<Row items={[{ src: 'webmd/usability-test', caption: '사용성 테스트' }, { src: 'webmd/usability-session.png', caption: '참여자 A와의 사용성 테스트' }]} />
+
+점수가 높은 참여자는 새 흐름이 결과를 믿고 다음 행동을 정할 만큼 충분히 명확하다고 느꼈습니다. 반면 점수가 낮은 경우는 대개 안내 문구를 알아채기 어려운 순간에서 나왔습니다. 시각적 단서를 더 분명히 하면 망설임을 줄이고 확신을 높일 수 있다는 뜻입니다.
+
+<Figure src="webmd/sus-score.png" caption="SUS 점수" />
+</div>
+</Block>
+
+<Block kicker="개선" title="더 명확하고 자신 있게, 반복 개선">
+사용성 테스트에서 안내가 불분명하거나 정보의 우선순위가 맞지 않아 사용자가 망설이는 순간을 찾았습니다. 핵심 메시지를 더 눈에 띄게 하고, 사용자의 기대에 맞게 콘텐츠 순서를 바꿔 화면을 다듬었습니다.
+</Block>
+
+<Feature before="webmd/iteration-initial-1.png" after="webmd/iteration-refined-1.png" beforeLabel="개선 전" afterLabel="개선 후" caption="인라인 유효성 피드백" kicker="증상 선택 안내" quote="증상을 두 개 이상 골라야 한다는 문구를 못 봤어요." arrow>
+사용자는 최소 선택 개수 안내를 자주 놓쳐 망설였습니다. 색과 테두리로 강조해, 필요한 순간에 안내가 눈에 들어오게 했습니다.
+</Feature>
+
+<Feature before="webmd/iteration-initial-2.png" after="webmd/iteration-refined-2.png" beforeLabel="개선 전" afterLabel="개선 후" caption="질환 상세" kicker="의학 정보 우선순위" quote="이미지보다 어떻게 치료하는지가 더 궁금해요." arrow>
+사용자는 무엇보다 바로 행동할 수 있는 정보를 찾고 있었습니다. 이 피드백을 바탕으로 치료 관련 내용을 위로 올려, 가장 궁금한 정보를 빠르게 찾을 수 있게 했습니다.
+</Feature>
+
+<Takeaways kicker="회고" title="이번 프로젝트에서 집중한 것">
+<Takeaway n="01" title="정보 구조가 건강에 관한 결정을 바꾼다">
+의학 정보를 어떻게 구성하느냐가 사용자의 이해와 신뢰, 행동할 수 있는 능력에 직접 영향을 준다는 것을 깨달았습니다. 명확한 위계, 점진적 공개, 훑어보기 쉬운 콘텐츠는 보기 좋으라고 하는 선택이 아니라, 실제 건강 행동을 좌우하는 중요한 디자인 결정입니다.
+</Takeaway>
+
+<Takeaway n="02" title="정확도만이 아니라 신뢰를 디자인하기">
+헬스케어에서는 사용자가 느끼는 신뢰가 기술적 정확도만큼 중요합니다. 판단의 근거를 보여주고, 우선순위를 분명히 하고, 결과를 이해할 수 있게 만들어 사용자가 과정 자체를 믿을 수 있는 경험을 설계하는 법을 배웠습니다.
+</Takeaway>
+
+<Takeaway n="03" title="프라이버시는 UX의 기본 원칙">
+헬스케어에서 프라이버시는 기능이 아니라 토대라는 것을 깨달았습니다. 민감한 콘텐츠를 선택해서 보게 하고 노출 여부를 사용자가 정하게 하면서, UX가 이해를 도우면서도 사용자의 존엄을 지킬 수 있다는 것을 배웠습니다.
+</Takeaway>
+</Takeaways>

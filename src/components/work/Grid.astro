@@ -1,0 +1,47 @@
+---
+// 같은 폭 칸에 그림·영상을 나눠 싣는다 (Row 와 달리 높이를 맞추지 않고 위쪽을 맞춘다).
+//   - 항목 위에 라벨(label)과 설명 한 줄(note), 아래에 캡션(caption)
+//   - template 으로 칸 폭을 따로 줄 수 있다 (예: '1.4fr 1fr 0.6fr')
+//   - panel 이면 연회색 판 위에 올린다 (인터뷰 자료 묶음처럼)
+// Before/After, 그리드 시스템, 반응형 화면, 디자인 시스템 패널 등에 쓴다.
+import MediaItem from './MediaItem.astro';
+
+interface Item {
+	src: string;
+	label?: string;
+	note?: string;
+	caption?: string;
+	/** 라벨을 강조색으로 (After 처럼) */
+	accent?: boolean;
+}
+
+interface Props {
+	items: Item[];
+	cols?: number;
+	template?: string;
+	panel?: boolean;
+	caption?: string;
+}
+
+const { items, cols = 2, template, panel = false, caption } = Astro.props;
+const columns = template ?? `repeat(${cols}, minmax(0, 1fr))`;
+// 칸마다 실제 폭 (template 이면 fr 비율대로)
+const fr = template ? template.split(' ').map((t) => parseFloat(t) || 1) : Array(cols).fill(1);
+const total = fr.reduce((a, b) => a + b, 0);
+const widthAt = (i: number) => Math.round((1000 * fr[i % fr.length]) / total);
+---
+
+<figure class:list={['case-grid', { panel }]}>
+	<div class="grid-items" style={`grid-template-columns: ${columns}`}>
+		{
+			items.map((it, i) => (
+				<div class="grid-item">
+					{it.label && <p class:list={['grid-label', { accent: it.accent }]}>{it.label}</p>}
+					{it.note && <p class="grid-note">{it.note}</p>}
+					<MediaItem src={it.src} caption={it.caption} width={widthAt(i)} />
+				</div>
+			))
+		}
+	</div>
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
