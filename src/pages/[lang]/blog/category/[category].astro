@@ -1,0 +1,38 @@
+---
+import { categories, type Category } from '../../../../categories';
+import BlogHeader from '../../../../components/BlogHeader.astro';
+import PostGrid from '../../../../components/PostGrid.astro';
+import { categoryLabels, getPosts, languages, ui, type Lang } from '../../../../i18n/ui';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+	return (Object.keys(languages) as Lang[]).flatMap((lang) =>
+		categories.map((category) => ({ params: { lang, category } })),
+	);
+}
+
+const { lang, category } = Astro.params as { lang: Lang; category: Category };
+const t = ui[lang];
+const label = categoryLabels[lang][category];
+const posts = (await getPosts(lang)).filter((p) => p.data.category === category);
+---
+
+<BaseLayout title={`${label} | ${t.navBlog} | ${t.siteTitle}`} description={t.blogIntro} lang={lang}>
+	<BlogHeader lang={lang} title={label} current={category} />
+	<section class="container main-content">
+		<p class="count">{posts.length} {t.posts}</p>
+		<PostGrid lang={lang} posts={posts} />
+	</section>
+</BaseLayout>
+
+<style>
+	.main-content {
+		margin-top: 40px;
+	}
+	.count {
+		margin: 0 0 20px;
+		color: var(--text-subtle);
+		font-family: var(--font-head);
+		font-size: 14px;
+	}
+</style>

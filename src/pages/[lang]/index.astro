@@ -1,6 +1,12 @@
 ---
-import HomeFeed from '../../components/HomeFeed.astro';
-import { getPosts, languages, ui, type Lang } from '../../i18n/ui';
+// 홈: 고른 작업(Selected Work)이 먼저, 그 아래 최근 블로그 글, 맨 아래 페이지 없는 작업(PDF·준비 중) 줄 목록
+//   - 작업은 frontmatter 에 featured: true 인 것만, order 순. 첫 칸은 가로로 크게
+//   - 글은 최신 3개
+import MoreWork from '../../components/MoreWork.astro';
+import PostGrid from '../../components/PostGrid.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { blogUrl, getPosts, getWork, hasPage, languages, ui, type Lang } from '../../i18n/ui';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export function getStaticPaths() {
@@ -9,9 +15,70 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: Lang };
 const t = ui[lang];
-const posts = await getPosts(lang);
+const work = await getWork(lang);
+const featured = work.filter((w) => w.data.featured && hasPage(w));
+const more = work.filter((w) => !hasPage(w));
+const recent = (await getPosts(lang)).slice(0, 3);
 ---
 
 <BaseLayout title={t.siteTitle} description={t.siteDescription} lang={lang} header="personal">
-	<HomeFeed lang={lang} posts={posts} page={1} />
+	<section class="container home-section" aria-labelledby="selected-work">
+		<SectionHeader id="selected-work" title={t.selectedWork} more={{ href: `/${lang}/work/`, label: t.allWork }} />
+		<ul class="work-list">
+			{
+				featured.map((w, i) => (
+					<li class:list={{ first: i === 0 }}>
+						<WorkCard lang={lang} work={w} wide={i === 0} as="h3" />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	{
+		recent.length > 0 && (
+			<section class="container home-section" aria-labelledby="recent-posts">
+				<SectionHeader id="recent-posts" title={t.recentPosts} more={{ href: blogUrl(lang), label: t.allPosts }} />
+				<PostGrid lang={lang} posts={recent} />
+			</section>
+		)
+	}
+
+	{
+		more.length > 0 && (
+			<section class="container home-section" aria-labelledby="more-work">
+				<SectionHeader id="more-work" title={t.moreWork} />
+				<MoreWork lang={lang} work={more} />
+			</section>
+		)
+	}
 </BaseLayout>
+
+<style>
+	.home-section {
+		margin-top: 60px;
+	}
+	.home-section + .home-section {
+		margin-top: 90px;
+	}
+	.work-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 30px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.work-list .first {
+		grid-column: 1 / -1;
+	}
+	@media (max-width: 767px) {
+		.work-list {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>
+
+<script>
+	import '../../scripts/motion';
+</script>

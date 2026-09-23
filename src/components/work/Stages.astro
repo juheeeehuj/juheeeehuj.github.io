@@ -1,0 +1,23 @@
+---
+// 단계 흐름도: 단계 이름 칸이 화살표로 이어지고, 아래에 단계별 항목.
+// 그림이 아니라 글이라서 한/영 번역이 된다.
+interface Props {
+	stages: { title: string; points: string[] }[];
+}
+const { stages } = Astro.props;
+---
+
+<ol class="case-stages" style={`--n: ${stages.length}`}>
+	{
+		stages.map((s) => (
+			<li>
+				<p class="stage-title">{s.title}</p>
+				<ul>
+					{s.points.map((p) => (
+						<li>{p}</li>
+					))}
+				</ul>
+			</li>
+		))
+	}
+</ol>

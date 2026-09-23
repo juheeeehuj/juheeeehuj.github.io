@@ -1,0 +1,53 @@
+---
+// 그림 또는 영상 하나 + 캡션. Figure·Row 가 같이 쓴다.
+// 그림은 누르면 크게 보기(Lightbox)로 열리고(글씨가 많은 그림이라 화질 90), 영상은 소리 없이 반복하며 화면에 보일 때만 재생한다.
+import { Image } from 'astro:assets';
+import { ui, type Lang } from '../../i18n/ui';
+import { workMedia } from './media';
+
+interface Props {
+	src: string;
+	caption?: string;
+	/** 화면에서 차지하는 대략의 최대 폭(px). 이미지 해상도를 고르는 데 쓴다 */
+	width: number;
+}
+
+const { src, caption, width } = Astro.props;
+const media = await workMedia(src);
+const lang = (Astro.url.pathname.split('/')[1] || 'en') as Lang;
+// 1배·2배(레티나) 크기. 원본이 2배보다 작으면 원본 크기를 2배 대신 쓴다
+const widths = [...new Set([width, width * 2].map((w) => Math.min(w, media.width)))];
+---
+
+<figure class="media-item" style={`--ratio: ${media.width / media.height}`}>
+	{
+		media.kind === 'image' ? (
+			<a class="zoom" href={media.img.src} target="_blank" rel="noopener" title={ui[lang].viewLarger}>
+				<Image
+					src={media.img}
+					widths={widths}
+					sizes={`(max-width: 767px) 100vw, ${width}px`}
+					quality={90}
+					alt={caption ?? ''}
+				/>
+			</a>
+		) : (
+			<video
+				data-autoplay
+				src={media.video.src}
+				poster={media.video.poster}
+				width={media.video.width}
+				height={media.video.height}
+				muted
+				loop
+				playsinline
+				preload="none"
+			/>
+		)
+	}
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<script>
+	import './autoplay';
+</script>

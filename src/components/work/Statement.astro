@@ -1,0 +1,14 @@
+---
+// 문제 정의처럼 한 문장을 강조하는 전체 폭 띠
+interface Props {
+	label: string;
+}
+const { label } = Astro.props;
+---
+
+<aside class="case-statement bleed">
+	<div class="statement-inner">
+		<p class="phase-label">{label}</p>
+		<div class="statement-body"><slot /></div>
+	</div>
+</aside>

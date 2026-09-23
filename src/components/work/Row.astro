@@ -1,0 +1,28 @@
+---
+// 그림·영상 여러 개를 한 줄에. 높이가 같아지도록 각자의 비율만큼 폭을 나눠 갖는다.
+// 캡션은 항목마다(items[].caption) 또는 줄 전체에 하나(caption).
+import { workMedia } from './media';
+import MediaItem from './MediaItem.astro';
+
+interface Props {
+	items: (string | { src: string; caption?: string })[];
+	caption?: string;
+}
+
+const { caption } = Astro.props;
+const items = Astro.props.items.map((it) => (typeof it === 'string' ? { src: it } : it));
+const ratios = await Promise.all(
+	items.map(async (it) => {
+		const m = await workMedia(it.src);
+		return m.width / m.height;
+	}),
+);
+const total = ratios.reduce((a, b) => a + b, 0);
+---
+
+<figure class="case-row">
+	<div class="row-items">
+		{items.map((it, i) => <MediaItem src={it.src} caption={it.caption} width={Math.round((1000 * ratios[i]) / total)} />)}
+	</div>
+	{caption && <figcaption>{caption}</figcaption>}
+</figure>

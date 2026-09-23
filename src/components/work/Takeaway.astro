@@ -1,0 +1,13 @@
+---
+// 회고 한 항목: 번호 + 제목 한 줄, 아래 설명. Takeaways 안에 넣는다.
+interface Props {
+	n: string;
+	title: string;
+}
+const { n, title } = Astro.props;
+---
+
+<div class="takeaway">
+	<h4><span class="num">{n}</span>{title}</h4>
+	<slot />
+</div>

@@ -1,0 +1,18 @@
+---
+// 단계 띠 (Discover·Define·Develop·Deliver): 화면 폭 전체를 쓰는 띠에 라벨 + 큰 질문 한 줄
+interface Props {
+	id: string;
+	label: string;
+	/** 목차에 쓸 짧은 이름 (생략하면 label) */
+	toc?: string;
+}
+
+const { id, label, toc = label } = Astro.props;
+---
+
+<section class="case-phase bleed" id={id} data-toc={`${id}|${toc}`}>
+	<div class="phase-inner">
+		<p class="phase-label">{label}</p>
+		<p class="phase-question"><slot /></p>
+	</div>
+</section>

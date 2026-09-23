@@ -1,7 +1,8 @@
 ---
-// 홈(1페이지)과 /page/N/ 이 같이 쓰는 본문: 슬라이드(1페이지만) + 글 카드 + 페이지 번호
+// 블로그(1페이지)와 /blog/page/N/ 이 같이 쓰는 본문: 머리 띠 + 슬라이드(1페이지만) + 글 카드 + 페이지 번호
 import type { CollectionEntry } from 'astro:content';
-import { PAGE_SIZE, type Lang } from '../i18n/ui';
+import { PAGE_SIZE, ui, type Lang } from '../i18n/ui';
+import BlogHeader from './BlogHeader.astro';
 import FeaturedSlider from './FeaturedSlider.astro';
 import Pagination from './Pagination.astro';
 import PostGrid from './PostGrid.astro';
@@ -19,6 +20,8 @@ const pagePosts = posts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 const featured = posts.filter((p) => p.data.featured);
 const showSlider = page === 1 && featured.length >= 3;
 ---
+
+<BlogHeader lang={lang} title={ui[lang].navBlog} />
 
 {showSlider && <FeaturedSlider lang={lang} posts={featured} />}
 

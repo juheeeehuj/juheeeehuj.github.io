@@ -1,9 +1,9 @@
 ---
-import HomeFeed from '../../../components/HomeFeed.astro';
-import { getPosts, languages, otherLang, PAGE_SIZE, ui, type Lang } from '../../../i18n/ui';
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BlogFeed from '../../../../components/BlogFeed.astro';
+import { blogUrl, getPosts, languages, otherLang, PAGE_SIZE, pageUrl, ui, type Lang } from '../../../../i18n/ui';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
 
-// 2페이지부터. 1페이지는 /<lang>/ 이다.
+// 블로그 2페이지부터. 1페이지는 /<lang>/blog/ 이다.
 export async function getStaticPaths() {
 	const paths = [];
 	for (const lang of Object.keys(languages) as Lang[]) {
@@ -19,18 +19,17 @@ const posts = await getPosts(lang);
 const other = otherLang(lang);
 const otherTotal = Math.ceil((await getPosts(other)).length / PAGE_SIZE);
 const pageNum = Number(page);
-const self = `/${lang}/page/${page}/`;
-const otherUrl = pageNum <= otherTotal ? `/${other}/page/${page}/` : `/${other}/`;
+const self = pageUrl(lang, pageNum);
+const otherUrl = pageNum <= otherTotal ? pageUrl(other, pageNum) : blogUrl(other);
 const alternates = { [lang]: self, [other]: otherUrl } as Record<Lang, string>;
 ---
 
 <BaseLayout
-	title={`${t.siteTitle} · ${page}`}
-	description={t.siteDescription}
+	title={`${t.navBlog} · ${page} | ${t.siteTitle}`}
+	description={t.blogIntro}
 	lang={lang}
 	alternates={alternates}
 	hreflang={pageNum <= otherTotal ? alternates : { [lang]: self }}
-	header="personal"
 >
-	<HomeFeed lang={lang} posts={posts} page={pageNum} />
+	<BlogFeed lang={lang} posts={posts} page={pageNum} />
 </BaseLayout>

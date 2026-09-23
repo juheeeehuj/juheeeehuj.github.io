@@ -1,0 +1,197 @@
+---
+title: Enhancing Trust in WebMD’s Symptom Checker
+description: WebMD’s Symptom Checker provides users with possible conditions based on their symptoms. However, users often face information overwhelming and irrelevant results. This project aims to enhance users' trust in the experience by improving clarity, relevance, and decision support.
+kicker: App Redesign
+cover: ../../../assets/work/webmd/cover.png
+projectType: Team Project (70%)
+duration: 7 Weeks
+role: UX/UI Design, User Research, Prototyping, Usability Test
+tools: [Figma, FigJam]
+order: 1
+featured: true
+---
+
+<Block kicker="Background" title="Why Is Searching for Health Information So Stressful?" sub="Can a Mild Symptom Like a Headache Trigger Unnecessary Anxiety?" layout="side" big>
+When people feel unwell, they often search online before seeing a doctor, and tools like WebMD can increase anxiety when information feels unclear or overwhelming. This project focuses on improving information structure and interaction flow to help users feel more confident when making health decisions.
+
+<Figure slot="media" src="webmd/meme.png" caption="One of the Most Iconic WebMD Memes" width={388} />
+</Block>
+
+<Block kicker="Main Features" />
+
+<Feature before="webmd/main-feature-before-symptom.png" after="webmd/main-feature-symptom" beforeLabel="As is" afterLabel="To be" caption="Symptom Input" title="More Specific Symptom Questions">
+The current flow asked only five short, general questions, making results feel inaccurate and untrustworthy. I redesigned it with targeted, context-aware questions — leading to more accurate results and stronger user trust.
+</Feature>
+
+<Feature before="webmd/main-feature-before-results.png" after="webmd/main-feature-results" beforeLabel="As is" afterLabel="To be" caption="Possible Conditions" title="Data-Informed Results">
+Current results often prioritized unrelated conditions, which reduced user trust. I redesigned the logic using user response data to improve relevance and clarity. Now, users get results that are easier to trust and understand.
+</Feature>
+
+<Feature before="webmd/main-feature-before-details.png" after="webmd/main-feature-details" beforeLabel="As is" afterLabel="To be" caption="Condition Details" title="Simplifying Medical Information">
+Users had to scan through 800+ characters of dense text, making it hard to find key information. I redesigned the layout into concise accordions with 180 characters per section. Now, content is easier to scan and understand.
+</Feature>
+
+<Phase id="discover" label="Discover">WebMD’s Symptom Checker Provides a Lot of Health Information. But Are Users Able to Use It Effectively?</Phase>
+
+<Block kicker="Secondary Research" title="Why WebMD Fails to Support Confident Decisions: Too Much Information, Too Few Symptom Questions">
+We reviewed 23 academic papers on digital health decision-making behavior related to WebMD to understand why users struggle to make decisions with WebMD. We assumed that too much information with too few questions leads to lower accuracy and more difficult decision-making.
+
+<Row slot="media" items={[{ src: 'webmd/composite-academic-research.png', caption: 'Academic Research' }, { src: 'webmd/secondary-research-insight.png', caption: 'Insights from Secondary Research' }]} />
+</Block>
+
+<Block kicker="App Review Analysis" title="Recurring Confusion and Low Trust in Results" layout="side">
+We conducted affinity mapping on user reviews and identified recurring frustration with result accuracy, as well as difficulty determining what actions to take based on the information provided.
+
+<Figure slot="media" src="webmd/app-review.png" width={330} />
+</Block>
+
+<Block kicker="Survey" title="Trust Issues Caused by Unclear Health Information" layout="side">
+We surveyed 9 participants to understand key pain points when using WebMD’s Symptom Checker. More than half reported that inaccurate and overwhelming information made it difficult to find what they actually need.
+
+<Figure slot="media" src="webmd/composite-survey.png" caption="Survey Results" width={333} />
+</Block>
+
+<Block kicker="1:1 Depth Interview" title="Low Confidence Leads to Inaction">
+We conducted semi-structured interviews with 3 participants to understand how low trust in symptom checker results affects user behavior. Even after receiving results, users often doubted their reliability and feared making the wrong decision—making low confidence a key barrier to taking action.
+
+<div slot="media">
+<Row items={[{ src: 'webmd/composite-interview-participants.png', caption: 'Interview with Participants' }, { src: 'webmd/composite-interview-protocol.png', caption: 'Interview Protocol' }]} />
+<Row items={[{ src: 'webmd/composite-interview-responses.png', caption: 'Interview Responses' }, { src: 'webmd/composite-affinity-mapping.png', caption: 'Affinity Mapping' }]} />
+</div>
+</Block>
+
+<Phase id="define" label="Define">Users Struggle to Trust Health Information Which Prevents Them From Taking Action</Phase>
+
+<Block kicker="Empathy Map" title="Understanding Users’ Emotions, Needs, and Behaviors">
+We created empathy maps to better understand users’ experiences with WebMD’s Symptom Checker. This helped us identify key emotions (overwhelm, confusion), core needs (clearer information, trustworthy results), and behavioral patterns when navigating health information.
+
+<Figure slot="media" src="webmd/empathy-map.png" caption="Empathy Map" />
+</Block>
+
+<Block kicker="Persona and User Journey Map" title="Defining Target Users and Key Experience Gaps">
+We defined two personas: one representing the core WebMD user that reflects the majority of users, and the other representing an extreme user who experiences the strongest impact of unclear information.
+
+<Columns slot="media">
+<div>
+
+The first persona represents a common WebMD user—a student without health insurance who relies on symptom checkers for reassurance but struggles to trust unclear results and take confident action.
+
+<Figure src="webmd/persona-journey-1.png" caption="Persona & User Journey Map 1" width={490} />
+</div>
+<div>
+
+The second persona represents an extreme case—an experienced user with ADHD who is heavily impacted by WebMD’s text-heavy information, leading to overwhelm and difficulty making decisions.
+
+<Figure src="webmd/persona-journey-2.png" caption="Persona & User Journey Map 2" width={490} />
+</div>
+</Columns>
+</Block>
+
+<Statement label="Problem Statement">
+Users struggle to make confident health decisions. Because symptom checkers rely on simple questions, resulting in unclear and overly broad information.
+</Statement>
+
+<Phase id="develop" label="Develop">How Might We Help Users Feel Confident and Take Action Based on Symptom Checker Results?</Phase>
+
+<Block kicker="Brainstorming" title="Exploring Solution Directions to Reduce Overload and Support Confident Decisions">
+Through ideation, we generated 30+ ideas focused on improving clarity and supporting user confidence. Key directions included simplification, trust-building, personalization, and flow continuity.
+
+<Row slot="media" items={[{ src: 'webmd/brainstorming', caption: 'Brainstorming in Progress' }, { src: 'webmd/brainstorming-map.png', caption: 'Brainstorming Map' }]} />
+</Block>
+
+<Block kicker="2×2 Prioritization Matrix" title="Defining an MVP by Prioritizing Accuracy to Restore Trust" layout="side">
+I prioritized features based on how effectively they could restore user trust and confidence. Accuracy was the main focus, as improving accuracy was the fastest way to help users feel confident enough to take action.
+
+<Figure slot="media" src="webmd/prioritization-matrix.png" caption="Prioritization Matrix" width={438} />
+</Block>
+
+<Block kicker="Storyboard" title="What Changes When Users Feel Reassured Instead of Confused?">
+This storyboard illustrates how a clearer, more supportive symptom checker experience helps users better understand their symptoms, trust the results, and make more confident health decisions.
+
+<Row slot="media" items={['webmd/storyboard-1.jpg', 'webmd/storyboard-2.jpg', 'webmd/storyboard-3.jpg', 'webmd/storyboard-4.jpg', 'webmd/storyboard-5.jpg']} caption="Storyboard" />
+</Block>
+
+<Block kicker="User Flow" title="Don’t Overwhelm Users. Help Users Make Better Health Decisions" layout="side">
+This user flow shows how the redesigned symptom checker guides users step by step, helping them clarify symptoms, understand results more easily, and make more confident health decisions without feeling anxious or confused.
+
+<Figure slot="media" src="webmd/user-flow.png" caption="User Flow" width={406} />
+</Block>
+
+<Block kicker="Sketches" title="Sharing Ideas Through Rapid Sketching">
+After research, we used quick sketches to explore key ideas and align on feature direction. This helped us clarify concepts early and communicate efficiently within the team.
+
+<Row slot="media" items={[{ src: 'webmd/sketching', caption: 'Sketching' }, { src: 'webmd/crazy-eight.png', caption: 'Crazy 8s' }]} />
+</Block>
+
+<Phase id="deliver" label="Deliver">Can Users Make More Confident Health Decisions?</Phase>
+
+<Block kicker="Wireframe" title="Focusing on Clarity and Decision Support">
+I used low-fidelity wireframes to test whether the structure itself could reduce confusion and support clearer decision-making.
+
+<div slot="media">
+<Figure square src="webmd/wireframe-1.png" caption="Wireframe 1–4" />
+<Figure square src="webmd/wireframe-2.png" caption="Wireframe 5–8" />
+</div>
+</Block>
+
+<Block kicker="Design System" title="Designing a Visual System That Reinforces Trust">
+I defined a design system focused on clear hierarchy to prevent information overload, calm typography and spacing to reduce perceived pressure, and consistent components to make the experience feel predictable and trustworthy.
+
+<Row slot="media" items={[{ src: 'webmd/typography.png', caption: 'Typography' }, { src: 'webmd/colors.png', caption: 'Colors' }, { src: 'webmd/components.png', caption: 'Components' }]} />
+</Block>
+
+<Block id="final-designs" toc="Final Designs" kicker="Final Designs" title="The Solution: Trust and Clarity in Health Decisions" big />
+
+<Feature after="webmd/final-design-1" caption="Symptom Input" kicker="Final Design 1/4" title="Progressive Questions">
+Guides users through step-by-step, context-aware questions. Users can enter details such as symptom duration, pain type, and pain level, and select additional symptoms they might otherwise miss.
+</Feature>
+
+<Feature after="webmd/final-design-2" caption="Possible Conditions" kicker="Final Design 2/4" title="Prioritized Results">
+Visualizes results based on user responses to help users quickly understand possible conditions. Users can filter conditions by severity and sort results by top matches, frequency, or rarity.
+</Feature>
+
+<Feature after="webmd/final-design-3" caption="Condition Details" kicker="Final Design 3/4" title="Scannable Medical Content">
+Organizes medical information into clear, accordion sections for easier scanning. Users can choose which sections to view and track symptoms directly from the condition detail page.
+</Feature>
+
+<Feature after="webmd/final-design-4" caption="Visual Reference" kicker="Final Design 4/4" title="Visual Learning Support">
+Provides visual references to improve understanding of medical terms, while allowing users to control whether they view sensitive content.
+</Feature>
+
+<Block id="usability-test" toc="Usability Test" kicker="Usability Test" title="Evaluating Clarity and Confidence in Use">
+We conducted a usability test with 8 participants across 5 key tasks to observe how users interacted with the redesigned experience in real scenarios. The product achieved an average SUS score of 84.38.
+
+<div slot="media">
+<Row items={[{ src: 'webmd/usability-test', caption: 'Usability Testing' }, { src: 'webmd/usability-session.png', caption: 'Usability Test with Participant A' }]} />
+
+High-scoring participants felt the redesigned flow provided enough clarity to trust the results and decide what to do next. However, lower scores often came from moments when guidance was hard to notice. This suggests that clearer visual cues could reduce hesitation and help users feel more confident.
+
+<Figure src="webmd/sus-score.png" caption="SUS Score" />
+</div>
+</Block>
+
+<Block kicker="Iteration" title="Iterating for Better Clarity and Confidence">
+Based on usability testing, I identified moments where users hesitated due to unclear guidance and information priority. To address this, I refined the interface by making key messages more visible and reorganizing content to better match user expectations.
+</Block>
+
+<Feature before="webmd/iteration-initial-1.png" after="webmd/iteration-refined-1.png" beforeLabel="Initial Version" afterLabel="Refined Version" caption="Inline Validation Feedback" kicker="Symptom Selection Guidance" quote="I didn’t notice the message that says I need to select at least two symptoms." arrow>
+Users often missed the minimum symptom requirement, which caused hesitation. To improve visibility, I added visual emphasis using color and borders, making the guidance easier to notice at the right moment.
+</Feature>
+
+<Feature before="webmd/iteration-initial-2.png" after="webmd/iteration-refined-2.png" beforeLabel="Initial Version" afterLabel="Refined Version" caption="Condition Details" kicker="Medical Information Prioritization" quote="I’m more curious about how to treat this than seeing an image." arrow>
+Users were primarily looking for actionable information. Based on this feedback, I moved treatment-related content higher in the layout so users could quickly find what they cared about most.
+</Feature>
+
+<Takeaways kicker="Takeaways" title="What I Focused On">
+<Takeaway n="01" title="Information Structure Shapes Health Decisions">
+I realized that how medical information is structured directly affects users’ understanding, trust, and ability to act. Clear hierarchy, progressive disclosure, and scannable content are not visual choices, but critical design decisions that shape real-world health behavior.
+</Takeaway>
+
+<Takeaway n="02" title="Designing for Trust, Not Just Accuracy">
+In healthcare, perceived trust is as important as technical accuracy. Through this project, I learned to design experiences that help users feel confident in the process — by making reasoning visible, prioritization clear, and outcomes understandable.
+</Takeaway>
+
+<Takeaway n="03" title="Privacy as a Core UX Principle">
+I realized that in healthcare, privacy is not a feature but a foundation. By designing optional exposure to sensitive content and giving users control over visibility, I learned how UX can respect dignity while still supporting understanding.
+</Takeaway>
+</Takeaways>

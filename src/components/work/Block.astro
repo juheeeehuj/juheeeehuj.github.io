@@ -1,0 +1,49 @@
+---
+// 케이스스터디의 한 덩어리: 라벨 + 제목 + 설명, 그리고 그에 딸린 그림(slot="media").
+//   side : 글 왼쪽, 그림 오른쪽 (배경·앱 리뷰·설문·우선순위·유저 플로우)
+//   stack: 글 위, 그림 아래 한 줄 (2차 리서치·인터뷰·브레인스토밍·스토리보드·스케치…)
+// slot="below" 는 side 일 때 두 칸 아래 전체 폭에 붙는다 (인터뷰 자료 묶음처럼).
+// toc 를 주면 위쪽 목차에 이 덩어리가 들어간다.
+interface Props {
+	kicker?: string;
+	title?: string;
+	/** 제목 아래 부제 (배경 덩어리) */
+	sub?: string;
+	layout?: 'side' | 'stack';
+	/** 제목을 크게 (배경·최종 디자인처럼 단계 첫 덩어리) */
+	big?: boolean;
+	id?: string;
+	toc?: string;
+}
+
+const { kicker, title, sub, layout = 'stack', big = false, id, toc } = Astro.props;
+const hasMedia = Astro.slots.has('media');
+const hasBelow = Astro.slots.has('below');
+---
+
+<section
+	class:list={['case-block', layout, { big }]}
+	id={id}
+	data-toc={toc && id ? `${id}|${toc}` : undefined}
+>
+	<div class="block-text">
+		{kicker && <p class="kicker">{kicker}</p>}
+		{title && <h3 class="block-title">{title}</h3>}
+		{sub && <h4 class="block-sub">{sub}</h4>}
+		<slot />
+	</div>
+	{
+		hasMedia && (
+			<div class="block-media">
+				<slot name="media" />
+			</div>
+		)
+	}
+	{
+		hasBelow && (
+			<div class="block-below">
+				<slot name="below" />
+			</div>
+		)
+	}
+</section>

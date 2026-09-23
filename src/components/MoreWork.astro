@@ -1,0 +1,194 @@
+---
+// 케이스스터디 페이지가 없는 작업 목록 (원래 포트폴리오의 얇은 줄 목록).
+//   - link 가 있으면 줄 전체가 그 주소(PDF)를 새 탭에서 연다
+//   - locked 면 자물쇠와 "준비 중" 표시만 있고 누를 수 없다
+//   - 마우스를 올리면 커버가 커서 옆에 떠서 따라온다 (마우스 기기에서만)
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+	work: CollectionEntry<'work'>[];
+}
+
+const { lang, work } = Astro.props;
+const t = ui[lang];
+---
+
+<ul class="more-work" data-more-work>
+	{
+		work.map((w) => {
+			const [brand, ...rest] = w.data.title.split(' / ');
+			const inner = (
+				<>
+					<span class="name">
+						<strong>{brand}</strong>
+						{rest.length > 0 && <span class="field"> / {rest.join(' / ')}</span>}
+					</span>
+					<span class="meta">
+						{w.data.kicker}
+						{w.data.year && <span class="year">{w.data.year}</span>}
+					</span>
+					{w.data.locked ? (
+						<span class="state locked">
+							<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h6V7a3 3 0 0 0-6 0v3Z"></path></svg>
+							{t.inProgress}
+						</span>
+					) : (
+						<span class="state open">
+							{t.pdfKorean}
+							<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+						</span>
+					)}
+					<span class="preview more-work-preview" aria-hidden="true">
+						<Image src={w.data.cover} widths={[400, 800]} sizes="400px" alt="" />
+					</span>
+				</>
+			);
+			return (
+				<li>
+					{w.data.locked ? (
+						<div class="row" aria-disabled="true">
+							{inner}
+						</div>
+					) : (
+						<a class="row" href={w.data.link} target="_blank" rel="noopener" aria-label={`${w.data.title} — ${t.openPdf}`}>
+							{inner}
+						</a>
+					)}
+				</li>
+			);
+		})
+	}
+</ul>
+
+<style>
+	.more-work {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-top: 1px solid var(--heading);
+	}
+	.more-work li {
+		border-bottom: 1px solid var(--border);
+	}
+	.row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto auto;
+		align-items: center;
+		gap: 24px;
+		padding: 26px 4px;
+		color: var(--heading);
+	}
+	a.row:hover .name strong {
+		color: var(--pink);
+	}
+	.name {
+		font-family: var(--font-head);
+		font-size: 22px;
+		line-height: 1.3;
+		text-transform: uppercase;
+	}
+	.name strong {
+		font-weight: 700;
+		transition: color 0.2s;
+	}
+	.field {
+		color: var(--text-muted);
+		font-weight: 500;
+	}
+	.meta {
+		display: inline-flex;
+		gap: 14px;
+		color: var(--text-subtle);
+		font-size: 14px;
+	}
+	.state {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		min-width: 150px;
+		justify-content: flex-end;
+		font-family: var(--font-head);
+		font-size: 13px;
+		white-space: nowrap;
+	}
+	.state.open {
+		color: var(--pink);
+	}
+	.state.locked {
+		color: var(--text-subtle);
+	}
+	[aria-disabled='true'] {
+		cursor: default;
+	}
+
+	/* 커서를 따라오는 커버 미리보기 (스크립트가 body 아래로 옮기므로 전역 스타일) */
+	:global(.more-work-preview), .preview {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 20;
+		width: 320px;
+		overflow: hidden;
+		border-radius: var(--radius);
+		box-shadow: 0 16px 40px rgba(32, 54, 86, 0.22);
+		opacity: 0;
+		pointer-events: none;
+		visibility: hidden;
+	}
+	:global(.more-work-preview img), .preview :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	@media (max-width: 767px) {
+		.row {
+			grid-template-columns: minmax(0, 1fr) auto;
+			gap: 6px 12px;
+			padding: 20px 2px;
+		}
+		.name {
+			grid-column: 1 / -1;
+			font-size: 18px;
+		}
+		.state {
+			min-width: 0;
+		}
+		.preview,
+		:global(.more-work-preview) {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	import gsap from 'gsap';
+
+	// 마우스가 있는 기기에서만: 줄에 올리면 그 작업의 커버가 커서 옆에서 따라온다
+	if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+		for (const row of document.querySelectorAll<HTMLElement>('[data-more-work] .row')) {
+			const preview = row.querySelector<HTMLElement>('.preview')!;
+			// 화면 기준으로 떠 있도록 body 바로 아래로 옮긴다 (조상의 transform 영향을 받지 않게)
+			document.body.append(preview);
+			const x = gsap.quickTo(preview, 'x', { duration: reduce ? 0 : 0.45, ease: 'power3' });
+			const y = gsap.quickTo(preview, 'y', { duration: reduce ? 0 : 0.45, ease: 'power3' });
+			const place = (e: PointerEvent) => {
+				x(Math.min(e.clientX + 24, innerWidth - preview.offsetWidth - 16));
+				y(e.clientY - preview.offsetHeight / 2);
+			};
+			row.addEventListener('pointerenter', (e) => {
+				gsap.set(preview, { x: e.clientX + 24, y: e.clientY - preview.offsetHeight / 2 });
+				gsap.to(preview, { autoAlpha: 1, scale: 1, duration: reduce ? 0 : 0.3, ease: 'power2.out', overwrite: 'auto' });
+				gsap.fromTo(preview, { scale: 0.9 }, { scale: 1, duration: reduce ? 0 : 0.3 });
+			});
+			row.addEventListener('pointermove', place);
+			row.addEventListener('pointerleave', () =>
+				gsap.to(preview, { autoAlpha: 0, scale: 0.9, duration: reduce ? 0 : 0.2, overwrite: 'auto' }),
+			);
+		}
+	}
+</script>

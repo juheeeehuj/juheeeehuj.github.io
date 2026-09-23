@@ -1,0 +1,69 @@
+---
+title: 브랜드 이야기가 더 잘 전해지도록, 스타벅스 시즌 랜딩 리디자인
+description: 스타벅스의 시즌 캠페인은 단순한 프로모션이 아니라 정성 들여 만든 브랜드 경험입니다. 이 프로젝트는 시즌 랜딩 페이지를 시즌 분위기, 브랜드 스토리, 기기별 사용자 여정이 하나로 이어지는 경험으로 다시 설계했습니다.
+kicker: 반응형 웹 리디자인
+cover: ../../../assets/work/starbucks/cover.png
+projectType: 개인 프로젝트
+duration: 3주
+role: UX/UI 디자인
+tools: [Figma]
+order: 3
+featured: true
+---
+
+<Block title="단순한 그리드에서 시즌 경험으로" big>
+<Grid slot="media" items={[
+  { src: 'starbucks/current-grid-before.png', label: 'Before' },
+  { src: 'starbucks/redesigned-desktop.png', label: 'After', accent: true },
+]} />
+</Block>
+
+<Block id="current-problem" toc="문제" kicker="현재 문제" title="단순한 그리드, 약해진 브랜드 이야기">
+기존 스타벅스 랜딩 페이지는 같은 2단 그리드 구조를 반복해서, 브랜드 경험을 깊이 있게 전하지 못했습니다.
+
+<Figure slot="media" src="starbucks/current-landing.png" />
+</Block>
+
+<Block id="research" toc="리서치" kicker="시장 조사" title="화면 밖에서 시즌 아이덴티티는 어떻게 표현될까" layout="side">
+스타벅스의 시즌 아이덴티티는 디지털 화면을 넘어 제품, 패키지, 공간, 매장 경험까지 이어집니다. 온라인과 오프라인 접점에서 시즌 아이덴티티가 어떻게 표현되는지 살펴봤습니다.
+
+<Figure slot="media" src="starbucks/composite-market.png" caption="현장 시각 자료" width={400} />
+</Block>
+
+<Block kicker="경쟁사 조사" title="경쟁사는 브랜드와 시즌을 어떻게 전할까">
+주요 커피 브랜드들이 랜딩 페이지에서 브랜드 가치, 제품, 시즌을 어떻게 전하는지 비교해, 강점과 한계, 차별화할 기회를 찾았습니다.
+
+<Row slot="media" items={['starbucks/competitor-starbucks.png', 'starbucks/competitor-blue-bottle.png', 'starbucks/competitor-dunkin.png', 'starbucks/competitor-mccafe.png']} caption="랜딩 페이지 비교" />
+</Block>
+
+<Block kicker="디자인 목표" title="지표 인사이트에서 균형 잡힌 개인화 디자인 방향으로">
+브랜드 가치와 마케팅 요소의 균형을 맞추면서, 캠페인 중심 콘텐츠를 넘어 개인화된 시즌 스토리를 전할 수 있도록 디자인 방향을 정했습니다.
+
+<Row slot="media" items={[{ src: 'starbucks/design-direction-area.png', caption: '새로운 디자인 영역' }, { src: 'starbucks/composite-visual-design-direction.png', caption: '비주얼 디자인 방향' }]} />
+</Block>
+
+<Phase id="core-challenge" label="핵심 과제">랜딩 페이지에서 브랜드 스토리를 어떻게 더 강하게 전할 수 있을까요?</Phase>
+
+<Block id="solution" toc="해결책" kicker="해결책" title="정보 중심 구조에서 경험이 이끄는 흐름으로">
+새 경험은 시즌의 감성으로 시작해 사용자를 브랜드 스토리로 이끕니다. 시즌, 브랜드 철학, 사용자 경험이 하나의 흐름으로 이어지도록 페이지 구조를 다시 짰습니다.
+
+<Figure slot="media" src="starbucks/experience-led-flow.png" />
+</Block>
+
+<Block id="grid-system" toc="그리드 시스템" kicker="그리드 시스템" title="일관되고 확장 가능하게">
+<div slot="media">
+<Grid cols={1} items={[{ src: 'starbucks/grid-desktop.png', label: '데스크톱 (1440px)', note: '12칼럼, 마진 143px, 거터 20' }]} />
+<Grid template="1318fr 642fr" items={[
+  { src: 'starbucks/grid-tablet.png', label: '태블릿 (874px)', note: '8칼럼, 마진 24px, 거터 20' },
+  { src: 'starbucks/grid-mobile.png', label: '모바일 (375px)', note: '4칼럼, 마진 16px, 거터 20' },
+]} />
+</div>
+</Block>
+
+<Block id="responsive" toc="반응형 디자인" kicker="반응형 웹 디자인" title="데스크톱, 태블릿, 모바일에 맞춘 레이아웃">
+<Grid slot="media" template="1.55fr 1.18fr 0.83fr" items={[
+  { src: 'starbucks/final-desktop-1440.png', label: '데스크톱 (1440px)' },
+  { src: 'starbucks/final-tablet-874.png', label: '태블릿 (874px)' },
+  { src: 'starbucks/final-mobile-375.png', label: '모바일 (375px)' },
+]} />
+</Block>
