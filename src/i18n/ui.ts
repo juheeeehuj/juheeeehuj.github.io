@@ -25,7 +25,7 @@ export const ui = {
 		selectedWork: 'Selected Work',
 		allWork: 'All work',
 		moreWork: 'More Work',
-		inProgress: 'Case study in progress',
+		private: 'Private',
 		openPdf: 'Open PDF',
 		pdfKorean: 'PDF · Korean',
 		recentPosts: 'Recent Posts',
@@ -82,7 +82,7 @@ export const ui = {
 		selectedWork: '주요 작업',
 		allWork: '전체 작업',
 		moreWork: '다른 작업',
-		inProgress: '케이스스터디 준비 중',
+		private: '비공개',
 		openPdf: 'PDF 열기',
 		pdfKorean: 'PDF',
 		recentPosts: '최근 글',
@@ -195,7 +195,7 @@ export function workUrl(lang: Lang, slug: string): string {
 	return `/${lang}/work/${slug}/`;
 }
 
-// 케이스스터디 페이지가 있는 작업인지 (PDF 로 여는 작업, 준비 중인 작업은 페이지가 없다)
+// 케이스스터디 페이지가 있는 작업인지 (PDF 로 여는 작업, 비공개 작업은 페이지가 없다)
 export const hasPage = (w: CollectionEntry<'work'>) => !w.data.link && !w.data.locked;
 
 // 작업 목록은 order 순. 배포 빌드에서는 draft 를 뺀다

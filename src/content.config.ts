@@ -42,7 +42,7 @@ const work = defineCollection({
 			tools: z.array(z.string()).default([]),
 			// 케이스스터디 페이지 대신 이 주소(예: PDF)를 연다
 			link: z.string().optional(),
-			// true 면 아직 준비 중: 목록에 자물쇠로만 보이고 페이지는 만들지 않는다
+			// true 면 비공개: 목록에 자물쇠로만 보이고 페이지는 만들지 않는다
 			locked: z.boolean().default(false),
 			// 목록에 보이는 연도 (예: 2026)
 			year: z.string().optional(),
