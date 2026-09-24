@@ -19,7 +19,6 @@
 	--accent-fg: #ffffff;
 	--overlay: #203656;
 	--code-bg: #f5f6f8;
-	--author-bg: #f1f8ff;
 	--quote-bg: #fff8fa;
 	--mark-bg: #fcf8e3;
 	/* 핑크→오렌지. background-size 200% 로 두고 hover 때 위치를 옮긴다 */
@@ -57,7 +56,6 @@ html.dark {
 	--border: #22324f;
 	--overlay: #0b1322;
 	--code-bg: #14213a;
-	--author-bg: #1a2944;
 	--quote-bg: rgba(254, 79, 112, 0.08);
 	--mark-bg: rgba(255, 196, 0, 0.22);
 

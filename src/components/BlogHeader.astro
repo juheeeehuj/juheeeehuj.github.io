@@ -23,9 +23,16 @@ const { lang, title, current } = Astro.props;
 
 <style>
 	.page-header {
-		padding: 40px 0 30px;
-		background: var(--author-bg);
+		padding-top: 40px;
 		text-align: center;
+	}
+	/* 아래 구분선: 카드와 모서리가 맞도록 콘텐츠 폭에만 */
+	.container::after {
+		content: '';
+		display: block;
+		height: 1px;
+		margin-top: 30px;
+		background: var(--border);
 	}
 	h1 {
 		margin: 0 0 6px;
@@ -33,7 +40,7 @@ const { lang, title, current } = Astro.props;
 	}
 	p {
 		margin: 0;
-		color: var(--text-subtle);
+		color: var(--body);
 		font-size: 15px;
 	}
 </style>
