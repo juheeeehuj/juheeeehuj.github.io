@@ -1,6 +1,6 @@
 ---
 // 케이스스터디 페이지가 없는 작업 목록 (원래 포트폴리오의 얇은 줄 목록).
-//   - link 가 있으면 줄 전체가 그 주소(PDF)를 새 탭에서 연다
+//   - link 가 있으면 줄 전체가 그 주소(PDF 또는 외부 사이트)를 새 탭에서 연다
 //   - locked 면 자물쇠와 "비공개" 표시만 있고 누를 수 없다
 //   - 마우스를 올리면 커버가 커서 옆에 떠서 따라온다 (마우스 기기에서만)
 import { Image } from 'astro:assets';
@@ -23,8 +23,8 @@ const t = ui[lang];
 			const inner = (
 				<>
 					<span class="name">
-						<strong>{brand}</strong>
-						{rest.length > 0 && <span class="field"> / {rest.join(' / ')}</span>}
+						<span class="brand">{brand}</span>
+						{rest.length > 0 && <strong>{rest.join(' / ')}</strong>}
 					</span>
 					<span class="meta">
 						{w.data.kicker}
@@ -37,7 +37,7 @@ const t = ui[lang];
 						</span>
 					) : (
 						<span class="state open">
-							{t.pdfKorean}
+							{w.data.link?.endsWith('.pdf') ? t.pdfKorean : t.visitSite}
 							<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg>
 						</span>
 					)}
@@ -53,7 +53,7 @@ const t = ui[lang];
 							{inner}
 						</div>
 					) : (
-						<a class="row" href={w.data.link} target="_blank" rel="noopener" aria-label={`${w.data.title} — ${t.openPdf}`}>
+						<a class="row" href={w.data.link} target="_blank" rel="noopener" aria-label={`${w.data.title} — ${w.data.link?.endsWith('.pdf') ? t.openPdf : t.visitSite}`}>
 							{inner}
 						</a>
 					)}
@@ -90,13 +90,24 @@ const t = ui[lang];
 		line-height: 1.3;
 		text-transform: uppercase;
 	}
+	/* 무엇을 했는지(뒤쪽)가 먼저 읽히고, 어디 작업인지(앞쪽)는 작은 회색 라벨로 */
 	.name strong {
 		font-weight: 700;
 		transition: color 0.2s;
 	}
-	.field {
-		color: var(--text-muted);
-		font-weight: 500;
+	/* 브랜드 칸 폭을 고정해 뒤의 작업 이름이 한 줄로 맞춰진다 */
+	.name {
+		display: grid;
+		grid-template-columns: 170px minmax(0, 1fr);
+		align-items: baseline;
+		gap: 16px;
+	}
+	.brand {
+		color: var(--text-subtle);
+		font-size: 13px;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.4;
 	}
 	.meta {
 		display: inline-flex;
@@ -152,6 +163,8 @@ const t = ui[lang];
 		}
 		.name {
 			grid-column: 1 / -1;
+			grid-template-columns: 1fr;
+			gap: 2px;
 			font-size: 18px;
 		}
 		.state {

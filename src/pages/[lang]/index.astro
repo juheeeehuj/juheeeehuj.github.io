@@ -17,7 +17,9 @@ const { lang } = Astro.params as { lang: Lang };
 const t = ui[lang];
 const work = await getWork(lang);
 const featured = work.filter((w) => w.data.featured && hasPage(w));
-const more = work.filter((w) => !hasPage(w));
+// 줄 목록은 최근 5개만. 나머지는 /work 에서
+const allMore = work.filter((w) => !hasPage(w));
+const more = allMore.slice(0, 5);
 const recent = (await getPosts(lang)).slice(0, 3);
 ---
 
@@ -47,7 +49,11 @@ const recent = (await getPosts(lang)).slice(0, 3);
 	{
 		more.length > 0 && (
 			<section class="container home-section" aria-labelledby="more-work">
-				<SectionHeader id="more-work" title={t.moreWork} />
+				<SectionHeader
+					id="more-work"
+					title={t.moreWork}
+					more={allMore.length > more.length ? { href: `/${lang}/work/`, label: t.allWork } : undefined}
+				/>
 				<MoreWork lang={lang} work={more} />
 			</section>
 		)
