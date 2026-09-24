@@ -28,6 +28,7 @@ export const ui = {
 		private: 'Private',
 		openPdf: 'Open PDF',
 		pdfKorean: 'PDF · Korean',
+		visitSite: 'Visit site',
 		recentPosts: 'Recent Posts',
 		allPosts: 'All posts',
 		workTitle: 'Work',
@@ -85,6 +86,7 @@ export const ui = {
 		private: '비공개',
 		openPdf: 'PDF 열기',
 		pdfKorean: 'PDF',
+		visitSite: '사이트 보기',
 		recentPosts: '최근 글',
 		allPosts: '전체 글',
 		workTitle: '작업',
@@ -198,11 +200,13 @@ export function workUrl(lang: Lang, slug: string): string {
 // 케이스스터디 페이지가 있는 작업인지 (PDF 로 여는 작업, 비공개 작업은 페이지가 없다)
 export const hasPage = (w: CollectionEntry<'work'>) => !w.data.link && !w.data.locked;
 
-// 작업 목록은 order 순. 배포 빌드에서는 draft 를 뺀다
+// 작업 목록은 order 순. 배포 빌드에서는 draft 와 비공개(locked) 작업을 뺀다.
+// 비공개 작업은 개발 서버에서만 보인다 (정리 중인 목록을 확인하는 용도)
 export async function getWork(lang?: Lang): Promise<CollectionEntry<'work'>[]> {
 	const work = await getCollection(
 		'work',
-		(w) => (import.meta.env.DEV || !w.data.draft) && (!lang || langFromId(w.id) === lang),
+		(w) =>
+			(import.meta.env.DEV || (!w.data.draft && !w.data.locked)) && (!lang || langFromId(w.id) === lang),
 	);
 	return work.sort((a, b) => a.data.order - b.data.order);
 }

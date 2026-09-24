@@ -1,6 +1,6 @@
 ---
 // 케이스스터디 페이지가 없는 작업 목록 (원래 포트폴리오의 얇은 줄 목록).
-//   - link 가 있으면 줄 전체가 그 주소(PDF)를 새 탭에서 연다
+//   - link 가 있으면 줄 전체가 그 주소(PDF 또는 외부 사이트)를 새 탭에서 연다
 //   - locked 면 자물쇠와 "비공개" 표시만 있고 누를 수 없다
 //   - 마우스를 올리면 커버가 커서 옆에 떠서 따라온다 (마우스 기기에서만)
 import { Image } from 'astro:assets';
@@ -37,7 +37,7 @@ const t = ui[lang];
 						</span>
 					) : (
 						<span class="state open">
-							{t.pdfKorean}
+							{w.data.link?.endsWith('.pdf') ? t.pdfKorean : t.visitSite}
 							<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg>
 						</span>
 					)}
@@ -53,7 +53,7 @@ const t = ui[lang];
 							{inner}
 						</div>
 					) : (
-						<a class="row" href={w.data.link} target="_blank" rel="noopener" aria-label={`${w.data.title} — ${t.openPdf}`}>
+						<a class="row" href={w.data.link} target="_blank" rel="noopener" aria-label={`${w.data.title} — ${w.data.link?.endsWith('.pdf') ? t.openPdf : t.visitSite}`}>
 							{inner}
 						</a>
 					)}
