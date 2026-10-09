@@ -1,11 +1,162 @@
 ---
-title: Ringle / AI Language Learning
-description: Redesigned Ringle's AI speaking experience as team lead, from research to a personalized AI tutor feedback flow.
+title: An AI Tutor That Knows Your Learning Context, Not One Feedback for Everyone
+description: Ringle's AI speaking feedback comes in the same structure for every learner. As team lead, I took the project from research to screen design, planning an experience where learners choose the depth, focus, timing, and tone of feedback and the AI coaches to their context.
 kicker: Service Planning
 cover: ../../../assets/work/ringle/cover.png
-projectType: Team Project (Team Lead)
+projectType: Team Project (Team Lead, 4 people)
 duration: 3 Months
+role: Team Lead, Research Design, Problem Definition, Screen Design
+tools: [Figma, FigJam, Google Forms]
 year: '2026.01 – 03'
-link: /work/ringle/ringle-ai-tutor-proposal.pdf
-order: 30
+pdf: /work/ringle/ringle-ai-tutor-proposal.pdf
+order: 3.5
+featured: true
 ---
+
+<Block kicker="Background" title="AI speaking has improved. Why isn't it used as a learning tool?" sub="Is the problem the technology, or the design of the learning experience?" layout="side" big>
+Ringle teaches English through real conversations with native tutors. AI speaking is a chance to bring that experience to more people, but learners were not turning conversations with AI into steady study. This project set out to find out why, and to design personalized feedback that fits each learner's context. We followed the Double Diamond process throughout. The screens and research materials are in Korean, as the project was done for a Korean service.
+
+<Figure slot="media" src="ringle/double-diamond.png" caption="Double Diamond process" width={420} />
+</Block>
+
+<Block kicker="Key Features" />
+
+<Feature after="ringle/feature-tutor.png" caption="AI tutor recommendation" title="A tutor the AI recommends and you keep" reverse>
+The AI first suggests a tutor and a feedback style that fit the chosen scenario. Learners can save it as is, ask for another recommendation, or edit it themselves.
+</Feature>
+
+<Feature after="ringle/feature-settings.png" caption="Detailed feedback settings" title="Set the depth, focus, timing, and tone of feedback" reverse>
+From a one-line summary to a detailed explanation, from pronunciation to logical structure. Learners adjust how they receive feedback along four axes to match their level and purpose.
+</Feature>
+
+<Feature after="ringle/feature-correction.png" caption="Answer analysis and correction" title="Fix it right after speaking, then say it again" reverse>
+With timing set to real time, the corrected sentence and the reason appear right after each answer. Learners repeat the corrected sentence and finish the practice on the spot.
+</Feature>
+
+<Feature after="ringle/feature-summary.png" caption="Review complete with AI summary" title="One line at the end on what got better" reverse>
+When a session or review ends, the AI tutor sums up the key point in one line. Learners see where they improved without reading a long report.
+</Feature>
+
+<Phase id="discover" label="Discover">Why don't learners use AI speaking well as a learning tool?</Phase>
+
+<Block kicker="Academic Research" title="Six factors that shape the learning experience" layout="side">
+We analyzed 17 academic studies on AI-based language learning and grouped the key factors into six. What the studies pointed to was not speech recognition or model accuracy. The problem with AI speaking is not technical performance but the design of the learning experience.
+
+<Figure slot="media" src="ringle/six-factors.png" caption="Six factors that affect the AI speaking experience" width={420} />
+</Block>
+
+<Block kicker="SWOT Analysis" title="Ringle's core strength and its limit" layout="side">
+Ringle's strength is the natural expressions and real-world practice that come from talking with native tutors. But a tutor-centered service is costly to run and scale, from tutor quality control to lesson cost. We saw the AI tutor not as a replacement but as a way to complement and extend that experience.
+
+<Figure slot="media" src="ringle/swot.png" caption="SWOT analysis" width={420} />
+</Block>
+
+<Block kicker="Competitor Research" title="What learning experience do AI speaking services offer?">
+We compared five services in Korea and abroad, Speak, Loora, ELSA Speak, ChatGPT, and Speaking Max AI, by target, core value, strengths, and weaknesses. Most offered varied study modes and AI conversation practice, but they were built around single features, so the experience felt fragmented and little was designed to carry the learner's flow forward.
+
+<Figure slot="media" src="ringle/competitor-research.png" caption="Comparison of five AI English learning services" />
+</Block>
+
+<Block kicker="Survey" title="What do learners want most from AI speaking?" layout="side">
+There were already plenty of features. To see which ones learners actually care about, we surveyed 46 people. The most expected feature was a personalized study plan (65.4%), and the strongest motivator was personalized learning (77.8%). Learning flow was named both as the top thing to improve and as the hardest moment while studying (44.4% each).
+
+<Figure slot="media" src="ringle/survey.png" caption="Survey summary (46 respondents)" width={440} />
+</Block>
+
+<Block kicker="1:1 In-depth Interviews" title="The core issue: feedback that isn't personalized" layout="side">
+To understand the pattern of personalization and learning flow from the survey, we ran 1:1 in-depth interviews and grouped what people said with affinity mapping. Where two clusters overlapped, AI feedback experience and personalized learning experience, personalized feedback based on learning context emerged as the core problem.
+
+<Figure slot="media" src="ringle/affinity-mapping.png" caption="Affinity mapping and resulting categories" width={460} />
+</Block>
+
+<Phase id="define" toc="Define" label="Define: Problem Statement">Learners expect tailored feedback, but today's feedback is the same for everyone.</Phase>
+
+<Statement label="Problem Statement">
+Learners expect AI to give personalized feedback that fits their learning context, but Ringle's current feedback structure does not make full use of its AI capabilities, so it does not lead to a sense of personal growth.
+</Statement>
+
+<Block kicker="Persona" title="Jieun Kim, a third-year marketer uneasy with business English">
+We turned the research into a persona that captures the goals, difficulties, and learning context of an AI speaking learner. Jieun Kim is a 28-year-old marketer who can handle everyday conversation but finds business English a burden. Being told a sentence is wrong is not enough for her. She wants to know what to fix first, given her situation and level.
+
+<Figure slot="media" src="ringle/persona.png" caption="Persona: goals, pain points, needs" />
+</Block>
+
+<Phase id="develop" label="Develop">How might we design AI-based personalized feedback that reflects the learner's context?</Phase>
+
+<Block kicker="Brainstorming" title="From problem statement to an HMW question">
+We turned the problem statement into a single How Might We question, and the whole team generated ideas that answer it.
+
+<Figure slot="media" src="ringle/brainstorming.png" caption="Brainstorming" />
+</Block>
+
+<Block kicker="Value Map" title="From same-structure feedback to AI coaching">
+We matched learners' jobs, pains, and gains against the value Ringle can offer and narrowed the direction to one sentence. Ringle moves away from same-structure feedback and offers AI coaching feedback whose depth and link to action adjust to the learner's context.
+
+<Figure slot="media" src="ringle/value-map.png" caption="Value map" />
+</Block>
+
+<Block kicker="2×2 Prioritization Matrix" title="High impact, low effort first">
+We placed the ideas on two axes, impact and effort, to set the MVP scope. We chose to start with correcting and reviewing right after a conversation, feedback types that change with user data, a feedback filter, and key feedback. Level-based hints and tap-to-expand detailed feedback were left for the next phase.
+
+<Figure slot="media" src="ringle/prioritization.png" caption="Priorities by impact and effort" />
+</Block>
+
+<Block kicker="User Flow" title="Tutor setup, conversation, summary, and review as one flow">
+Learning flow was the most common complaint in the survey, so we placed feedback settings between choosing a scenario and starting the conversation instead of in a separate menu. After a session, the summary feedback leads straight into review.
+
+<Figure slot="media" src="ringle/user-flow.png" caption="User flow" />
+</Block>
+
+<Phase id="deliver" label="Deliver">How does tailored feedback look on screen, and how does it carry on?</Phase>
+
+<Band>
+<Block id="wireframes" toc="Screens" kicker="Screens 1–4" title="Setting up the AI tutor and feedback style" big>
+Learners use the feedback style the AI recommends or change it themselves to build a feedback setup that fits their current situation.
+
+<Grid slot="media" cols={4} items={[
+  { src: 'ringle/wireframe-01.png', label: '01. Create AI tutor', caption: 'A tutor that fits the scenario is created with default feedback settings.' },
+  { src: 'ringle/wireframe-02.png', label: '02. AI recommendation', caption: 'Tapping recommend suggests another tutor and style for the learner’s context.' },
+  { src: 'ringle/wireframe-03.png', label: '03. Detailed settings', caption: 'Learners pick the depth and amount, focus areas, timing, and tone.' },
+  { src: 'ringle/wireframe-04.png', label: '04. Before the conversation', caption: 'Learners check the scenario and saved tutor, then start.' },
+]} />
+</Block>
+
+<Block kicker="Screens 5–8" title="Correct while talking, get a summary at the end">
+The role-play conversation runs in the chosen feedback style. Learners practice on the spot with real-time correction and repeat-after speaking, then check the result in the AI summary.
+
+<Grid slot="media" cols={4} items={[
+  { src: 'ringle/wireframe-05.png', label: '05. Role-play conversation', caption: 'The AI tutor asks a question for the situation and the learner answers by voice.' },
+  { src: 'ringle/wireframe-06.png', label: '06. Analysis and correction', caption: 'The corrected sentence, the error, and the reason appear right under the answer.' },
+  { src: 'ringle/wireframe-07.png', label: '07. Corrected sentence spoken', caption: 'Saying the corrected sentence accurately earns positive feedback and moves on.' },
+  { src: 'ringle/wireframe-08.png', label: '08. Session complete', caption: 'One line of key feedback, study time, and expressions learned, leading into review.' },
+]} />
+</Block>
+
+<Block kicker="Screens 9–11" title="Reviewing and moving to the next level">
+Learners review by talking through a scenario they studied before. Once they use all the target expressions, the AI judges their level and suggests the next step, then sums up the review in one line.
+
+<Grid slot="media" cols={4} items={[
+  { src: 'ringle/wireframe-09.png', label: '09. Review in progress', caption: 'Target expressions for this review and whether they were used sit above the chat.' },
+  { src: 'ringle/wireframe-10.png', label: '10. Goal reached', caption: 'When every goal is met, the tutor asks whether to raise the level or stay.' },
+  { src: 'ringle/wireframe-11.png', label: '11. Review complete', caption: 'What improved in the review is summed up in one line.' },
+]} />
+</Block>
+</Band>
+
+<Block id="final" toc="Final Screens" kicker="Final Screens" title="An AI tutor that knows your learning context" big>
+<Figure slot="media" src="ringle/final-mockup.png" />
+</Block>
+
+<Takeaways kicker="Takeaways" title="What I learned from this project">
+<Takeaway n="01" title="Finding the problem in the learning flow, not in features">
+At first I looked for which feature was missing. But the academic studies, the survey, and the interviews all pointed to the same place. Learners were stopping not because a feature was absent but because feedback did not connect to their own context. I learned to narrow a problem by layering different kinds of research.
+</Takeaway>
+
+<Takeaway n="02" title="Getting the team to look at the same sentence">
+As team lead, what I worked on hardest was the one-sentence problem statement. Whenever the four of us pictured different solutions, we went back to that sentence to decide, which kept us steady through both widening and narrowing ideas.
+</Takeaway>
+
+<Takeaway n="03" title="AI personalization has to be adjustable by the user">
+It is hard to earn trust when the AI simply adapts on its own. I came to think personalization starts with the AI recommending while the learner can always see why and change it. As a next step, I want to test this assumption with a prototype and usability testing.
+</Takeaway>
+</Takeaways>

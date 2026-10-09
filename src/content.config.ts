@@ -43,6 +43,10 @@ const work = defineCollection({
 			tools: z.array(z.string()).default([]),
 			// 케이스스터디 페이지 대신 이 주소(예: PDF)를 연다
 			link: z.string().optional(),
+			// 케이스스터디 개요에 'PDF로 보기' 버튼으로 붙는 원본 문서 주소
+			pdf: z.string().optional(),
+			// 실제 운영 중인 사이트 주소. AX Studio 케이스스터디의 닫기(×) 옆에 '사이트 보기' 버튼으로 붙는다
+			site: z.string().url().optional(),
 			// AX Studio 에서 옮겨 온 케이스스터디: 본문 대신 src/studio 의 컴포넌트가 화면 전체를 그린다
 			renderer: z.enum(['refine', 'witim', 'chaisa']).optional(),
 			// true 면 비공개: 목록에 자물쇠로만 보이고 페이지는 만들지 않는다
