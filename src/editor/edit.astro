@@ -1,0 +1,813 @@
+---
+// 로컬 전용 글 편집 화면. src/editor/integration.mjs 가 dev 서버에서만 /ko/edit, /en/edit 로 연결한다.
+// 어떤 글인지는 주소의 ?slug= 로 받는다 (정적 사이트라 서버가 아니라 브라우저에서 읽는다).
+import BaseHead from '../components/BaseHead.astro';
+import { categories } from '../categories';
+import { categoryLabels, type Lang } from '../i18n/ui';
+
+const lang = Astro.url.pathname.split('/')[1] as Lang;
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<BaseHead title="글 수정" description="로컬 글 편집기" lang={lang} hreflang={{}} />
+		<meta name="robots" content="noindex" />
+	</head>
+	<body>
+		<div class="editor-page" data-lang={lang}>
+			<header class="bar">
+				<div class="bar-inner">
+					<a class="back" id="back" href={`/${lang}/blog/`}>← 글로 돌아가기</a>
+					<div class="bar-actions">
+						<span class="status" id="status" role="status"></span>
+						<button class="save" id="save" type="button" disabled>저장</button>
+					</div>
+				</div>
+			</header>
+
+			<main class="create" id="create" hidden>
+				<h1 class="heading">새 글 쓰기</h1>
+				<p class="hint">초안으로 만들어집니다. 공개하기 전까지 사이트에 올라가지 않아요.</p>
+
+				<label class="label" for="newTitle">제목</label>
+				<input class="field" id="newTitle" type="text" autocomplete="off" />
+
+				<label class="label" for="newSlug">주소 (파일명)</label>
+				<input class="field" id="newSlug" type="text" autocomplete="off" spellcheck="false" placeholder="my-new-post" />
+				<p class="hint">
+					영문 소문자, 숫자, 하이픈(-)만 씁니다. 글 주소가 <code id="newUrl">/{lang}/blog/…/</code> 가 되고, 나중에 바꾸면
+					주소도 바뀝니다.
+				</p>
+
+				<button class="save create-btn" id="createBtn" type="button">글 만들기</button>
+			</main>
+
+			<div class="layout" id="layout">
+				<main class="sheet">
+				<h1 class="heading">블로그 글 수정</h1>
+				<p class="file" id="file"></p>
+
+				<span class="label">대표 이미지</span>
+				<div class="hero" id="hero">
+					<img class="hero-img" id="heroImg" alt="" hidden />
+					<p class="hero-empty" id="heroEmpty">대표 이미지가 없습니다.</p>
+				</div>
+				<div class="hero-actions">
+					<button class="ghost" id="heroUpload" type="button">이미지 업로드</button>
+					<button class="ghost plain" id="heroRemove" type="button" hidden>대표 이미지 빼기</button>
+				</div>
+				<p class="hint">글 목록 카드, 글 상단, 링크 미리보기에 보입니다.</p>
+				<input id="filePicker" type="file" accept="image/*" hidden />
+
+				<label class="label" for="title">제목</label>
+				<input class="field" id="title" type="text" autocomplete="off" />
+
+				<label class="label" for="description">한 줄 요약</label>
+				<textarea class="field" id="description" rows="2"></textarea>
+				<p class="hint">목록과 검색 결과, 링크 미리보기에 보입니다.</p>
+
+				<span class="label">본문</span>
+				<div class="body-box">
+					<div class="toolbar" id="toolbar" role="toolbar" aria-label="본문 서식">
+						<button type="button" data-cmd="undo" title="되돌리기">↶</button>
+						<button type="button" data-cmd="redo" title="다시 실행">↷</button>
+						<span class="sep"></span>
+						<button type="button" data-cmd="h2" title="제목 2">H2</button>
+						<button type="button" data-cmd="h3" title="제목 3">H3</button>
+						<button type="button" data-cmd="h4" title="제목 4">H4</button>
+						<span class="sep"></span>
+						<button type="button" data-cmd="bold" title="굵게"><b>B</b></button>
+						<button type="button" data-cmd="italic" title="기울임"><i>I</i></button>
+						<button type="button" data-cmd="strike" title="취소선"><s>S</s></button>
+						<button type="button" data-cmd="code" title="코드">&lt;/&gt;</button>
+						<span class="sep"></span>
+						<button type="button" data-cmd="bulletList" title="글머리 목록">• 목록</button>
+						<button type="button" data-cmd="orderedList" title="번호 목록">1. 목록</button>
+						<button type="button" data-cmd="blockquote" title="인용">❝ 인용</button>
+						<button type="button" data-cmd="hr" title="구분선">― 구분선</button>
+						<span class="sep"></span>
+						<button type="button" id="linkBtn" title="링크">🔗 링크</button>
+						<button type="button" id="imageBtn" title="그림 넣기">▣ 그림</button>
+						<button type="button" id="tableBtn" title="표 넣기">▦ 표</button>
+					</div>
+					<div class="context-bar" id="linkBar" hidden>
+						<label for="linkUrl">링크 주소</label>
+						<input id="linkUrl" type="url" autocomplete="off" placeholder="https://" />
+						<button type="button" id="linkApply">적용</button>
+						<button type="button" id="linkRemove">링크 빼기</button>
+					</div>
+					<div class="context-bar" id="tableBar" hidden>
+						<span>표</span>
+						<button type="button" data-table="addRowAfter">+ 행</button>
+						<button type="button" data-table="deleteRow">− 행</button>
+						<button type="button" data-table="addColumnAfter">+ 열</button>
+						<button type="button" data-table="deleteColumn">− 열</button>
+						<button type="button" data-table="deleteTable">표 지우기</button>
+					</div>
+					<div class="context-bar" id="captionBar" hidden>
+						<label for="caption">그림 설명</label>
+						<input id="caption" type="text" autocomplete="off" placeholder="그림 아래 캡션으로 보입니다" />
+					</div>
+					<div class="prose post-content" id="body"></div>
+				</div>
+				</main>
+
+				<aside class="settings" aria-label="게시 설정">
+					<h2 class="settings-title">게시 설정</h2>
+
+					<label class="label" for="category">카테고리</label>
+					<select class="field" id="category">
+						<option value="">없음</option>
+						{categories.map((c) => <option value={c}>{categoryLabels[lang][c]}</option>)}
+					</select>
+
+					<label class="label" for="draft">상태</label>
+					<select class="field" id="draft">
+						<option value="true">초안 · 배포 안 됨</option>
+						<option value="false">공개</option>
+					</select>
+					<p class="hint">공개로 저장한 뒤 push 해야 사이트에 올라갑니다.</p>
+
+					<label class="label" for="tags">태그</label>
+					<input class="field" id="tags" type="text" autocomplete="off" />
+					<p class="hint">쉼표로 구분합니다.</p>
+
+					<label class="label" for="pubDate">작성일</label>
+					<input class="field" id="pubDate" type="date" />
+				</aside>
+			</div>
+		</div>
+
+		<script>
+			import { Editor, mergeAttributes } from '@tiptap/core';
+			import Image from '@tiptap/extension-image';
+			import { TableKit } from '@tiptap/extension-table';
+			import { Markdown } from '@tiptap/markdown';
+			import StarterKit from '@tiptap/starter-kit';
+
+			const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+			const lang = document.querySelector<HTMLElement>('.editor-page')!.dataset.lang!;
+			const slug = new URLSearchParams(location.search).get('slug') ?? '';
+			const postApi = (s: string) => `/__editor/post?lang=${lang}&slug=${encodeURIComponent(s)}`;
+			const api = postApi(slug);
+
+			const titleEl = $<HTMLInputElement>('title');
+			const descEl = $<HTMLTextAreaElement>('description');
+			const categoryEl = $<HTMLSelectElement>('category');
+			const draftEl = $<HTMLSelectElement>('draft');
+			const tagsEl = $<HTMLInputElement>('tags');
+			const dateEl = $<HTMLInputElement>('pubDate');
+			const saveBtn = $<HTMLButtonElement>('save');
+			const statusEl = $('status');
+
+			// 글 안의 그림 주소는 마크다운 파일 기준 상대경로다. 화면에 보여줄 때만 dev 서버 주소로 바꾼다.
+			const postDir = `${location.origin}/src/content/blog/${lang}/`;
+			const shownSrc = (src: string) => (/^([a-z]+:|\/)/i.test(src) ? src : new URL(src, postDir).pathname);
+			const PostImage = Image.extend({
+				renderHTML({ HTMLAttributes }) {
+					const src = shownSrc(String(HTMLAttributes.src ?? ''));
+					return ['img', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { src })];
+				},
+			});
+
+			// 그림 파일을 src/assets/blog/<slug>/ 에 올리고, 글에 적을 상대경로를 받는다
+			async function uploadImage(file: File): Promise<string | undefined> {
+				setStatus('그림 올리는 중…');
+				try {
+					const res = await fetch(
+						`/__editor/image?lang=${lang}&slug=${encodeURIComponent(slug)}&name=${encodeURIComponent(file.name)}`,
+						{ method: 'POST', headers: { 'Content-Type': file.type || 'image/png' }, body: file },
+					);
+					const data = await res.json();
+					if (!res.ok) throw new Error(data.error);
+					setStatus('');
+					return data.path as string;
+				} catch (err) {
+					setStatus(`그림 올리기 실패: ${(err as Error).message}`, true);
+				}
+			}
+
+			const picker = $<HTMLInputElement>('filePicker');
+			let onPicked: ((file: File) => void) | undefined;
+			function pickImage(then: (file: File) => void) {
+				onPicked = then;
+				picker.value = '';
+				picker.click();
+			}
+			picker.addEventListener('change', () => {
+				const file = picker.files?.[0];
+				if (file) onPicked?.(file);
+			});
+
+			// 대표 이미지
+			let heroImage = '';
+			function showHero(path: string) {
+				heroImage = path;
+				const img = $<HTMLImageElement>('heroImg');
+				if (path) img.src = shownSrc(path);
+				img.hidden = !path;
+				$('heroEmpty').hidden = !!path;
+				$('heroRemove').hidden = !path;
+			}
+			$('heroUpload').addEventListener('click', () =>
+				pickImage(async (file) => {
+					const path = await uploadImage(file);
+					if (!path) return;
+					showHero(path);
+					markDirty();
+				}),
+			);
+			$('heroRemove').addEventListener('click', () => {
+				showHero('');
+				markDirty();
+			});
+
+			// 본문 그림: 버튼, 붙여넣기, 끌어다 놓기
+			async function insertImages(files: File[], pos?: number) {
+				for (const file of files) {
+					const src = await uploadImage(file);
+					if (!src || !editor) continue;
+					const node = { type: 'image', attrs: { src, alt: '' } };
+					if (pos === undefined) editor.chain().focus().insertContent(node).run();
+					else editor.chain().focus().insertContentAt(pos, node).run();
+					// 방금 넣은 그림을 골라 둔다 → 바로 설명을 적을 수 있다
+					editor.state.doc.descendants((n, at) => {
+						if (n.type.name === 'image' && n.attrs.src === src) editor!.commands.setNodeSelection(at);
+					});
+				}
+			}
+			const imageFiles = (list?: FileList | null) => [...(list ?? [])].filter((f) => f.type.startsWith('image/'));
+			$('imageBtn').addEventListener('mousedown', (e) => e.preventDefault());
+			$('imageBtn').addEventListener('click', () => pickImage((file) => insertImages([file])));
+
+			// 그림을 고르면 설명(alt)을 고칠 수 있다. 이 블로그는 alt 를 그림 아래 캡션으로 보여준다.
+			const captionBar = $('captionBar');
+			const captionEl = $<HTMLInputElement>('caption');
+			function refreshCaption() {
+				if (!editor) return;
+				const onImage = editor.isActive('image');
+				captionBar.hidden = !onImage;
+				if (onImage && document.activeElement !== captionEl) {
+					captionEl.value = editor.getAttributes('image').alt ?? '';
+				}
+			}
+			captionEl.addEventListener('input', () => {
+				editor?.commands.updateAttributes('image', { alt: captionEl.value });
+			});
+
+			// 링크: 글자를 고르고 버튼을 누르면 주소 칸이 열린다. 링크 위에 커서를 두면 그 주소를 고칠 수 있다.
+			const linkBar = $('linkBar');
+			const linkEl = $<HTMLInputElement>('linkUrl');
+			let linkOpen = false;
+			function refreshLink() {
+				if (!editor) return;
+				const onLink = editor.isActive('link');
+				linkBar.hidden = !(onLink || linkOpen);
+				$('linkBtn').classList.toggle('on', onLink);
+				$('linkRemove').hidden = !onLink;
+				if (document.activeElement !== linkEl) linkEl.value = editor.getAttributes('link').href ?? '';
+			}
+			function applyLink() {
+				if (!editor) return;
+				const href = linkEl.value.trim();
+				linkOpen = false;
+				const chain = editor.chain().focus().extendMarkRange('link');
+				if (href) chain.setLink({ href }).run();
+				else chain.unsetLink().run();
+				refreshLink();
+			}
+			$('linkBtn').addEventListener('mousedown', (e) => e.preventDefault());
+			$('linkBtn').addEventListener('click', () => {
+				linkOpen = true;
+				refreshLink();
+				linkEl.focus();
+			});
+			$('linkApply').addEventListener('click', applyLink);
+			linkEl.addEventListener('keydown', (e) => {
+				if (e.key === 'Enter') {
+					e.preventDefault();
+					applyLink();
+				}
+			});
+			$('linkRemove').addEventListener('click', () => {
+				linkOpen = false;
+				editor?.chain().focus().extendMarkRange('link').unsetLink().run();
+				refreshLink();
+			});
+
+			// 표: 버튼으로 3×3 표를 넣고, 표 안에 커서가 있으면 행·열을 더하거나 뺀다
+			const tableBar = $('tableBar');
+			$('tableBtn').addEventListener('mousedown', (e) => e.preventDefault());
+			$('tableBtn').addEventListener('click', () => {
+				editor?.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+			});
+			for (const btn of tableBar.querySelectorAll<HTMLButtonElement>('[data-table]')) {
+				btn.addEventListener('mousedown', (e) => e.preventDefault());
+				btn.addEventListener('click', () => {
+					const chain = editor?.chain().focus() as unknown as Record<string, () => { run: () => void }>;
+					chain?.[btn.dataset.table!]().run();
+				});
+			}
+			function refreshTable() {
+				if (editor) tableBar.hidden = !editor.isActive('table');
+			}
+
+			// 새 글 만들기 (주소에 ?slug= 가 없을 때)
+			function startCreate() {
+				$('layout').hidden = true;
+				$('create').hidden = false;
+				saveBtn.hidden = true;
+				document.title = '새 글 쓰기';
+				const newTitle = $<HTMLInputElement>('newTitle');
+				const newSlug = $<HTMLInputElement>('newSlug');
+				newSlug.addEventListener('input', () => {
+					$('newUrl').textContent = `/${lang}/blog/${newSlug.value.trim() || '…'}/`;
+				});
+				async function create() {
+					const wanted = newSlug.value.trim();
+					if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(wanted)) {
+						return setStatus('주소는 영문 소문자, 숫자, 하이픈(-)만 쓸 수 있습니다', true);
+					}
+					const res = await fetch(postApi(wanted), {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ title: newTitle.value }),
+					});
+					const data = await res.json();
+					if (!res.ok) return setStatus(data.error, true);
+					location.href = `/${lang}/edit/?slug=${wanted}`;
+				}
+				$('createBtn').addEventListener('click', create);
+				for (const el of [newTitle, newSlug]) {
+					el.addEventListener('keydown', (e) => e.key === 'Enter' && create());
+				}
+				newTitle.focus();
+			}
+
+			// 저장하거나 그림을 올리면 dev 서버가 열려 있는 페이지를 새로고침한다.
+			// 편집 화면은 쓰던 내용을 잃지 않게 그 새로고침을 붙잡아 둔다.
+			import.meta.hot?.on('vite:beforeFullReload', () => new Promise(() => {}));
+
+			let editor: Editor | undefined;
+			let bodyTouched = false;
+			let dirty = false;
+
+			function setStatus(text: string, error = false) {
+				statusEl.textContent = text;
+				statusEl.classList.toggle('error', error);
+			}
+
+			function markDirty() {
+				dirty = true;
+				saveBtn.disabled = false;
+				setStatus('저장 안 된 변경이 있습니다');
+			}
+
+			async function load() {
+				if (!slug) return startCreate();
+				const res = await fetch(api);
+				const data = await res.json();
+				if (!res.ok) return setStatus(data.error, true);
+
+				$('file').textContent = `src/content/blog/${lang}/${slug}.md`;
+				$<HTMLAnchorElement>('back').href = `/${lang}/blog/${slug}/`;
+				titleEl.value = data.title;
+				descEl.value = data.description;
+				categoryEl.value = data.category;
+				draftEl.value = String(data.draft);
+				tagsEl.value = data.tags.join(', ');
+				dateEl.value = data.pubDate;
+				showHero(data.heroImage);
+				document.title = `수정: ${data.title}`;
+
+				editor = new Editor({
+					element: $('body'),
+					// 편집 중에는 링크를 눌러도 열리지 않게 한다
+					extensions: [StarterKit.configure({ link: { openOnClick: false } }), PostImage, TableKit, Markdown],
+					content: data.body,
+					contentType: 'markdown',
+					onUpdate() {
+						bodyTouched = true;
+						markDirty();
+					},
+					onTransaction() {
+						refreshToolbar();
+						refreshCaption();
+						refreshLink();
+						refreshTable();
+					},
+					editorProps: {
+						handlePaste(_view, event) {
+							const files = imageFiles(event.clipboardData?.files);
+							if (!files.length) return false;
+							insertImages(files);
+							return true;
+						},
+						handleDrop(view, event) {
+							const files = imageFiles(event.dataTransfer?.files);
+							if (!files.length) return false;
+							event.preventDefault();
+							insertImages(files, view.posAtCoords({ left: event.clientX, top: event.clientY })?.pos);
+							return true;
+						},
+					},
+				});
+				refreshToolbar();
+			}
+
+			async function save() {
+				if (!editor || !dirty) return;
+				saveBtn.disabled = true;
+				setStatus('저장 중…');
+				const payload: Record<string, unknown> = {
+					title: titleEl.value,
+					description: descEl.value,
+					category: categoryEl.value,
+					draft: draftEl.value === 'true',
+					tags: tagsEl.value
+						.split(',')
+						.map((tag) => tag.trim())
+						.filter(Boolean),
+					pubDate: dateEl.value,
+					heroImage,
+				};
+				if (bodyTouched) payload.body = editor.getMarkdown();
+				try {
+					const res = await fetch(api, {
+						method: 'PUT',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(payload),
+					});
+					const data = await res.json();
+					if (!res.ok) throw new Error(data.error);
+					dirty = false;
+					bodyTouched = false;
+					setStatus('저장했습니다');
+				} catch (err) {
+					saveBtn.disabled = false;
+					setStatus(`저장 실패: ${(err as Error).message}`, true);
+				}
+			}
+
+			const commands: Record<string, { run: (e: Editor) => void; active?: (e: Editor) => boolean }> = {
+				undo: { run: (e) => e.chain().focus().undo().run() },
+				redo: { run: (e) => e.chain().focus().redo().run() },
+				h2: {
+					run: (e) => e.chain().focus().toggleHeading({ level: 2 }).run(),
+					active: (e) => e.isActive('heading', { level: 2 }),
+				},
+				h3: {
+					run: (e) => e.chain().focus().toggleHeading({ level: 3 }).run(),
+					active: (e) => e.isActive('heading', { level: 3 }),
+				},
+				h4: {
+					run: (e) => e.chain().focus().toggleHeading({ level: 4 }).run(),
+					active: (e) => e.isActive('heading', { level: 4 }),
+				},
+				bold: { run: (e) => e.chain().focus().toggleBold().run(), active: (e) => e.isActive('bold') },
+				italic: { run: (e) => e.chain().focus().toggleItalic().run(), active: (e) => e.isActive('italic') },
+				strike: { run: (e) => e.chain().focus().toggleStrike().run(), active: (e) => e.isActive('strike') },
+				code: { run: (e) => e.chain().focus().toggleCode().run(), active: (e) => e.isActive('code') },
+				bulletList: {
+					run: (e) => e.chain().focus().toggleBulletList().run(),
+					active: (e) => e.isActive('bulletList'),
+				},
+				orderedList: {
+					run: (e) => e.chain().focus().toggleOrderedList().run(),
+					active: (e) => e.isActive('orderedList'),
+				},
+				blockquote: {
+					run: (e) => e.chain().focus().toggleBlockquote().run(),
+					active: (e) => e.isActive('blockquote'),
+				},
+				hr: { run: (e) => e.chain().focus().setHorizontalRule().run() },
+			};
+
+			const buttons = [...document.querySelectorAll<HTMLButtonElement>('#toolbar [data-cmd]')];
+
+			function refreshToolbar() {
+				if (!editor) return;
+				for (const btn of buttons) {
+					btn.classList.toggle('on', commands[btn.dataset.cmd!].active?.(editor) ?? false);
+				}
+			}
+
+			for (const btn of buttons) {
+				// 누를 때 본문 선택이 풀리지 않게 한다
+				btn.addEventListener('mousedown', (e) => e.preventDefault());
+				btn.addEventListener('click', () => editor && commands[btn.dataset.cmd!].run(editor));
+			}
+
+			for (const el of [titleEl, descEl, categoryEl, draftEl, tagsEl, dateEl]) {
+				el.addEventListener('input', markDirty);
+			}
+			saveBtn.addEventListener('click', save);
+			document.addEventListener('keydown', (e) => {
+				if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+					e.preventDefault();
+					save();
+				}
+			});
+
+			load();
+		</script>
+
+		<style>
+			.editor-page {
+				min-height: 100vh;
+				background: var(--surface);
+			}
+			.bar {
+				position: sticky;
+				top: 0;
+				z-index: 10;
+				border-bottom: 1px solid var(--border);
+				background: var(--bg);
+			}
+			.bar-inner {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+				max-width: 1180px;
+				margin: 0 auto;
+				padding: 12px 16px;
+			}
+			.back {
+				color: var(--text-muted);
+				font-size: 14px;
+			}
+			.back:hover {
+				color: var(--pink);
+			}
+			.bar-actions {
+				display: flex;
+				align-items: center;
+				gap: 14px;
+			}
+			.status {
+				color: var(--text-subtle);
+				font-size: 13px;
+			}
+			.status.error {
+				color: var(--pink);
+			}
+			.save {
+				padding: 8px 26px;
+				border: 0;
+				border-radius: 25px;
+				background: var(--gradient);
+				background-size: 200% auto;
+				color: var(--accent-fg);
+				font-weight: 500;
+				cursor: pointer;
+			}
+			.save:disabled {
+				opacity: 0.45;
+				cursor: default;
+			}
+
+			.create {
+				max-width: 560px;
+				margin: 0 auto;
+				padding: 48px 16px 80px;
+			}
+			.create-btn {
+				margin-top: 28px;
+			}
+			.create code {
+				font-family: var(--font-mono);
+				font-size: 12px;
+			}
+			.layout[hidden],
+			.create[hidden] {
+				display: none;
+			}
+			.layout {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) 280px;
+				align-items: start;
+				gap: 32px;
+				max-width: 1180px;
+				margin: 0 auto;
+				padding: 32px 16px 80px;
+			}
+			.settings {
+				position: sticky;
+				top: 88px;
+				padding: 20px;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				background: var(--bg);
+			}
+			.settings-title {
+				margin: 0;
+				font-size: 17px;
+			}
+			.settings .label {
+				margin-top: 20px;
+			}
+			.settings .field {
+				padding: 10px 12px;
+				font-size: 15px;
+			}
+			@media (max-width: 900px) {
+				.layout {
+					grid-template-columns: minmax(0, 1fr);
+				}
+				.settings {
+					position: static;
+				}
+			}
+			.heading {
+				margin: 0;
+				font-size: 24px;
+			}
+			.file {
+				margin: 4px 0 0;
+				color: var(--text-subtle);
+				font-family: var(--font-mono);
+				font-size: 12px;
+			}
+			.label {
+				display: block;
+				margin: 28px 0 8px;
+				color: var(--heading);
+				font-family: var(--font-head);
+				font-size: 15px;
+				font-weight: 600;
+			}
+			.field {
+				display: block;
+				width: 100%;
+				padding: 12px 14px;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				background: var(--bg);
+				color: var(--heading);
+				font: inherit;
+				font-size: 16px;
+				resize: vertical;
+			}
+			.field:focus {
+				border-color: var(--pink);
+				outline: none;
+			}
+			.hint {
+				margin: 6px 0 0;
+				color: var(--text-subtle);
+				font-size: 13px;
+			}
+
+			.hero {
+				overflow: hidden;
+				max-width: 520px;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				background: var(--bg);
+			}
+			.hero-img {
+				display: block;
+				width: 100%;
+			}
+			.hero-img[hidden] {
+				display: none;
+			}
+			.hero-empty {
+				margin: 0;
+				padding: 36px 16px;
+				color: var(--text-subtle);
+				font-size: 14px;
+				text-align: center;
+			}
+			.hero-actions {
+				display: flex;
+				gap: 6px;
+				margin-top: 10px;
+			}
+			.ghost {
+				padding: 8px 16px;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				background: var(--bg);
+				color: var(--heading);
+				font-size: 14px;
+				cursor: pointer;
+			}
+			.ghost:hover {
+				border-color: var(--pink);
+				color: var(--pink);
+			}
+			.ghost.plain {
+				border-color: transparent;
+				background: none;
+				color: var(--text-muted);
+			}
+			.context-bar {
+				position: sticky;
+				top: 104px;
+				z-index: 5;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding: 8px 12px;
+				border-bottom: 1px solid var(--border);
+				background: var(--quote-bg);
+				color: var(--heading);
+				font-size: 13px;
+			}
+			.context-bar[hidden] {
+				display: none;
+			}
+			.context-bar input {
+				flex: 1;
+				padding: 6px 10px;
+				border: 1px solid var(--border);
+				border-radius: 6px;
+				background: var(--bg);
+				color: var(--heading);
+				font: inherit;
+			}
+			.context-bar button {
+				padding: 5px 10px;
+				border: 1px solid var(--border);
+				border-radius: 6px;
+				background: var(--bg);
+				color: var(--heading);
+				font-size: 13px;
+				cursor: pointer;
+			}
+			.context-bar button:hover {
+				border-color: var(--pink);
+				color: var(--pink);
+			}
+			.context-bar input:focus {
+				border-color: var(--pink);
+				outline: none;
+			}
+
+			.body-box {
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				background: var(--bg);
+			}
+			.toolbar {
+				position: sticky;
+				top: 55px;
+				z-index: 5;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 2px;
+				padding: 8px;
+				border-bottom: 1px solid var(--border);
+				border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+				background: var(--bg);
+			}
+			.toolbar button {
+				min-width: 34px;
+				height: 32px;
+				padding: 0 8px;
+				border: 0;
+				border-radius: 6px;
+				background: none;
+				color: var(--menu);
+				font-size: 13px;
+				cursor: pointer;
+			}
+			.toolbar button:hover {
+				background: var(--surface);
+				color: var(--heading);
+			}
+			.toolbar button.on {
+				background: var(--surface-2);
+				color: var(--heading);
+			}
+			.sep {
+				width: 1px;
+				height: 20px;
+				margin: 0 6px;
+				background: var(--border);
+			}
+
+			.post-content {
+				padding: 8px 24px 24px;
+			}
+			.post-content :global(.tiptap) {
+				min-height: 360px;
+				outline: none;
+			}
+			.post-content :global(.tiptap > :first-child) {
+				margin-top: 16px;
+			}
+			.post-content :global(.ProseMirror-selectednode) {
+				outline: 2px solid var(--pink);
+				outline-offset: 2px;
+			}
+			.post-content :global(.selectedCell) {
+				background: var(--quote-bg);
+			}
+		</style>
+	</body>
+</html>

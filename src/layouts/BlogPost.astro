@@ -31,6 +31,8 @@ const {
 } = Astro.props;
 const t = ui[lang];
 const selfUrl = new URL(Astro.url.pathname, Astro.site).href;
+// 로컬(npm run dev)에서만 보이는 수정 버튼. 배포 빌드에는 들어가지 않는다.
+const editUrl = import.meta.env.DEV && Astro.params.slug ? `/${lang}/edit/?slug=${Astro.params.slug}` : undefined;
 ---
 
 <BaseLayout
@@ -61,7 +63,18 @@ const selfUrl = new URL(Astro.url.pathname, Astro.site).href;
 
 		<article class="post-single">
 			<header class="post-header">
-				<h1 class="title">{title}</h1>
+				<h1 class="title">
+					{title}
+					{
+						editUrl && (
+							<a class="edit-link" href={editUrl} title="이 글 수정 (로컬 전용)" aria-label="이 글 수정">
+								<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+								</svg>
+							</a>
+						)
+					}
+				</h1>
 				<ul class="meta">
 					<li class="author"><Avatar size={30} />{t.author}</li>
 					{
@@ -142,6 +155,22 @@ const selfUrl = new URL(Astro.url.pathname, Astro.site).href;
 		margin: 0 0 1rem;
 		font-size: 36px;
 		line-height: 1.3;
+	}
+	.edit-link {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		margin-left: 6px;
+		border: 1px solid var(--border);
+		border-radius: 50%;
+		color: var(--text-muted);
+		vertical-align: middle;
+	}
+	.edit-link:hover {
+		border-color: var(--pink);
+		color: var(--pink);
 	}
 	.meta a {
 		color: var(--text-subtle);

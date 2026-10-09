@@ -11,6 +11,8 @@ interface Props {
 }
 
 const { lang, title, current } = Astro.props;
+// 로컬(npm run dev)에서만 보이는 새 글 버튼. 배포 빌드에는 들어가지 않는다.
+const newPostUrl = import.meta.env.DEV ? `/${lang}/edit/` : undefined;
 ---
 
 <section class="page-header">
@@ -18,6 +20,13 @@ const { lang, title, current } = Astro.props;
 		<h1>{title}</h1>
 		<p>{ui[lang].blogIntro}</p>
 		<CategoryNav lang={lang} current={current} />
+		{
+			newPostUrl && (
+				<a class="new-post" href={newPostUrl} title="로컬 전용">
+					+ 새 글 쓰기
+				</a>
+			)
+		}
 	</div>
 </section>
 
@@ -33,6 +42,19 @@ const { lang, title, current } = Astro.props;
 		height: 1px;
 		margin-top: 30px;
 		background: var(--border);
+	}
+	.new-post {
+		display: inline-block;
+		margin-top: 20px;
+		padding: 8px 22px;
+		border: 1px solid var(--border);
+		border-radius: 25px;
+		color: var(--text-muted);
+		font-size: 14px;
+	}
+	.new-post:hover {
+		border-color: var(--pink);
+		color: var(--pink);
 	}
 	h1 {
 		margin: 0 0 6px;
