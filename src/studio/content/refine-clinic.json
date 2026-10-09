@@ -1,0 +1,2148 @@
+{
+  "_meta": {
+    "page": "refine-clinic",
+    "locale": "ko",
+    "order": [
+      "refine_hero_1",
+      "refine_overview_1",
+      "refine_process_1",
+      "refine_moodboard_1",
+      "refine_identity_1",
+      "refine_gradient_1",
+      "refine_ui_1",
+      "refine_type_1",
+      "refine_signature_1",
+      "refine_solution_1",
+      "refine_showcase_1",
+      "refine_i18n_1",
+      "refine_mobile_1",
+      "refine_subpages_1",
+      "refine_cms_1",
+      "refine_closing_1",
+      "refine_credits_1"
+    ],
+    "types": {
+      "refine_overview_1": "overview",
+      "refine_process_1": "process",
+      "refine_closing_1": "refinestatement",
+      "refine_hero_1": "refinehero",
+      "refine_moodboard_1": "refinegallery",
+      "refine_gradient_1": "refinegradient",
+      "refine_ui_1": "refinespectrum",
+      "refine_type_1": "refinetypo",
+      "refine_solution_1": "refinesolution",
+      "refine_showcase_1": "refineframed",
+      "refine_i18n_1": "refinei18n",
+      "refine_mobile_1": "refinemobile",
+      "refine_subpages_1": "refinesubpages",
+      "refine_cms_1": "refinecms",
+      "refine_signature_1": "refinesignature",
+      "refine_credits_1": "refinecredits",
+      "refine_identity_1": "refineidentity"
+    }
+  },
+  "refine_overview_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Overview",
+        "en": "Overview"
+      }
+    },
+    "title": {
+      "type": "text",
+      "value": {
+        "ko": "현대적 클리니컬 무드를브랜드 경험",
+        "en": "Brand Experience with a Modern Clinical Mood"
+      }
+    },
+    "body": {
+      "type": "list",
+      "items": [
+        {
+          "paragraph": {
+            "type": "text",
+            "value": {
+              "ko": "Refine Clinic 홈페이지는 세련된 모션과 몰입감 있는 인터랙션을 적용해 현대적인 클리니컬 무드를 구현했습니다. 첨단 에스테틱 기술과 브랜드 아이덴티티가 직관적으로 전달될 수 있도록 제작했습니다.",
+              "en": "The Refine Clinic website embodies a modern clinical mood by applying sophisticated motion and immersive interactions. It was designed to intuitively convey advanced aesthetic technology and brand identity."
+            }
+          }
+        },
+        {
+          "paragraph": {
+            "type": "text",
+            "value": {
+              "ko": "라인의 플로우를 활용한 섬세한 레이아웃과 부드러운 모션 인터랙션으로 시각적 몰입감을 극대화하고, 프리미엄 이미지와 메디컬 감성을 직관적으로 전달할 수 있도록 설계했습니다.",
+              "en": "With a delicate layout utilizing line flow and smooth motion interactions, we maximized visual immersion and designed it to intuitively convey a premium image and medical sensibility."
+            }
+          }
+        }
+      ]
+    },
+    "facts": {
+      "type": "list",
+      "items": [
+        {
+          "k": {
+            "type": "text",
+            "value": {
+              "ko": "Client",
+              "en": "Client"
+            }
+          },
+          "v": {
+            "type": "text",
+            "value": {
+              "ko": "Refine Clinic",
+              "en": "Refine Clinic"
+            }
+          }
+        },
+        {
+          "k": {
+            "type": "text",
+            "value": {
+              "ko": "Scope",
+              "en": "Scope"
+            }
+          },
+          "v": {
+            "type": "text",
+            "value": {
+              "ko": "Brand Identity · Website · Development",
+              "en": "Brand Identity · Website · Development"
+            }
+          }
+        },
+        {
+          "k": {
+            "type": "text",
+            "value": {
+              "ko": "Year",
+              "en": "Year"
+            }
+          },
+          "v": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "2026",
+              "en": "2026"
+            }
+          }
+        },
+        {
+          "k": {
+            "type": "text",
+            "value": {
+              "ko": "Studio",
+              "en": "Studio"
+            }
+          },
+          "v": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM AX STUDIO",
+              "en": "WITIM AX STUDIO"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "refine_process_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Design Approach",
+        "en": "Design Approach"
+      }
+    },
+    "title": {
+      "type": "text",
+      "value": {
+        "ko": "우리가 설계한 방식",
+        "en": "Our Design Approach"
+      }
+    },
+    "steps": {
+      "type": "list",
+      "items": [
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "01"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Visual Design",
+              "en": "Visual Design"
+            }
+          },
+          "points": {
+            "type": "list",
+            "items": [
+              {
+                "point": {
+                  "type": "text",
+                  "value": {
+                    "ko": "제품 이미지를 기반으로 한 디자인",
+                    "en": "Design based on product images"
+                  }
+                }
+              },
+              {
+                "point": {
+                  "type": "text",
+                  "value": {
+                    "ko": "아이덴티티를 강조한 미니멀 디자인",
+                    "en": "Minimal design emphasizing identity"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "02"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Interactive Motion",
+              "en": "Interactive Motion"
+            }
+          },
+          "points": {
+            "type": "list",
+            "items": [
+              {
+                "point": {
+                  "type": "text",
+                  "value": {
+                    "ko": "스크롤 흐름에 맞춘 인터랙션 활용",
+                    "en": "Utilizing interactions tailored to the scroll flow"
+                  }
+                }
+              },
+              {
+                "point": {
+                  "type": "text",
+                  "value": {
+                    "ko": "영상이 아닌 이미지 시퀀스 활용",
+                    "en": "Utilizing image sequences instead of videos"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "03"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Custom Development",
+              "en": "Custom Development"
+            }
+          },
+          "points": {
+            "type": "list",
+            "items": [
+              {
+                "point": {
+                  "type": "text",
+                  "value": {
+                    "ko": "브랜드 목적 맞춤형 기능",
+                    "en": "Features customized for brand objectives"
+                  }
+                }
+              },
+              {
+                "point": {
+                  "type": "text",
+                  "value": {
+                    "ko": "고객 맞춤형 관리자 페이지 제공",
+                    "en": "Customized admin page for clients"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "04"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Website Maintenance",
+              "en": "Website Maintenance"
+            }
+          },
+          "points": {
+            "type": "list",
+            "items": [
+              {
+                "point": {
+                  "type": "text",
+                  "value": {
+                    "ko": "SEO 최적화 작업 진행",
+                    "en": "SEO optimization performed"
+                  }
+                }
+              },
+              {
+                "point": {
+                  "type": "text",
+                  "value": {
+                    "ko": "관리자 페이지 내 CMS 관리 가능",
+                    "en": "CMS management available within the admin page"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "refine_closing_1": {
+    "logo": {
+      "type": "image",
+      "src": "/work/refine-clinic/refine_logo.webp",
+      "alt": {
+        "ko": "Refine Clinic",
+        "en": "Refine Clinic"
+      }
+    },
+    "line": {
+      "type": "text",
+      "value": {
+        "ko": "본연의 아름다움을 Refine 하다.",
+        "en": "Refine your inherent beauty."
+      }
+    },
+    "caption": {
+      "type": "text",
+      "i18n": false,
+      "value": {
+        "ko": "WITIM AX STUDIO · Brand & Website"
+      }
+    }
+  },
+  "refine_hero_1": {
+    "image": {
+      "type": "image",
+      "src": "/work/refine-clinic/hero-img-3.webp",
+      "alt": {
+        "ko": "Refine Clinic — Brand & Website",
+        "en": "Refine Clinic — Brand & Website"
+      }
+    }
+  },
+  "refine_moodboard_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Moodboard",
+        "en": "Moodboard"
+      }
+    },
+    "title": {
+      "type": "text",
+      "value": {
+        "ko": "비주얼 디렉션",
+        "en": "Visual Direction"
+      }
+    },
+    "images": {
+      "type": "list",
+      "items": [
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/mood-brand.webp",
+            "alt": {
+              "ko": "브랜드 키비주얼",
+              "en": "Brand Key Visual"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/mood-02.webp",
+            "alt": {
+              "ko": "피부 무드",
+              "en": "Skin Mood"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/mood-03.webp",
+            "alt": {
+              "ko": "포트레이트 무드",
+              "en": "Portrait Mood"
+            }
+          }
+        }
+      ]
+    },
+    "tags": {
+      "type": "list",
+      "items": [
+        {
+          "text": {
+            "type": "text",
+            "value": {
+              "ko": "Light",
+              "en": "Light"
+            }
+          }
+        },
+        {
+          "text": {
+            "type": "text",
+            "value": {
+              "ko": "Skin",
+              "en": "Skin"
+            }
+          }
+        },
+        {
+          "text": {
+            "type": "text",
+            "value": {
+              "ko": "Nature",
+              "en": "Nature"
+            }
+          }
+        },
+        {
+          "text": {
+            "type": "text",
+            "value": {
+              "ko": "Material",
+              "en": "Material"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "refine_gradient_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Brand Gradient",
+        "en": "Brand Gradient"
+      }
+    },
+    "body": {
+      "type": "text",
+      "value": {
+        "ko": "웜 뉴트럴 팔레트를 밝은 톤에서 깊은 톤으로 잇는 그라데이션으로 이미지 전반에 브랜드의 결을 스며들게 했습니다. 크림에서 토프, 잉크로 점진적으로 흐르며 절제되고 몰입감 있는 시각 경험을 만듭니다.",
+        "en": "A gradient connecting a warm neutral palette from light to deep tones allows the brand's texture to permeate throughout the images. It gradually flows from cream to taupe to ink, creating a restrained yet immersive visual experience."
+      }
+    },
+    "rows": {
+      "type": "list",
+      "items": [
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Warm Cream",
+              "en": "Warm Cream"
+            }
+          },
+          "images": {
+            "type": "list",
+            "items": [
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/refine-glow-01.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/gallery-01.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/refine-face-01.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/gallery-05.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/gallery-07.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Signature Taupe",
+              "en": "Signature Taupe"
+            }
+          },
+          "images": {
+            "type": "list",
+            "items": [
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/refine-neck.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/refine-portrait-02.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/lift-fascia.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/refine-profile-01.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/lift-muscle.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Deep Ink",
+              "en": "Deep Ink"
+            }
+          },
+          "images": {
+            "type": "list",
+            "items": [
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/refine-hero-doctor.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/refine-portrait-01.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/gallery-09.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/gallery-03.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/refine-clinic/gallery-11.webp",
+                  "alt": {
+                    "ko": "",
+                    "en": ""
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "refine_ui_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "UI Elements",
+        "en": "UI Elements"
+      }
+    },
+    "body": {
+      "type": "text",
+      "value": {
+        "ko": "새롭게 정립한 BX 원칙을 기반으로 브랜드 컬러와 지정 서체, 절제된 그리드 시스템을 적용했습니다. 리파인의 정교함과 디자인이 고객의 일상 속에 자연스럽게 스며든다는 메시지를 모던하고 간결한 톤으로 전달합니다.",
+        "en": "Based on newly established BX principles, we applied brand colors, designated fonts, and a restrained grid system. The message that Refine's sophistication and design naturally permeate the customer's daily life is conveyed in a modern and concise tone."
+      }
+    },
+    "track": {
+      "type": "list",
+      "items": [
+        {
+          "label": {
+            "type": "text",
+            "value": {
+              "ko": "Basic",
+              "en": "Basic"
+            }
+          }
+        },
+        {
+          "label": {
+            "type": "text",
+            "value": {
+              "ko": "Modern & Clean",
+              "en": "Modern & Clean"
+            }
+          }
+        },
+        {
+          "label": {
+            "type": "text",
+            "value": {
+              "ko": "Warm Gradient",
+              "en": "Warm Gradient"
+            }
+          }
+        }
+      ]
+    },
+    "palette": {
+      "type": "list",
+      "items": [
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Cream",
+              "en": "Cream"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#fbf6f1"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "3"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#f2e7da"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "1"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#e8e4de"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "1"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#d7cabb"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "1"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#c8b7a2"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "1"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Taupe",
+              "en": "Taupe"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#b8a99a"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "1"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#8f8073"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "1"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#6e6560"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "1"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Ink",
+              "en": "Ink"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "#201814"
+            }
+          },
+          "flex": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "2.6"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "refine_type_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Typography",
+        "en": "Typography"
+      }
+    },
+    "fonts": {
+      "type": "list",
+      "items": [
+        {
+          "cap": {
+            "type": "text",
+            "value": {
+              "ko": "ENG",
+              "en": "ENG"
+            }
+          },
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Montserrat",
+              "en": "Montserrat"
+            }
+          },
+          "family": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "Montserrat, sans-serif"
+            }
+          }
+        },
+        {
+          "cap": {
+            "type": "text",
+            "value": {
+              "ko": "KR",
+              "en": "KR"
+            }
+          },
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "프리텐다드",
+              "en": "Pretendard"
+            }
+          },
+          "family": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "Pretendard, sans-serif"
+            }
+          }
+        }
+      ]
+    },
+    "weights": {
+      "type": "list",
+      "items": [
+        {
+          "name": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "Bold"
+            }
+          },
+          "weight": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "700"
+            }
+          },
+          "samples": {
+            "type": "list",
+            "items": [
+              {
+                "sample": {
+                  "type": "text",
+                  "value": {
+                    "ko": "Refine Beauty",
+                    "en": "Refine Beauty"
+                  }
+                },
+                "sub": {
+                  "type": "text",
+                  "i18n": false,
+                  "value": {
+                    "ko": "ABCDEFGHIJKLM · abcdefghijklm · 1234567890"
+                  }
+                }
+              },
+              {
+                "sample": {
+                  "type": "text",
+                  "value": {
+                    "ko": "본연의 아름다움을 Refine 하다",
+                    "en": "Refine your innate beauty"
+                  }
+                },
+                "sub": {
+                  "type": "text",
+                  "i18n": false,
+                  "value": {
+                    "ko": "가나다라마바사아자차카타파하"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "Regular"
+            }
+          },
+          "weight": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "400"
+            }
+          },
+          "samples": {
+            "type": "list",
+            "items": [
+              {
+                "sample": {
+                  "type": "text",
+                  "value": {
+                    "ko": "Refine Beauty",
+                    "en": "Refine Beauty"
+                  }
+                },
+                "sub": {
+                  "type": "text",
+                  "i18n": false,
+                  "value": {
+                    "ko": "ABCDEFGHIJKLM · abcdefghijklm · 1234567890"
+                  }
+                }
+              },
+              {
+                "sample": {
+                  "type": "text",
+                  "value": {
+                    "ko": "본연의 아름다움을 Refine 하다",
+                    "en": "Refine your innate beauty"
+                  }
+                },
+                "sub": {
+                  "type": "text",
+                  "i18n": false,
+                  "value": {
+                    "ko": "가나다라마바사아자차카타파하"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "refine_solution_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Solution Contents",
+        "en": "Solution Contents"
+      }
+    },
+    "body": {
+      "type": "text",
+      "value": {
+        "ko": "단순히 시술을 나열하는 방식에서 벗어나, 고객의 일상과 연결된 다양한 구성의 콘텐츠를 함께 소개합니다. 일상 속에서 시술이 필요한 순간을 조명한 콘텐츠와 케어·스타일 콘텐츠를 편집적인 레이아웃으로 구성하여 세련된 무드로 전달합니다. 이를 통해 자연스럽게 시술 동기가 유발되도록 설계했습니다.",
+        "en": "Moving beyond simply listing procedures, we also introduce diverse content configurations connected to the customer's daily life. Content highlighting moments in daily life when procedures are needed, along with care and style content, is presented in an editorial layout to convey a sophisticated mood. This design naturally encourages motivation for procedures."
+      }
+    },
+    "images": {
+      "type": "list",
+      "items": [
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/sol-space-01.webp",
+            "alt": {
+              "ko": "Refine Clinic 브랜드 디테일",
+              "en": "Refine Clinic Brand Details"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/sol-space-02.webp",
+            "alt": {
+              "ko": "Refine Clinic 공간 사이니지",
+              "en": "Refine Clinic Space Signage"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/sol-space-03.webp",
+            "alt": {
+              "ko": "Refine Clinic 트리트먼트 룸",
+              "en": "Refine Clinic Treatment Room"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/gallery-05.webp",
+            "alt": {
+              "ko": "",
+              "en": ""
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/refine-glow-01.webp",
+            "alt": {
+              "ko": "",
+              "en": ""
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/gallery-01.webp",
+            "alt": {
+              "ko": "",
+              "en": ""
+            }
+          }
+        }
+      ]
+    }
+  },
+  "refine_showcase_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "/ Refine PC Design",
+        "en": "/ Refine PC Design"
+      }
+    },
+    "lead": {
+      "type": "text",
+      "value": {
+        "ko": "브랜드 아이덴티티와 인터랙션이 실제 디바이스에서 어떻게 구현되었는지.",
+        "en": "How brand identity and interaction are implemented on actual devices."
+      }
+    },
+    "poster": {
+      "type": "image",
+      "src": "/work/refine-clinic/screen-desktop.webp",
+      "alt": {
+        "ko": "Refine Clinic 데스크탑 화면",
+        "en": "Refine Clinic Desktop Screen"
+      }
+    },
+    "video": {
+      "type": "text",
+      "i18n": false,
+      "value": {
+        "ko": "/work/refine-clinic/site-scroll.mp4"
+      }
+    },
+    "mobile": {
+      "type": "image",
+      "src": "/work/refine-clinic/mobile-hero.webp",
+      "alt": {
+        "ko": "Refine Clinic 모바일 화면",
+        "en": "Refine Clinic Mobile Screen"
+      }
+    }
+  },
+  "refine_i18n_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "i18n",
+        "en": "i18n"
+      }
+    },
+    "body": {
+      "type": "text",
+      "value": {
+        "ko": "성형·시술의 특성상 다양한 국적의 고객이 방문합니다. 이를 고려해 다국어 언어팩(i18n)을 구현하여, 누구나 자신의 언어로 브랜드와 시술 정보를 직관적으로 이해하도록 설계했습니다. 탐색 과정의 혼란을 최소화하고 사용자 경험의 완성도를 높입니다.",
+        "en": "Due to the nature of plastic surgery and procedures, clients of various nationalities visit. Considering this, we implemented a multilingual language pack (i18n), designing it so that anyone can intuitively understand brand and procedure information in their own language. This minimizes confusion during navigation and enhances the completeness of the user experience."
+      }
+    },
+    "navImage": {
+      "type": "image",
+      "src": "/work/refine-clinic/i18n-nav.webp",
+      "alt": {
+        "ko": "Refine Clinic 다국어 네비게이션 메뉴 (하단 Language 스위처)",
+        "en": "Refine Clinic Multilingual Navigation Menu (Language switcher at the bottom)"
+      }
+    },
+    "langCap": {
+      "type": "text",
+      "i18n": false,
+      "value": {
+        "ko": "Language"
+      }
+    },
+    "langs": {
+      "type": "list",
+      "items": [
+        {
+          "code": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "KO"
+            }
+          },
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "한국어",
+              "en": "Korean"
+            }
+          }
+        },
+        {
+          "code": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "EN"
+            }
+          },
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "English",
+              "en": "English"
+            }
+          }
+        },
+        {
+          "code": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "JA"
+            }
+          },
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "日本語",
+              "en": "Japanese"
+            }
+          }
+        },
+        {
+          "code": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "ZH"
+            }
+          },
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "中文",
+              "en": "Chinese"
+            }
+          }
+        }
+      ]
+    },
+    "note": {
+      "type": "text",
+      "value": {
+        "ko": "한국어 · 영어 · 일본어 · 중국어 — 브라우저 언어를 자동 감지하고, 언제든 전환할 수 있습니다.",
+        "en": "Korean · English · Japanese · Chinese — The browser language is automatically detected and can be switched at any time."
+      }
+    },
+    "bgImage": {
+      "type": "image",
+      "src": "/work/refine-clinic/refine-hero-doctor.webp",
+      "alt": {
+        "ko": "",
+        "en": ""
+      }
+    }
+  },
+  "refine_mobile_1": {
+    "images": {
+      "type": "list",
+      "items": [
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/mtall-01.webp",
+            "alt": {
+              "ko": "Refine Clinic 모바일 화면",
+              "en": "Refine Clinic Mobile Screen"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/mtall-02.webp",
+            "alt": {
+              "ko": "Refine Clinic 모바일 화면",
+              "en": "Refine Clinic Mobile Screen"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/mtall-03.webp",
+            "alt": {
+              "ko": "Refine Clinic 모바일 화면",
+              "en": "Refine Clinic Mobile Screen"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/mtall-04.webp",
+            "alt": {
+              "ko": "Refine Clinic 모바일 화면",
+              "en": "Refine Clinic Mobile Screen"
+            }
+          }
+        }
+      ]
+    },
+    "bgImage": {
+      "type": "image",
+      "src": "/work/refine-clinic/refine-portrait-02.webp",
+      "alt": {
+        "ko": "",
+        "en": ""
+      }
+    }
+  },
+  "refine_subpages_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Sub Pages",
+        "en": "Sub Pages"
+      }
+    },
+    "body": {
+      "type": "text",
+      "value": {
+        "ko": "메인을 넘어 예약·커뮤니티·프로모션까지, 실제 서비스되는 하위 페이지를 그대로 담았습니다.",
+        "en": "Beyond the main page, we included the actual sub-pages as they are serviced, including booking, community, and promotions."
+      }
+    },
+    "url": {
+      "type": "text",
+      "i18n": false,
+      "value": {
+        "ko": "refine-clinic.com"
+      }
+    },
+    "video": {
+      "type": "text",
+      "i18n": false,
+      "value": {
+        "ko": "/work/refine-clinic/subpages.mp4"
+      }
+    },
+    "poster": {
+      "type": "image",
+      "src": "/work/refine-clinic/sub-about-full.webp",
+      "alt": {
+        "ko": "Refine Clinic 하위 페이지",
+        "en": "Refine Clinic Sub-pages"
+      }
+    }
+  },
+  "refine_cms_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Custom CMS",
+        "en": "Custom CMS"
+      }
+    },
+    "title": {
+      "type": "text",
+      "value": {
+        "ko": "직접 관리하는\n콘텐츠 시스템",
+        "en": "Self-managed\nContent System"
+      }
+    },
+    "body": {
+      "type": "text",
+      "value": {
+        "ko": "브랜드 목적에 맞춘 전용 관리자 페이지를 함께 개발했습니다. 메인 페이지의 섹션 구성과 순서, 다국어 카피, 이미지, 프로모션까지 개발자 없이 직접 편집하고, 초안 저장·미리보기·발행 흐름으로 안전하게 운영할 수 있습니다.",
+        "en": "We developed a dedicated admin page tailored to brand objectives. From the main page's section configuration and order, multilingual copy, images, to promotions, it can be directly edited without a developer, and safely operated through a draft save, preview, and publish workflow."
+      }
+    },
+    "url": {
+      "type": "text",
+      "i18n": false,
+      "value": {
+        "ko": "refine-clinic.com/admin/dashboard/main"
+      }
+    },
+    "image": {
+      "type": "image",
+      "src": "/work/refine-clinic/refine-admin.webp",
+      "alt": {
+        "ko": "Refine Clinic 관리자 CMS — 메인 페이지 콘텐츠 편집",
+        "en": "Refine Clinic Admin CMS — Main Page Content Editing"
+      }
+    },
+    "features": {
+      "type": "list",
+      "items": [
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "01"
+            }
+          },
+          "t": {
+            "type": "text",
+            "value": {
+              "ko": "섹션 순서·표시 제어",
+              "en": "Section Order · Display Control"
+            }
+          },
+          "d": {
+            "type": "text",
+            "value": {
+              "ko": "드래그로 섹션 순서를 바꾸고 표시/숨김을 토글해 페이지 구조를 직접 구성합니다.",
+              "en": "Change section order by dragging and toggle display/hide to directly configure the page structure."
+            }
+          }
+        },
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "02"
+            }
+          },
+          "t": {
+            "type": "text",
+            "value": {
+              "ko": "다국어 콘텐츠 편집",
+              "en": "Multilingual Content Editing"
+            }
+          },
+          "d": {
+            "type": "text",
+            "value": {
+              "ko": "한국어·English 등 언어별 카피와 이미지를 한 화면에서 나란히 관리합니다.",
+              "en": "For each language, such as Korean and English, copy and images are managed side-by-side on one screen."
+            }
+          }
+        },
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "03"
+            }
+          },
+          "t": {
+            "type": "text",
+            "value": {
+              "ko": "초안 저장 · 발행",
+              "en": "Save Draft · Publish"
+            }
+          },
+          "d": {
+            "type": "text",
+            "value": {
+              "ko": "초안 저장과 미리보기로 검토한 뒤 발행해 실서비스에 안전하게 반영합니다.",
+              "en": "After reviewing with draft save and preview, publish to safely reflect on the live service."
+            }
+          }
+        }
+      ]
+    }
+  },
+  "refine_signature_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Signature Interaction",
+        "en": "Signature Interaction"
+      }
+    },
+    "title": {
+      "type": "text",
+      "value": {
+        "ko": "브랜드를 움직이게 한\n시그니처 인터랙션",
+        "en": "Signature Interaction\nthat brings the brand to life"
+      }
+    },
+    "directionLabel": {
+      "type": "text",
+      "i18n": false,
+      "value": {
+        "ko": "Direction"
+      }
+    },
+    "direction": {
+      "type": "text",
+      "value": {
+        "ko": "궤도 라인은 즉흥적인 장식이 아니라 브랜드 심볼에서 도출한 조형 원리입니다. 심볼의 곡선을 궤도로 확장하고, 그 위를 도는 점으로 절제된 생동감을 설계했습니다. 정적인 화면이 아니라, 브랜드가 살아 숨 쉬는 경험. 두 개의 라인 모션을 아이덴티티의 핵심 언어로 설계했습니다.",
+        "en": "The orbital lines are not spontaneous decorations but sculptural principles derived from the brand symbol. We extended the symbol's curves into orbits and designed a restrained dynamism with points moving along them. Not a static screen, but an experience where the brand comes alive. We designed two line motions as the core language of the identity."
+      }
+    },
+    "cards": {
+      "type": "list",
+      "items": [
+        {
+          "tag": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "Symbol"
+            }
+          },
+          "caption": {
+            "type": "text",
+            "value": {
+              "ko": "심볼에서 확장된 곡선",
+              "en": "Curves extended from the symbol"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "value": {
+              "ko": "브랜드 심볼의 원형 곡선을 궤도의 기본 단위로 삼았습니다.",
+              "en": "The circular curves of the brand symbol were used as the basic unit of the orbit."
+            }
+          }
+        },
+        {
+          "tag": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "Orbit"
+            }
+          },
+          "caption": {
+            "type": "text",
+            "value": {
+              "ko": "겹쳐 도는 타원 궤도",
+              "en": "Overlapping elliptical orbits"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "value": {
+              "ko": "서로 다른 각도의 타원을 겹쳐 깊이와 리듬을 만들었습니다.",
+              "en": "By overlapping ellipses at different angles, we created depth and rhythm."
+            }
+          }
+        },
+        {
+          "tag": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "Motion"
+            }
+          },
+          "caption": {
+            "type": "text",
+            "value": {
+              "ko": "순환하는 생동감",
+              "en": "Circulating dynamism"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "value": {
+              "ko": "궤도 위를 도는 점이 절제된 화면에 우아한 움직임을 더합니다.",
+              "en": "Points moving along the orbits add elegant movement to the restrained screen."
+            }
+          }
+        }
+      ]
+    },
+    "layers": {
+      "type": "list",
+      "items": [
+        {
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Epidermis",
+              "en": "Epidermis"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "프리미엄 리프팅",
+              "en": "Premium Lifting"
+            }
+          },
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/lift-epidermis.webp",
+            "alt": {
+              "ko": "",
+              "en": ""
+            }
+          }
+        },
+        {
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Fat",
+              "en": "Fat"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "지방층",
+              "en": "Fat Layer"
+            }
+          },
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/lift-fat.webp",
+            "alt": {
+              "ko": "",
+              "en": ""
+            }
+          }
+        },
+        {
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Fascia",
+              "en": "Fascia"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "근막층",
+              "en": "Fascia Layer"
+            }
+          },
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/lift-fascia.webp",
+            "alt": {
+              "ko": "",
+              "en": ""
+            }
+          }
+        },
+        {
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Muscle",
+              "en": "Muscle"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "근육층",
+              "en": "Muscle Layer"
+            }
+          },
+          "image": {
+            "type": "image",
+            "src": "/work/refine-clinic/lift-muscle.webp",
+            "alt": {
+              "ko": "",
+              "en": ""
+            }
+          }
+        }
+      ]
+    },
+    "items": {
+      "type": "list",
+      "items": [
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "01"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Orbital Lines",
+              "en": "Orbital Lines"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "궤도 라인",
+              "en": "Orbital Lines"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "value": {
+              "ko": "브랜드 심볼의 곡선을 확장한 궤도형 라인이 히어로 배경에서 천천히 순환합니다. 절제된 화면에 우아한 생동감을 부여하는 시그니처 모션입니다.",
+              "en": "Orbital lines, extended from the curves of the brand symbol, slowly circulate in the hero background. This is a signature motion that imparts elegant dynamism to the restrained screen."
+            }
+          }
+        },
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "02"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Line Flow",
+              "en": "Line Flow"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "흐르는 라인",
+              "en": "Flowing Lines"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "value": {
+              "ko": "얼굴의 결을 따라 흐르는 얇은 라인이 시술의 깊이와 정밀함을 은유합니다. 스크롤에 반응해 부드럽게 흘러가며 몰입감을 만듭니다.",
+              "en": "Thin lines flowing along the contours of the face metaphorically represent the depth and precision of the procedure. They flow smoothly in response to scrolling, creating an immersive experience."
+            }
+          }
+        }
+      ]
+    }
+  },
+  "refine_credits_1": {
+    "spine": {
+      "type": "list",
+      "items": [
+        {
+          "word": {
+            "type": "text",
+            "value": {
+              "ko": "The",
+              "en": "The"
+            }
+          },
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "01"
+            }
+          },
+          "mid": {
+            "type": "text",
+            "value": {
+              "ko": "Brand Tagline in Website",
+              "en": "Brand Tagline in Website"
+            }
+          },
+          "cat": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "MAIN & GNB"
+            }
+          }
+        },
+        {
+          "word": {
+            "type": "text",
+            "value": {
+              "ko": "New Breath",
+              "en": "New Breath"
+            }
+          },
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "02"
+            }
+          },
+          "mid": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "cat": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "BRAND IDENTITY"
+            }
+          }
+        },
+        {
+          "word": {
+            "type": "text",
+            "value": {
+              "ko": "of",
+              "en": "of"
+            }
+          },
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "03"
+            }
+          },
+          "mid": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "cat": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "CONTENTS"
+            }
+          }
+        },
+        {
+          "word": {
+            "type": "text",
+            "value": {
+              "ko": "eXperience",
+              "en": "eXperience"
+            }
+          },
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "04"
+            }
+          },
+          "mid": {
+            "type": "text",
+            "value": {
+              "ko": "",
+              "en": ""
+            }
+          },
+          "cat": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "RESPONSIVE"
+            }
+          }
+        }
+      ]
+    },
+    "studio": {
+      "type": "text",
+      "i18n": false,
+      "value": {
+        "ko": "WITIM AX STUDIO · Brand & Website · 2026"
+      }
+    },
+    "credits": {
+      "type": "list",
+      "items": [
+        {
+          "role": {
+            "type": "text",
+            "value": {
+              "ko": "Product Designer",
+              "en": "Product Designer"
+            }
+          },
+          "names": {
+            "type": "list",
+            "items": [
+              {
+                "name": {
+                  "type": "text",
+                  "i18n": false,
+                  "value": {
+                    "ko": "Aeji Jung"
+                  }
+                }
+              },
+              {
+                "name": {
+                  "type": "text",
+                  "i18n": false,
+                  "value": {
+                    "ko": "Juyeon Park"
+                  }
+                }
+              },
+              {
+                "name": {
+                  "type": "text",
+                  "i18n": false,
+                  "value": {
+                    "ko": "Juhee Oh"
+                  }
+                }
+              },
+              {
+                "name": {
+                  "type": "text",
+                  "i18n": false,
+                  "value": {
+                    "ko": "Sumin Kim"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "refine_identity_1": {
+    "label": {
+      "type": "text",
+      "value": {
+        "ko": "Brand Identity",
+        "en": "Brand Identity"
+      }
+    },
+    "title": {
+      "type": "text",
+      "value": {
+        "ko": "가장 세련된 조화를 완성하는 미학 연구소",
+        "en": "An aesthetic research institute that completes the most sophisticated harmony"
+      }
+    },
+    "image": {
+      "type": "image",
+      "src": "/work/refine-clinic/refine-face-01.webp",
+      "alt": {
+        "ko": "Refine 브랜드 컨셉",
+        "en": "Refine Brand Concept"
+      }
+    },
+    "body": {
+      "type": "list",
+      "items": [
+        {
+          "paragraph": {
+            "type": "text",
+            "value": {
+              "ko": "아름다움에 대한 기준이 획일화될수록, 우리는 오히려 '가장 나다운 것'이 무엇인지 잊곤 합니다.",
+              "en": "As beauty standards become uniform, we tend to forget what makes us 'most like ourselves'."
+            }
+          }
+        },
+        {
+          "paragraph": {
+            "type": "text",
+            "value": {
+              "ko": "리파인은 단순히 얼굴을 바꾸는 곳이 아닙니다. 당신이 지닌 고유한 아름다움을 발견하고, 불필요한 과함은 덜어내어 가장 세련된 조화를 완성하는 미학 연구소입니다.",
+              "en": "REFINE is not merely a place to change your face. It is an aesthetic research institute that discovers your unique beauty, removes unnecessary excesses, and completes the most sophisticated harmony."
+            }
+          }
+        }
+      ]
+    },
+    "valuesLabel": {
+      "type": "text",
+      "value": {
+        "ko": "REFINE ESSENCE",
+        "en": "REFINE ESSENCE"
+      }
+    },
+    "values": {
+      "type": "list",
+      "items": [
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "01"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Essence",
+              "en": "Essence"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "본연의 아름다움",
+              "en": "Inherent Beauty"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "value": {
+              "ko": "획일적인 미의 기준이 아닌, 당신만이 가진 본연의 아름다움을 발견하여 가장 자연스럽게 빛나도록 이끄는 것이 리파인 미학의 출발점입니다.",
+              "en": "Not uniform beauty standards, but discovering your unique inherent beauty and guiding it to shine most naturally is the starting point of REFINE's aesthetics."
+            }
+          }
+        },
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "02"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Balance",
+              "en": "Balance"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "조화로운 아름다움",
+              "en": "Harmonious Beauty"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "value": {
+              "ko": "진정한 아름다움은 어느 한 곳의 도드라짐이 아닌, 전체가 이루는 균형에서 옵니다. 피부 상태, 얼굴 구조 등 핵심을 정밀하게 진단하여 균형있는 입체감과 조화의 아름다움을 선사합니다.",
+              "en": "True beauty does not come from the prominence of one area, but from the balance of the whole. By precisely diagnosing key aspects such as skin condition and facial structure, we deliver balanced dimensionality and harmonious beauty."
+            }
+          }
+        },
+        {
+          "no": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "03"
+            }
+          },
+          "en": {
+            "type": "text",
+            "value": {
+              "ko": "Refine",
+              "en": "Refine"
+            }
+          },
+          "kr": {
+            "type": "text",
+            "value": {
+              "ko": "정제된 아름다움",
+              "en": "Refined Beauty"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "value": {
+              "ko": "풍부한 경험으로 쌓인 숙련된 테크닉으로 시술하여 정제되고 품격있는 우아함을 완성합니다. 리파인을 통해 얻은 자신감이 일상의 리프레시로 이어져, 나의 삶이 더욱 가치 있게 느껴지도록 완성합니다.",
+              "en": "Through procedures performed with skilled techniques accumulated from extensive experience, we complete a refined and dignified elegance. The confidence gained through REFINE leads to a daily refresh, making one's life feel more valuable."
+            }
+          }
+        }
+      ]
+    }
+  }
+}

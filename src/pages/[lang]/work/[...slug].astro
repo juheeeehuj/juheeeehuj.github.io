@@ -5,7 +5,9 @@ import { getWork, hasPage, langFromId, otherLang, slugFromId, workUrl, type Lang
 import CaseStudy from '../../../layouts/CaseStudy.astro';
 
 export async function getStaticPaths() {
-	const work = (await getWork()).filter(hasPage);
+	// renderer 가 있는 작업은 [studio].astro 가 그린다 (블로그 global.css 와 섞이지 않도록 파일을 나눴다)
+	const all = (await getWork()).filter(hasPage);
+	const work = all.filter((w) => !w.data.renderer);
 	const ids = new Set(work.map((w) => w.id));
 
 	return work.map((entry) => {
@@ -23,7 +25,7 @@ export async function getStaticPaths() {
 			[other]: hasTranslation ? workUrl(other, slug) : `/${other}/work/`,
 		} as Record<Lang, string>;
 
-		const others = work.filter((w) => langFromId(w.id) === lang && w.id !== entry.id);
+		const others = all.filter((w) => langFromId(w.id) === lang && w.id !== entry.id);
 
 		return {
 			params: { lang, slug },
