@@ -1,8 +1,10 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
+import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import { defineHastPlugin } from 'satteri';
 
@@ -59,8 +61,14 @@ export default defineConfig({
 		processor: satteri({ hastPlugins: [figureCaptions] }),
 	},
 
+	// Tailwind 는 AX Studio 에서 옮겨 온 케이스스터디(src/studio)만 쓴다. studio.css 를 불러오는 페이지에만 실린다
+	vite: {
+		plugins: [tailwindcss()],
+	},
+
 	integrations: [
 		mdx(),
+		react(),
 		sitemap({
 			i18n: {
 				defaultLocale: 'en',

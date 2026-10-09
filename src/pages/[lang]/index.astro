@@ -1,6 +1,6 @@
 ---
 // 홈: 고른 작업(Selected Work)이 먼저, 그 아래 최근 블로그 글, 맨 아래 페이지 없는 작업(PDF·비공개) 줄 목록
-//   - 작업은 frontmatter 에 featured: true 인 것만, order 순. 첫 칸은 가로로 크게
+//   - 작업은 frontmatter 에 featured: true 인 것 중 order 순 앞 4개를 2×2 로. 나머지는 아래 '더보기' 로 /work 에서
 //   - 글은 최신 3개
 import MoreWork from '../../components/MoreWork.astro';
 import PostGrid from '../../components/PostGrid.astro';
@@ -16,7 +16,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Lang };
 const t = ui[lang];
 const work = await getWork(lang);
-const featured = work.filter((w) => w.data.featured && hasPage(w));
+const featured = work.filter((w) => w.data.featured && hasPage(w)).slice(0, 4);
 // 줄 목록은 최근 5개만. 나머지는 /work 에서
 const allMore = work.filter((w) => !hasPage(w));
 const more = allMore.slice(0, 5);
@@ -25,16 +25,19 @@ const recent = (await getPosts(lang)).slice(0, 3);
 
 <BaseLayout title={t.siteTitle} description={t.siteDescription} lang={lang} header="personal">
 	<section class="container home-section" aria-labelledby="selected-work">
-		<SectionHeader id="selected-work" title={t.selectedWork} more={{ href: `/${lang}/work/`, label: t.allWork }} />
+		<SectionHeader id="selected-work" title={t.selectedWork} />
 		<ul class="work-list">
 			{
-				featured.map((w, i) => (
-					<li class:list={{ first: i === 0 }}>
-						<WorkCard lang={lang} work={w} wide={i === 0} as="h3" />
+				featured.map((w) => (
+					<li>
+						<WorkCard lang={lang} work={w} as="h3" />
 					</li>
 				))
 			}
 		</ul>
+		<p class="more-cta">
+			<a class="more-button" href={`/${lang}/work/`}>{t.viewMoreWork}</a>
+		</p>
 	</section>
 
 	{
@@ -75,8 +78,27 @@ const recent = (await getPosts(lang)).slice(0, 3);
 		padding: 0;
 		list-style: none;
 	}
-	.work-list .first {
-		grid-column: 1 / -1;
+	.more-cta {
+		margin: 40px 0 0;
+		text-align: center;
+	}
+	/* 알약 모양 그라데이션 버튼 (category-badge 와 같은 색, 크기만 크게) */
+	.more-button {
+		display: inline-block;
+		padding: 12px 32px;
+		border-radius: 25px;
+		background: var(--gradient);
+		background-size: 200% auto;
+		box-shadow: var(--shadow-btn);
+		color: #fff;
+		font-family: var(--font-head);
+		font-size: 14px;
+		font-weight: 500;
+		transition: background-position 0.2s ease-in-out;
+	}
+	.more-button:hover {
+		color: #fff;
+		background-position: right center;
 	}
 	@media (max-width: 767px) {
 		.work-list {

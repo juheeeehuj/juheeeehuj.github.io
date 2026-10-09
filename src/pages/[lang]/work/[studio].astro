@@ -1,0 +1,26 @@
+---
+// AX Studio 에서 옮겨 온 케이스스터디 (renderer 가 있는 작업). 나머지 작업은 [...slug].astro 가 그린다.
+// 파일을 나눈 이유: 같은 파일에서 두 레이아웃을 불러오면 블로그 global.css 가 이 페이지에도 실려 Tailwind 스타일을 덮는다.
+import { getWork, hasPage, langFromId, otherLang, slugFromId, workUrl, type Lang } from '../../../i18n/ui';
+import StudioCase from '../../../layouts/StudioCase.astro';
+
+export async function getStaticPaths() {
+	const work = (await getWork()).filter((w) => hasPage(w) && w.data.renderer);
+	const ids = new Set(work.map((w) => w.id));
+
+	return work.map((entry) => {
+		const lang = langFromId(entry.id);
+		const slug = slugFromId(entry.id);
+		const other = otherLang(lang);
+
+		const hreflang: Partial<Record<Lang, string>> = { [lang]: workUrl(lang, slug) };
+		if (ids.has(`${other}/${slug}`)) hreflang[other] = workUrl(other, slug);
+
+		return { params: { lang, studio: slug }, props: { entry, lang, hreflang } };
+	});
+}
+
+const { entry, lang, hreflang } = Astro.props;
+---
+
+<StudioCase {...entry.data} renderer={entry.data.renderer!} lang={lang} hreflang={hreflang} />

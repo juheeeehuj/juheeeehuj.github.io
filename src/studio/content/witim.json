@@ -1,0 +1,1763 @@
+{
+  "_meta": {
+    "page": "witim",
+    "locale": "ko",
+    "order": [
+      "witim_opening_1",
+      "witim_values_1",
+      "witim_system_1",
+      "witim_palette_1",
+      "witim_tokens_1",
+      "witim_montage_1",
+      "witim_applied_1",
+      "witim_credits_1"
+    ],
+    "types": {
+      "witim_credits_1": "credits",
+      "witim_opening_1": "blocks",
+      "witim_values_1": "blocks",
+      "witim_system_1": "system",
+      "witim_palette_1": "palette",
+      "witim_tokens_1": "tokens",
+      "witim_montage_1": "montage",
+      "witim_applied_1": "applied"
+    }
+  },
+  "witim_credits_1": {
+    "project": {
+      "type": "list",
+      "items": [
+        {
+          "line": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM Identity",
+              "en": "WITIM Identity"
+            }
+          }
+        },
+        {
+          "line": {
+            "type": "text",
+            "value": {
+              "ko": "Renewal Project",
+              "en": "Renewal Project"
+            }
+          }
+        }
+      ]
+    },
+    "date": {
+      "type": "text",
+      "value": {
+        "ko": "JUN.2026",
+        "en": "JUN.2026"
+      }
+    },
+    "studio": {
+      "type": "text",
+      "value": {
+        "ko": "WITIM AX STUDIO",
+        "en": "WITIM AX STUDIO"
+      }
+    },
+    "role": {
+      "type": "text",
+      "value": {
+        "ko": "Designer",
+        "en": "Designer"
+      }
+    },
+    "designers": {
+      "type": "list",
+      "items": [
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Aeji Jung",
+              "en": "Aeji Jung"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Juyeon Park",
+              "en": "Juyeon Park"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Juhee Oh",
+              "en": "Juhee Oh"
+            }
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "Sumin Kim",
+              "en": "Sumin Kim"
+            }
+          }
+        }
+      ]
+    },
+    "wordmark": {
+      "type": "image",
+      "src": "/work/witim-identity/brand/wordmark-lockup.webp",
+      "alt": {
+        "ko": "WITIM 워드마크",
+        "en": "WITIM wordmark"
+      }
+    }
+  },
+  "witim_opening_1": {
+    "blocks": {
+      "type": "list",
+      "items": [
+        {
+          "layout": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "hero"
+            }
+          },
+          "images": {
+            "type": "list",
+            "items": [
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/motion/hero.mp4",
+                  "alt": {
+                    "ko": "WITIM 히어로 영상",
+                    "en": "WITIM hero video"
+                  }
+                }
+              }
+            ]
+          },
+          "flip": {
+            "type": "toggle",
+            "value": false
+          }
+        },
+        {
+          "layout": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "statement"
+            }
+          },
+          "images": {
+            "type": "list",
+            "items": []
+          },
+          "heading": {
+            "type": "text",
+            "value": {
+              "ko": "사람, AI 모델, 에이전트와 디지털 서비스를\n하나의 대화로 연결하는 Agentic Communication Platform,\nWITIM.",
+              "en": "People, AI models, agents, and digital services —\nbrought together in a single conversation. An Agentic Communication Platform,\nWITIM."
+            }
+          },
+          "flip": {
+            "type": "toggle",
+            "value": false
+          }
+        },
+        {
+          "layout": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "editorial-flush"
+            }
+          },
+          "images": {
+            "type": "list",
+            "items": []
+          },
+          "heading": {
+            "type": "text",
+            "value": {
+              "ko": "Project Overview",
+              "en": "Project Overview"
+            }
+          },
+          "body": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM은 사람과 AI 모델, 에이전트, 그리고 여러 디지털 서비스를 하나의 대화로 연결하는 Agentic Communication Platform입니다. 도구를 옮겨 다니지 않아도 대화 안에서 사람과 AI가 함께 일을 실행하도록 만들어, 작은 팀도 부담 없이 쓸 수 있는 업무 환경을 지향합니다. 모든 경쟁사가 '올인원'과 'AI'를 말하지만 실제로는 한 축에만 강점이 치우쳐 있었기에, WITIM은 '말하면 곧 실행이 되는 경험'을 핵심 경쟁력으로 정의하였습니다.\n이번 프로젝트는 슬로건 'What I Think, It Makes. — 생각하면 만들어진다'를 중심으로, 로고·컬러·타이포·모션부터 대시보드 UI까지 WITIM다움을 일관되게 구축하는 것을 목표로 진행되었습니다.",
+              "en": "WITIM is an Agentic Communication Platform that connects people, AI models, agents, and digital services in one conversation. Instead of jumping between tools, people and AI get work done together right inside the chat — a workspace light enough for even the smallest team. Every competitor talks about being \"all-in-one\" and \"AI,\" but each leans on just one of those. WITIM makes its edge the experience where saying it is doing it.\nBuilt around the slogan \"What I Think, It Makes.,\" this project set out to give WITIM one consistent character — from logo, color, type, and motion all the way to the dashboard UI."
+            }
+          },
+          "flip": {
+            "type": "toggle",
+            "value": false
+          }
+        },
+        {
+          "layout": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "gallery"
+            }
+          },
+          "images": {
+            "type": "list",
+            "items": [
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-01.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 1",
+                    "en": "WITIM Together mood image 1"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-01.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 1",
+                    "en": "WITIM Easy mood image 1"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-01.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 1",
+                    "en": "WITIM Gather mood image 1"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-02.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 2",
+                    "en": "WITIM Together mood image 2"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-02.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 2",
+                    "en": "WITIM Easy mood image 2"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-02.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 2",
+                    "en": "WITIM Gather mood image 2"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-03.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 3",
+                    "en": "WITIM Together mood image 3"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-03.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 3",
+                    "en": "WITIM Easy mood image 3"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-03.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 3",
+                    "en": "WITIM Gather mood image 3"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-04.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 4",
+                    "en": "WITIM Together mood image 4"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-04.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 4",
+                    "en": "WITIM Easy mood image 4"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-04.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 4",
+                    "en": "WITIM Gather mood image 4"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-05.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 5",
+                    "en": "WITIM Together mood image 5"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-05.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 5",
+                    "en": "WITIM Easy mood image 5"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-05.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 5",
+                    "en": "WITIM Gather mood image 5"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-06.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 6",
+                    "en": "WITIM Together mood image 6"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-06.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 6",
+                    "en": "WITIM Easy mood image 6"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-06.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 6",
+                    "en": "WITIM Gather mood image 6"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-07.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 7",
+                    "en": "WITIM Together mood image 7"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-07.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 7",
+                    "en": "WITIM Easy mood image 7"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-07.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 7",
+                    "en": "WITIM Gather mood image 7"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-08.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 8",
+                    "en": "WITIM Together mood image 8"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-08.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 8",
+                    "en": "WITIM Easy mood image 8"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-08.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 8",
+                    "en": "WITIM Gather mood image 8"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-09.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 9",
+                    "en": "WITIM Together mood image 9"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-09.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 9",
+                    "en": "WITIM Easy mood image 9"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-09.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 9",
+                    "en": "WITIM Gather mood image 9"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/together/together-10.webp",
+                  "alt": {
+                    "ko": "WITIM Together 무드 이미지 10",
+                    "en": "WITIM Together mood image 10"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/easy/easy-10.webp",
+                  "alt": {
+                    "ko": "WITIM Easy 무드 이미지 10",
+                    "en": "WITIM Easy mood image 10"
+                  }
+                }
+              },
+              {
+                "image": {
+                  "type": "image",
+                  "src": "/work/witim-identity/values/gather/gather-10.webp",
+                  "alt": {
+                    "ko": "WITIM Gather 무드 이미지 10",
+                    "en": "WITIM Gather mood image 10"
+                  }
+                }
+              }
+            ]
+          },
+          "flip": {
+            "type": "toggle",
+            "value": false
+          }
+        },
+        {
+          "layout": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "editorial-flush"
+            }
+          },
+          "images": {
+            "type": "list",
+            "items": []
+          },
+          "heading": {
+            "type": "text",
+            "value": {
+              "ko": "Brand Core",
+              "en": "Brand Core"
+            }
+          },
+          "body": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM은 사람과 AI 모델, 에이전트, 디지털 서비스를 하나의 대화로 연결하는 Agentic Communication Platform입니다. 모든 경쟁사가 '올인원'과 'AI'를 말하지만 실제로는 한 축에만 강점이 치우쳐 있었기에, WITIM은 '말하면 곧 실행이 되는 경험'을 핵심 경쟁력으로 정의했습니다. 슬로건 'What I Think, It Makes.'를 중심으로 로고·컬러·타이포·모션부터 대시보드 UI까지 WITIM다움을 일관되게 구축했습니다.",
+              "en": "WITIM is an Agentic Communication Platform that connects people, AI models, agents, and digital services in one conversation. Every competitor talks \"all-in-one\" and \"AI,\" but each leans on just one side — so WITIM made its edge the experience where saying it is doing it. Around the slogan \"What I Think, It Makes.,\" we built one consistent character across logo, color, type, motion, and the dashboard UI."
+            }
+          },
+          "flip": {
+            "type": "toggle",
+            "value": false
+          }
+        }
+      ]
+    }
+  },
+  "witim_values_1": {
+    "blocks": {
+      "type": "list",
+      "items": [
+        {
+          "layout": {
+            "type": "text",
+            "i18n": false,
+            "value": {
+              "ko": "values"
+            }
+          },
+          "heading": {
+            "type": "text",
+            "value": {
+              "ko": "Core Values",
+              "en": "Core Values"
+            }
+          },
+          "subheading": {
+            "type": "text",
+            "value": {
+              "ko": "Together, Easy, Gather",
+              "en": "Together, Easy, Gather"
+            }
+          },
+          "body": {
+            "type": "text",
+            "value": {
+              "ko": "함께, 쉽게, 모아서 — 위팀이 일하는 세 가지 방식.",
+              "en": "Together, easy, gathered — the three ways WITIM works."
+            }
+          },
+          "values": {
+            "type": "list",
+            "items": [
+              {
+                "number": {
+                  "type": "text",
+                  "value": {
+                    "ko": "01",
+                    "en": "01"
+                  }
+                },
+                "title": {
+                  "type": "text",
+                  "value": {
+                    "ko": "Together · 함께",
+                    "en": "Together"
+                  }
+                },
+                "body": {
+                  "type": "text",
+                  "value": {
+                    "ko": "혼자 붙들고 있지 않는다. 팀도, 티미도 같이 한다. 막히면 티미가 먼저 거들고, 팀원은 같은 화면에서 바로 손을 보탠다.",
+                    "en": "No one carries it alone. The team is in it, and so is Timi. When you're stuck, Timi steps in first, and teammates jump in on the same screen."
+                  }
+                }
+              },
+              {
+                "number": {
+                  "type": "text",
+                  "value": {
+                    "ko": "02",
+                    "en": "02"
+                  }
+                },
+                "title": {
+                  "type": "text",
+                  "value": {
+                    "ko": "Easy · 쉽게",
+                    "en": "Easy"
+                  }
+                },
+                "body": {
+                  "type": "text",
+                  "value": {
+                    "ko": "어렵게 만들지 않는다. 복잡한 세팅 없이 무료로 시작하고, 처음 쓰는 팀도 설명서 없이 그냥 쓴다.",
+                    "en": "Nothing is made hard. Start free with no fuss, and even a first-time team just uses it — no manual needed."
+                  }
+                }
+              },
+              {
+                "number": {
+                  "type": "text",
+                  "value": {
+                    "ko": "03",
+                    "en": "03"
+                  }
+                },
+                "title": {
+                  "type": "text",
+                  "value": {
+                    "ko": "Gather · 모으다",
+                    "en": "Gather"
+                  }
+                },
+                "body": {
+                  "type": "text",
+                  "value": {
+                    "ko": "도구를 모으는 게 아니라, 흩어진 생각·대화·자료를 만들어질 상태로 모은다. 티미가 그 맥락을 이어 붙여, 모인 게 바로 실행으로 이어지게 한다.",
+                    "en": "It's not about collecting tools — it's about gathering scattered thoughts, chats, and files into something ready to be made. Timi threads the context so that what's gathered turns straight into action."
+                  }
+                }
+              }
+            ]
+          },
+          "images": {
+            "type": "list",
+            "items": []
+          },
+          "flip": {
+            "type": "toggle",
+            "value": false
+          }
+        }
+      ]
+    }
+  },
+  "witim_system_1": {
+    "logoKicker": {
+      "type": "text",
+      "value": {
+        "ko": "Logo Construction",
+        "en": "Logo Construction"
+      }
+    },
+    "logoHeadline": {
+      "type": "text",
+      "value": {
+        "ko": "기하로 설계한 워드마크.",
+        "en": "A wordmark built from geometry."
+      }
+    },
+    "logoCaption": {
+      "type": "text",
+      "value": {
+        "ko": "직선 스트로크 + 동일한 곡률 반경의 라운드 조인트 — W의 두 골과 M의 꼭짓점이 같은 곡률 리듬으로 통일됩니다.",
+        "en": "Straight strokes meet round joints of a single radius — the two valleys of the W and the peak of the M share one curve rhythm."
+      }
+    },
+    "logoGrid": {
+      "type": "image",
+      "src": "/work/witim-identity/brand/logo-outline-grid.webp",
+      "alt": {
+        "ko": "WITIM 워드마크 아웃라인 설계 그리드",
+        "en": "WITIM wordmark outline construction grid"
+      }
+    },
+    "outdoorPoster": {
+      "type": "image",
+      "src": "/work/witim-identity/applied/outdoor-api-poster.webp",
+      "alt": {
+        "ko": "WITIM API Layer & SDK 포스터가 설치된 건물 외벽 옥외 목업",
+        "en": "Outdoor mockup of a WITIM API Layer & SDK poster on a building facade"
+      }
+    },
+    "eyebrow": {
+      "type": "text",
+      "value": {
+        "ko": "TIMI Agents",
+        "en": "TIMI Agents"
+      }
+    },
+    "headline": {
+      "type": "text",
+      "value": {
+        "ko": "같은 곳을 보는 동료.",
+        "en": "A teammate who looks the same way you do."
+      }
+    },
+    "lead": {
+      "type": "text",
+      "value": {
+        "ko": "티미는 부를 때만 오는 도구가 아닙니다. 내가 무엇을 만들려 하는지 같은 방향에서 바라보고, 생각이 형태를 갖추는 동안 늘 같은 자리에 함께 있습니다. 항상 같은 곳을 바라보는 팀원이라는 브랜드 코어를 에이전트 고양이 티미의 뒷모습으로 드러냈고, 세미콜론(;)을 고양이 형태에 그대로 적용해 WITIM 의 TIMI 임을 형태로 말합니다.",
+        "en": "Timi isn't a tool that shows up only when called. Timi looks the same way you do at what you're trying to make, and stays right there while the idea takes shape. We drew that brand core — a teammate who always faces the same direction — as the back of Timi the agent cat, and shaped the semicolon (;) into the cat itself, so the form says TIMI of WITIM."
+      }
+    },
+    "traits": {
+      "type": "list",
+      "items": [
+        {
+          "number": {
+            "type": "text",
+            "value": {
+              "ko": "01",
+              "en": "01"
+            }
+          },
+          "title": {
+            "type": "text",
+            "value": {
+              "ko": "같은 곳을 본다",
+              "en": "Looks the same way"
+            }
+          },
+          "body": {
+            "type": "text",
+            "value": {
+              "ko": "시키는 일을 처리하는 데서 그치지 않는다. 무엇을 만들려는지부터 같이 보고, 막히는 자리에서 다음 수를 먼저 꺼낸다.",
+              "en": "It doesn't stop at doing what it's told. It looks with you at what you're making, and offers the next move where you get stuck."
+            }
+          }
+        },
+        {
+          "number": {
+            "type": "text",
+            "value": {
+              "ko": "02",
+              "en": "02"
+            }
+          },
+          "title": {
+            "type": "text",
+            "value": {
+              "ko": "맥락을 나눠 갖는다",
+              "en": "Shares the context"
+            }
+          },
+          "body": {
+            "type": "text",
+            "value": {
+              "ko": "대화·문서·자료에 흩어진 맥락을 함께 들고 있다. 매번 처음부터 다시 설명하지 않아도 된다.",
+              "en": "It holds the context scattered across chats, docs, and files — so you never have to explain from scratch again."
+            }
+          }
+        },
+        {
+          "number": {
+            "type": "text",
+            "value": {
+              "ko": "03",
+              "en": "03"
+            }
+          },
+          "title": {
+            "type": "text",
+            "value": {
+              "ko": "생각을 형태로 만든다",
+              "en": "Turns thought into form"
+            }
+          },
+          "body": {
+            "type": "text",
+            "value": {
+              "ko": "말이 실행으로 넘어가는 자리에 나란히 선다 — 생각한 것이 그대로 만들어지도록.",
+              "en": "It stands beside you where words become action — so what you think gets made as it is."
+            }
+          }
+        }
+      ]
+    },
+    "plates": {
+      "type": "list",
+      "items": [
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/character/construction.webp",
+            "alt": {
+              "ko": "티미 캐릭터 비례 설계 도면",
+              "en": "Timi character proportion construction drawing"
+            }
+          },
+          "mark": {
+            "type": "text",
+            "value": {
+              "ko": "B",
+              "en": "B"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/character/head-axis.webp",
+            "alt": {
+              "ko": ""
+            }
+          },
+          "mark": {
+            "type": "text",
+            "value": {
+              "ko": "A",
+              "en": "A"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/character/comma-circles.webp",
+            "alt": {
+              "ko": ""
+            }
+          },
+          "mark": {
+            "type": "text",
+            "value": {
+              "ko": "C",
+              "en": "C"
+            }
+          }
+        }
+      ]
+    },
+    "notes": {
+      "type": "list",
+      "items": [
+        {
+          "mark": {
+            "type": "text",
+            "value": {
+              "ko": "A",
+              "en": "A"
+            }
+          },
+          "title": {
+            "type": "text",
+            "value": {
+              "ko": "머리 / 귀 구성",
+              "en": "Head / ear structure"
+            }
+          },
+          "rules": {
+            "type": "list",
+            "items": [
+              {
+                "line": {
+                  "type": "text",
+                  "value": {
+                    "ko": "귀 정점은 정확한 그리드 교차점에 맞춘다.",
+                    "en": "Ear tips land exactly on grid intersections."
+                  }
+                }
+              },
+              {
+                "line": {
+                  "type": "text",
+                  "value": {
+                    "ko": "귀 각도 — 수직에서 70도.",
+                    "en": "Ear angle — 70° from vertical."
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "value": {
+              "ko": "B",
+              "en": "B"
+            }
+          },
+          "title": {
+            "type": "text",
+            "value": {
+              "ko": "수직 간격 및 비율",
+              "en": "Vertical spacing & ratio"
+            }
+          },
+          "rules": {
+            "type": "list",
+            "items": [
+              {
+                "line": {
+                  "type": "text",
+                  "value": {
+                    "ko": "머리와 몸통 간의 거리 = 10.",
+                    "en": "Distance between head and body = 10."
+                  }
+                }
+              },
+              {
+                "line": {
+                  "type": "text",
+                  "value": {
+                    "ko": "수직 비율 = 머리 100 : 몸통 120.",
+                    "en": "Vertical ratio = head 100 : body 120."
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "value": {
+              "ko": "C",
+              "en": "C"
+            }
+          },
+          "title": {
+            "type": "text",
+            "value": {
+              "ko": "꼬리 / 콤마 통합",
+              "en": "Tail / comma integration"
+            }
+          },
+          "rules": {
+            "type": "list",
+            "items": [
+              {
+                "line": {
+                  "type": "text",
+                  "value": {
+                    "ko": "꼬리 곡선은 하단 호와 접선을 이룬다.",
+                    "en": "The tail curve runs tangent to the lower arc."
+                  }
+                }
+              },
+              {
+                "line": {
+                  "type": "text",
+                  "value": {
+                    "ko": "몸통에 통합되어야 하며, 분리되어서는 안 된다.",
+                    "en": "It must merge into the body, never break away."
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "outdoorBanner": {
+      "type": "image",
+      "src": "/work/witim-identity/applied/outdoor-timiagent.webp",
+      "alt": {
+        "ko": "timiagent 옥외 광고 배너",
+        "en": "timiagent outdoor advertising banner"
+      }
+    }
+  },
+  "witim_palette_1": {
+    "deskMockup": {
+      "type": "image",
+      "src": "/work/witim-identity/product/desk-imac-mockup.webp",
+      "alt": {
+        "ko": "WITIM 데스크톱 앱에서 티미와 대화하는 화면 목업",
+        "en": "Mockup of chatting with Timi in the WITIM desktop app"
+      }
+    },
+    "chatVideo": {
+      "type": "image",
+      "src": "/work/witim-identity/product/timi-realchat.mp4",
+      "alt": {
+        "ko": "티미와 대화하는 실제 채팅 화면",
+        "en": "Live chat screen in conversation with Timi"
+      }
+    },
+    "sectionTitle": {
+      "type": "text",
+      "value": {
+        "ko": "Color & Typography",
+        "en": "Color & Typography"
+      }
+    },
+    "intro": {
+      "type": "list",
+      "items": [
+        {
+          "paragraph": {
+            "type": "text",
+            "value": {
+              "ko": "위팀의 색은 단 하나의 블루에서 출발합니다. 보라도 초록도 흑백도 아닌, 아무도 선점하지 않은 결단의 블루를 코어로 삼고 Light와 Dark 두 톤으로 화면 전반을 이끕니다. 뉴트럴 그레이와 잉크가 이를 받쳐, 블루는 생각이 실제로 만들어지는(made) 순간에만 빛나도록 절제해 씁니다.",
+              "en": "WITIM's color starts from a single blue — not purple, not green, not black-and-white, but a decisive blue no one had claimed. It anchors the system across two tones, Light and Dark, backed by neutral grays and ink, so the blue is held in reserve and only lights up the moment a thought is actually made."
+            }
+          }
+        },
+        {
+          "paragraph": {
+            "type": "text",
+            "value": {
+              "ko": "타이포그래피는 영문·숫자에 Inter, 국문에 Pretendard를 함께 씁니다. 가변 웨이트 100–900으로 또렷한 디테일과 균형 잡힌 형태를 유지하며, 다국어 환경에서도 흔들리지 않는 하나의 리듬으로 위팀의 목소리를 전합니다.",
+              "en": "Type pairs Inter for Latin and numerals with Pretendard for Korean. Variable weights from 100 to 900 keep the detail crisp and the shapes balanced, carrying WITIM's voice in one steady rhythm across languages."
+            }
+          }
+        }
+      ]
+    },
+    "palette": {
+      "type": "list",
+      "items": [
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM Light",
+              "en": "WITIM Light"
+            }
+          },
+          "rgb": {
+            "type": "text",
+            "value": {
+              "ko": "RGB 69 / 95 / 255",
+              "en": "RGB 69 / 95 / 255"
+            }
+          },
+          "hex": {
+            "type": "text",
+            "value": {
+              "ko": "HEX 455FFF",
+              "en": "HEX 455FFF"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "value": {
+              "ko": "#455fff",
+              "en": "#455fff"
+            }
+          },
+          "hero": {
+            "type": "toggle",
+            "value": true
+          },
+          "darkText": {
+            "type": "toggle",
+            "value": true
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM Dark",
+              "en": "WITIM Dark"
+            }
+          },
+          "rgb": {
+            "type": "text",
+            "value": {
+              "ko": "RGB 102 / 128 / 255",
+              "en": "RGB 102 / 128 / 255"
+            }
+          },
+          "hex": {
+            "type": "text",
+            "value": {
+              "ko": "HEX 6680FF",
+              "en": "HEX 6680FF"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "value": {
+              "ko": "#6680ff",
+              "en": "#6680ff"
+            }
+          },
+          "hero": {
+            "type": "toggle",
+            "value": true
+          },
+          "darkText": {
+            "type": "toggle",
+            "value": true
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM White",
+              "en": "WITIM White"
+            }
+          },
+          "rgb": {
+            "type": "text",
+            "value": {
+              "ko": "RGB 255 / 255 / 255",
+              "en": "RGB 255 / 255 / 255"
+            }
+          },
+          "hex": {
+            "type": "text",
+            "value": {
+              "ko": "HEX FFFFFF",
+              "en": "HEX FFFFFF"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "value": {
+              "ko": "#ffffff",
+              "en": "#ffffff"
+            }
+          },
+          "hero": {
+            "type": "toggle",
+            "value": false
+          },
+          "darkText": {
+            "type": "toggle",
+            "value": false
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM Paper",
+              "en": "WITIM Paper"
+            }
+          },
+          "rgb": {
+            "type": "text",
+            "value": {
+              "ko": "RGB 244 / 245 / 250",
+              "en": "RGB 244 / 245 / 250"
+            }
+          },
+          "hex": {
+            "type": "text",
+            "value": {
+              "ko": "HEX F4F5FA",
+              "en": "HEX F4F5FA"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "value": {
+              "ko": "#f4f5fa",
+              "en": "#f4f5fa"
+            }
+          },
+          "hero": {
+            "type": "toggle",
+            "value": false
+          },
+          "darkText": {
+            "type": "toggle",
+            "value": false
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM Line",
+              "en": "WITIM Line"
+            }
+          },
+          "rgb": {
+            "type": "text",
+            "value": {
+              "ko": "RGB 228 / 230 / 239",
+              "en": "RGB 228 / 230 / 239"
+            }
+          },
+          "hex": {
+            "type": "text",
+            "value": {
+              "ko": "HEX E4E6EF",
+              "en": "HEX E4E6EF"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "value": {
+              "ko": "#e4e6ef",
+              "en": "#e4e6ef"
+            }
+          },
+          "hero": {
+            "type": "toggle",
+            "value": false
+          },
+          "darkText": {
+            "type": "toggle",
+            "value": false
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM Gray",
+              "en": "WITIM Gray"
+            }
+          },
+          "rgb": {
+            "type": "text",
+            "value": {
+              "ko": "RGB 138 / 143 / 163",
+              "en": "RGB 138 / 143 / 163"
+            }
+          },
+          "hex": {
+            "type": "text",
+            "value": {
+              "ko": "HEX 8A8FA3",
+              "en": "HEX 8A8FA3"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "value": {
+              "ko": "#8a8fa3",
+              "en": "#8a8fa3"
+            }
+          },
+          "hero": {
+            "type": "toggle",
+            "value": false
+          },
+          "darkText": {
+            "type": "toggle",
+            "value": true
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM Ink 2",
+              "en": "WITIM Ink 2"
+            }
+          },
+          "rgb": {
+            "type": "text",
+            "value": {
+              "ko": "RGB 21 / 23 / 42",
+              "en": "RGB 21 / 23 / 42"
+            }
+          },
+          "hex": {
+            "type": "text",
+            "value": {
+              "ko": "HEX 15172A",
+              "en": "HEX 15172A"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "value": {
+              "ko": "#15172a",
+              "en": "#15172a"
+            }
+          },
+          "hero": {
+            "type": "toggle",
+            "value": false
+          },
+          "darkText": {
+            "type": "toggle",
+            "value": true
+          }
+        },
+        {
+          "name": {
+            "type": "text",
+            "value": {
+              "ko": "WITIM Ink",
+              "en": "WITIM Ink"
+            }
+          },
+          "rgb": {
+            "type": "text",
+            "value": {
+              "ko": "RGB 14 / 15 / 26",
+              "en": "RGB 14 / 15 / 26"
+            }
+          },
+          "hex": {
+            "type": "text",
+            "value": {
+              "ko": "HEX 0E0F1A",
+              "en": "HEX 0E0F1A"
+            }
+          },
+          "swatch": {
+            "type": "text",
+            "value": {
+              "ko": "#0e0f1a",
+              "en": "#0e0f1a"
+            }
+          },
+          "hero": {
+            "type": "toggle",
+            "value": false
+          },
+          "darkText": {
+            "type": "toggle",
+            "value": true
+          }
+        }
+      ]
+    },
+    "scale": {
+      "type": "list",
+      "items": [
+        {
+          "label": {
+            "type": "text",
+            "value": {
+              "ko": "Display / 900",
+              "en": "Display / 900"
+            }
+          },
+          "sample": {
+            "type": "text",
+            "value": {
+              "ko": "What I Think, It Makes.",
+              "en": "What I Think, It Makes."
+            }
+          }
+        },
+        {
+          "label": {
+            "type": "text",
+            "value": {
+              "ko": "Title / 800",
+              "en": "Title / 800"
+            }
+          },
+          "sample": {
+            "type": "text",
+            "value": {
+              "ko": "생각하면 만들어진다",
+              "en": "Think it, and it's made"
+            }
+          }
+        },
+        {
+          "label": {
+            "type": "text",
+            "value": {
+              "ko": "Body / 500",
+              "en": "Body / 500"
+            }
+          },
+          "sample": {
+            "type": "text",
+            "value": {
+              "ko": "채팅에서 결정으로, 결정에서 실행으로 — 생각한 게 한자리에서 만들어진다.",
+              "en": "From chat to decision, decision to action — what you think gets made in one place."
+            }
+          }
+        },
+        {
+          "label": {
+            "type": "text",
+            "value": {
+              "ko": "Mono / Inter",
+              "en": "Mono / Inter"
+            }
+          },
+          "sample": {
+            "type": "text",
+            "value": {
+              "ko": "Think it. Make it.",
+              "en": "Think it. Make it."
+            }
+          }
+        }
+      ]
+    },
+    "samples": {
+      "type": "list",
+      "items": [
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/moodboard/discs-flatlay.webp",
+            "alt": {
+              "ko": "WITIM 블루와 구조적 형태를 보여주는 브랜드 샘플",
+              "en": "Brand sample showing WITIM blue and structural form"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/moodboard/objects-arch.webp",
+            "alt": {
+              "ko": "WITIM 브랜드 컬러가 적용된 편집 이미지",
+              "en": "Edited image in WITIM brand color"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/moodboard/bar-pedestal.webp",
+            "alt": {
+              "ko": "WITIM 아이덴티티를 보여주는 넓은 샘플 이미지",
+              "en": "Wide sample image showing the WITIM identity"
+            }
+          }
+        }
+      ]
+    },
+    "typeLabel": {
+      "type": "text",
+      "value": {
+        "ko": "Typeface",
+        "en": "Typeface"
+      }
+    },
+    "typeName": {
+      "type": "text",
+      "value": {
+        "ko": "Inter · Pretendard",
+        "en": "Inter · Pretendard"
+      }
+    },
+    "specimens": {
+      "type": "list",
+      "items": [
+        {
+          "lang": {
+            "type": "text",
+            "value": {
+              "ko": "English",
+              "en": "English"
+            }
+          },
+          "glyph": {
+            "type": "text",
+            "value": {
+              "ko": "A",
+              "en": "A"
+            }
+          },
+          "sample": {
+            "type": "text",
+            "value": {
+              "ko": "What I Think, It Makes.",
+              "en": "What I Think, It Makes."
+            }
+          }
+        },
+        {
+          "lang": {
+            "type": "text",
+            "value": {
+              "ko": "Korean",
+              "en": "Korean"
+            }
+          },
+          "glyph": {
+            "type": "text",
+            "value": {
+              "ko": "가",
+              "en": "가"
+            }
+          },
+          "sample": {
+            "type": "text",
+            "value": {
+              "ko": "생각하면 만들어진다",
+              "en": "Think it, and it's made"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "witim_tokens_1": {
+    "eyebrow": {
+      "type": "text",
+      "value": {
+        "ko": "Design System & Component",
+        "en": "Design System & Component"
+      }
+    },
+    "headline": {
+      "type": "text",
+      "value": {
+        "ko": "어두워질수록 ",
+        "en": "The darker it gets, "
+      }
+    },
+    "headlineMuted": {
+      "type": "text",
+      "value": {
+        "ko": "브랜드는 밝아진다.",
+        "en": "the brighter the brand."
+      }
+    },
+    "lead": {
+      "type": "text",
+      "value": {
+        "ko": "눈에 같은 인디고로 보이려면 어두운 바탕에서는 값을 밝혀야 합니다. 역할 토큰이 라이트·다크 두 값을 갖는 이유입니다.",
+        "en": "To read as the same indigo, the value has to lift on a dark ground. That's why every role token carries two values — light and dark."
+      }
+    },
+    "motion": {
+      "type": "image",
+      "src": "/work/witim-identity/motion/tokens.mp4",
+      "alt": {
+        "ko": "컴포넌트 카드가 떠다니며 라이트·다크로 갈아입는 모션",
+        "en": "Motion of component cards floating and switching between light and dark"
+      }
+    },
+    "clips": {
+      "type": "list",
+      "items": [
+        {
+          "theme": {
+            "type": "text",
+            "value": {
+              "ko": "Light",
+              "en": "Light"
+            }
+          },
+          "video": {
+            "type": "image",
+            "src": "/work/witim-identity/motion/chat-light.mp4",
+            "alt": {
+              "ko": "위팀 표준 채팅 UI 고급모드 — 라이트",
+              "en": "WITIM standard chat UI, advanced mode — light"
+            }
+          }
+        },
+        {
+          "theme": {
+            "type": "text",
+            "value": {
+              "ko": "Dark",
+              "en": "Dark"
+            }
+          },
+          "video": {
+            "type": "image",
+            "src": "/work/witim-identity/motion/chat-dark.mp4",
+            "alt": {
+              "ko": "위팀 표준 채팅 UI 고급모드 — 다크",
+              "en": "WITIM standard chat UI, advanced mode — dark"
+            }
+          }
+        }
+      ]
+    },
+    "mobile": {
+      "type": "image",
+      "src": "/work/witim-identity/motion/chat-simple-light.mp4",
+      "alt": {
+        "ko": "위팀 모바일 간편 모드",
+        "en": "WITIM mobile, simple mode"
+      }
+    }
+  },
+  "witim_montage_1": {
+    "tiles": {
+      "type": "list",
+      "items": [
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/product/iphone-home.webp",
+            "alt": {
+              "ko": "WITIM 모바일 제품 목업",
+              "en": "WITIM mobile product mockup"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/product/notification-badge.webp",
+            "alt": {
+              "ko": "WITIM 앱 아이콘 알림 배지",
+              "en": "WITIM app icon notification badge"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/product/notification-card.webp",
+            "alt": {
+              "ko": "위팀 알림톡 카드 목업 — 누르면 앞발 톡 사운드가 재생된다",
+              "en": "WITIM notification card mockup — tap to play the paw-tap sound"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/product/lockscreen.webp",
+            "alt": {
+              "ko": "WITIM 알림이 표시된 아이폰 잠금화면 목업",
+              "en": "iPhone lock-screen mockup showing a WITIM notification"
+            }
+          }
+        }
+      ]
+    },
+    "video": {
+      "type": "image",
+      "src": "/work/witim-identity/motion/simple-mode-stickers.mp4",
+      "alt": {
+        "ko": "간편 모드에서 이모티콘을 보내는 화면",
+        "en": "Sending a sticker in simple mode"
+      }
+    }
+  },
+  "witim_applied_1": {
+    "mockups": {
+      "type": "list",
+      "items": [
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/applied/notebook.webp",
+            "alt": {
+              "ko": "WITIM 브랜드 가이드라인 바인더",
+              "en": "WITIM brand guideline binder"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/applied/business-card.webp",
+            "alt": {
+              "ko": "WITIM 로고를 형압으로 새긴 명함",
+              "en": "Business card with the WITIM logo in blind embossing"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/applied/id-card.webp",
+            "alt": {
+              "ko": "WITIM 멤버 ID 카드",
+              "en": "WITIM member ID card"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/applied/tote-bag.webp",
+            "alt": {
+              "ko": "'What I Think, It Makes.' 를 새긴 WITIM 캔버스 토트백",
+              "en": "WITIM canvas tote bag printed with \"What I Think, It Makes.\""
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/applied/stationery.webp",
+            "alt": {
+              "ko": "WITIM 인쇄물 스테이셔너리 세트",
+              "en": "WITIM printed stationery set"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/applied/cup-holder.webp",
+            "alt": {
+              "ko": "Time with WITIM 컵홀더",
+              "en": "\"Time with WITIM\" cup holder"
+            }
+          }
+        }
+      ]
+    },
+    "pair": {
+      "type": "list",
+      "items": [
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/applied/welcome-card.webp",
+            "alt": {
+              "ko": "'What I Think, It Makes.' 웰컴 카드와 패키지 박스",
+              "en": "\"What I Think, It Makes.\" welcome card and packaging box"
+            }
+          }
+        },
+        {
+          "image": {
+            "type": "image",
+            "src": "/work/witim-identity/applied/hoodie-street.webp",
+            "alt": {
+              "ko": "가슴에 WITIM 로고를 새긴 후디를 입은 사람",
+              "en": "Person wearing a hoodie with the WITIM logo on the chest"
+            }
+          }
+        }
+      ]
+    },
+    "video": {
+      "type": "image",
+      "src": "/work/witim-identity/motion/wordmark-reveal.mp4",
+      "alt": {
+        "ko": "WITIM 워드마크가 드러나는 모션",
+        "en": "Motion revealing the WITIM wordmark"
+      }
+    }
+  }
+}

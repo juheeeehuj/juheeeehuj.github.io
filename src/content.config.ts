@@ -26,6 +26,7 @@ const blog = defineCollection({
 
 // 작업(케이스스터디)은 src/content/work/<lang>/<slug>.mdx 에 둔다. 번역 짝 규칙은 blog 와 같다.
 //   - 이미지는 src/assets/work/<slug>/, 영상·PDF 는 public/work/<slug>/ 에 둔다
+//   - renderer 가 있는 작업은 본문 없이 src/studio 의 케이스스터디를 그대로 보여준다
 //   - link 나 locked 가 있는 작업은 상세 페이지 없이 목록 아래 한 줄로만 보인다
 const work = defineCollection({
 	loader: glob({ base: './src/content/work', pattern: '**/*.{md,mdx}' }),
@@ -42,6 +43,8 @@ const work = defineCollection({
 			tools: z.array(z.string()).default([]),
 			// 케이스스터디 페이지 대신 이 주소(예: PDF)를 연다
 			link: z.string().optional(),
+			// AX Studio 에서 옮겨 온 케이스스터디: 본문 대신 src/studio 의 컴포넌트가 화면 전체를 그린다
+			renderer: z.enum(['refine', 'witim', 'chaisa']).optional(),
 			// true 면 비공개: 목록에 자물쇠로만 보이고 페이지는 만들지 않는다
 			locked: z.boolean().default(false),
 			// 목록에 보이는 연도 (예: 2026)
