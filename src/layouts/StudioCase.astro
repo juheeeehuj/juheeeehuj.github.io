@@ -15,7 +15,7 @@ type Props = CollectionEntry<'work'>['data'] & {
 	hreflang: Partial<Record<Lang, string>>;
 };
 
-const { title, description, cover, renderer, lang, hreflang } = Astro.props;
+const { title, description, cover, renderer, site, lang, hreflang } = Astro.props;
 const t = ui[lang];
 
 // 닫기 버튼 색: 케이스스터디 첫 화면 바탕에 맞춘다
@@ -65,6 +65,22 @@ const ogImage = new URL((await getImage({ src: cover, width: 1200, format: 'jpg'
 		<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,100..900&display=swap" rel="stylesheet" />
 	</head>
 	<body>
+		{
+			site && (
+				<a
+					class:list={[
+						'fixed right-[4.75rem] top-6 z-[100] flex h-11 items-center gap-1.5 border px-4 text-sm font-medium transition md:right-[6.25rem] md:top-12',
+						closeTone,
+					]}
+					href={site}
+					target="_blank"
+					rel="noopener"
+				>
+					{t.visitSite}
+					<span aria-hidden="true">↗</span>
+				</a>
+			)
+		}
 		<a
 			aria-label={t.backToWork}
 			class:list={[
