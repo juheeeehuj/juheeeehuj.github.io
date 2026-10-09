@@ -1,5 +1,5 @@
 ---
-title: '[위블로그 6편] 배너 10장을 AI와 만들면서 제가 한 일'
+title: '[위블로그 6편] 배너를 AI와 만들다'
 description: '위블로그 배너를 Claude Code와 대화로 만든 하루를 돌아보며, AI가 그린 것과 제가 방향을 튼 순간을 나눠 정리했습니다.'
 pubDate: 2026-10-08
 category: ai
