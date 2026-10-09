@@ -34,6 +34,12 @@
     "esbuild": true
   },
   "devDependencies": {
+    "@tiptap/core": "^3.31.4",
+    "@tiptap/extension-image": "^3.31.4",
+    "@tiptap/extension-table": "^3.31.4",
+    "@tiptap/markdown": "^3.31.4",
+    "@tiptap/pm": "^3.31.4",
+    "@tiptap/starter-kit": "^3.31.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0"
   }

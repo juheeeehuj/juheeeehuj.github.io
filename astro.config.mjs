@@ -7,6 +7,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import { defineHastPlugin } from 'satteri';
+import localEditor from './src/editor/integration.mjs';
 
 // 본문에 이미지만 있는 문단을 <figure> 로 감싸고 alt 를 캡션(<figcaption>)으로 보여준다.
 // Astro 7 의 기본 마크다운 처리기(Sätteri)용 플러그인이다. rehype 플러그인은 여기서 동작하지 않는다.
@@ -69,6 +70,8 @@ export default defineConfig({
 	integrations: [
 		mdx(),
 		react(),
+		// 로컬 전용 글 편집기 (npm run dev 에서만 동작)
+		localEditor(),
 		sitemap({
 			i18n: {
 				defaultLocale: 'en',
