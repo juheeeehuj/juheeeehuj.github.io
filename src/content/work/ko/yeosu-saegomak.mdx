@@ -1,0 +1,52 @@
+---
+title: 피그마 대신 코드로, AI와 함께 만든 여수새고막 웹사이트
+description: 여수 꼬막을 가공해 국내외에 납품하는 여수새고막의 홈페이지를 새로 만들었습니다. 시안 파일을 그리는 대신 Codex와 Claude Code에 명세를 주고 코드 위에서 바로 디자인했고, Runway·Gemini로 만든 영상과 GSAP 모션을 얹어 4주 만에 홈과 서브페이지 28장을 완성했습니다.
+kicker: 웹 디자인 · AI 빌드
+cover: ../../../assets/work/yeosu-saegomak/cover.png
+projectType: 클라이언트 프로젝트 (1차 시안)
+duration: 4주
+role: 디자인, 카피, 구현 (AI 코딩 도구 운용)
+tools: [Codex, Claude Code, GSAP, Runway, Gemini]
+year: '2026.05 – 06'
+order: 3.2
+featured: true
+---
+
+<Block kicker="배경" title="시안 파일 없이, 코드 위에서 바로 디자인한 기업 사이트" sub="피그마로 그려서 개발자에게 넘기는 대신, 디자이너가 AI 코딩 도구를 운용해 끝까지 만들면 어떻게 될까?" layout="side" big>
+여수새고막은 여수 여자만의 꼬막을 가공해 국내외 식품 회사와 식당에 납품하는 어업회사법인입니다. 기존 홈페이지는 HTTPS가 없고, 게시판 주소가 그대로 드러나고, 문의로 이어지는 버튼이 없어 해외 바이어에게 신뢰를 주기 어려웠습니다. 이번 리뉴얼에서는 피그마 시안 단계를 건너뛰었습니다. Codex와 Claude Code에 기획·디자인 명세를 주고 코드에서 바로 화면을 만들었고, 저는 방향을 정하고 결과를 고치는 역할을 맡았습니다.
+
+<Figure slot="media" src="yeosu-saegomak/home-hero.jpg" caption="홈 첫 화면. Runway와 Gemini로 만든 영상 위에 GSAP 텍스트 리빌" />
+</Block>
+
+<Block kicker="작업 방식" title="명세 12개를 먼저 쓰고, 결정은 대화로, 변주는 코드로" layout="side">
+코드보다 문서가 먼저였습니다. 기존 사이트의 정보 구조를 분석하고 DESIGN·SITEMAP·COPY·TONE·MOTION 같은 명세 md 12개를 쓴 뒤에야 구현을 시작했습니다. AI에게는 "명세에 없는 결정이 필요하면 멈추고 물어봐"라고 못 박고, 결정이 필요할 때마다 짧게 대화해 방향을 정한 다음 구현을 맡겼습니다. 결과가 마음에 들지 않으면 직전 버전으로 되돌리고 다른 변주를 시켰습니다. 생산공정 배너 하나에 플로팅 카드형, 대각 분할형, 타임라인형, 아코디언형 네 가지를 만들어 비교한 뒤 하나를 골랐습니다. 중간에 정리한 디자인 시스템 문서가 이후 모든 수정의 기준이 되었습니다.
+
+<Figure slot="media" src="yeosu-saegomak/home-company.jpg" caption="회사 개요 섹션. 설립연도와 거래처 수가 숫자 카운팅으로 올라간다" />
+</Block>
+
+<Block id="home" toc="홈" kicker="홈" title="풀스크린 다섯 장면으로 이어지는 홈" big>
+영상 히어로, 회사 개요, 메인 브랜드, 원산지와 품질, 제품 라인업. 홈은 다섯 장면을 한 화면씩 넘기는 구조입니다. 청정 바다의 딥네이비 위에 브랜드 오렌지를 포인트로 쓰고, 글래스 카드로 정보를 얹었습니다.
+
+<Grid slot="media" cols={3} items={[
+  { src: 'yeosu-saegomak/home-brand.jpg', label: 'Main Brand', caption: '협력 브랜드 엄지네포장마차. 오렌지 패널과 음식 사진을 반반으로 나눴다' },
+  { src: 'yeosu-saegomak/home-origin.jpg', label: 'Origin & Quality', caption: '수확·가공·유통 세 카드가 스크롤에 맞춰 올라온다' },
+  { src: 'yeosu-saegomak/home-products.jpg', label: 'Products', caption: '브랜드별 필터와 제품 카드. 두 열이 다른 속도로 움직이는 패럴랙스' },
+]} />
+</Block>
+
+<Block id="sub" toc="서브페이지" kicker="서브페이지" title="회사소개부터 문의까지, 서브페이지 28장">
+회사개요·연혁·생산공정·품질, 브랜드 3개, 제품, 수출정보, 뉴스·IR, 문의까지 서브페이지 28장을 같은 규칙으로 만들었습니다. 상단 인트로, 섹션 라벨, 카드와 배지 시스템을 통일했고, 기존 그누보드 게시판의 보도자료는 외부 링크가 살아 있는 기사만 골라 옮겼습니다.
+
+<Grid slot="media" cols={4} items={[
+  { src: 'yeosu-saegomak/sub-overview.jpg', label: '회사개요' },
+  { src: 'yeosu-saegomak/sub-facility.jpg', label: '생산공정' },
+  { src: 'yeosu-saegomak/sub-products.jpg', label: '제품소개' },
+  { src: 'yeosu-saegomak/sub-news.jpg', label: '뉴스·IR' },
+]} />
+</Block>
+
+<Block kicker="모션과 영상" title="레퍼런스 4곳의 모션을 뜯어 보고 GSAP를 골랐습니다" layout="side">
+CJ, 호반문화재단, 삼성웰스토리, 하츠 네 사이트의 실제 스크립트를 확인해 어떤 라이브러리로 어떤 모션을 쓰는지 정리했고, 그중 세 곳이 쓰는 GSAP ScrollTrigger를 택했습니다. 히어로 텍스트 리빌, 제품 카드 패럴랙스, 브랜드 섹션의 스크롤 연동 이동, 숫자 카운팅이 여기서 나왔습니다. 히어로 영상은 Runway와 Gemini로 만들어 배경에 깔았습니다.
+
+<Figure slot="media" src="yeosu-saegomak/live-home" caption="실제 동작 화면. 홈 다섯 장면을 넘기고 생산공정 페이지를 내려 본 녹화" />
+</Block>
