@@ -1,0 +1,145 @@
+---
+// 여수새고막 리디자인 케이스스터디. 다른 renderer 와 달리 React 없이 마크업(ko.html / en.html)과 작은 스크립트로만 그린다.
+// 문구를 고칠 때는 ko.html 을 고치고 en.html 의 같은 자리를 맞춘다. 이미지·영상은 public/work/yeosu-saegomak/ 에 있다.
+import './yeosu.css';
+import ko from './ko.html?raw';
+import en from './en.html?raw';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	locale: Lang;
+}
+
+const { locale } = Astro.props;
+const html = locale === 'en' ? en : ko;
+---
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" />
+<div class="ysg" set:html={html} />
+
+<script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	const root = document.querySelector<HTMLElement>('.ysg');
+
+	// GSAP 모션. 스크립트가 돌 때만 숨겼다가 보여 주므로, 스크립트가 없어도 내용은 그대로 보인다.
+	if (root && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		gsap.registerPlugin(ScrollTrigger);
+		const q = (sel: string) => [...root.querySelectorAll<HTMLElement>(sel)];
+
+		// 히어로: 영상이 살짝 줌아웃되며 들어오고, 글자가 아래에서 차례로 올라온다. 스크롤하면 영상이 천천히 밀려난다
+		const heroVideo = root.querySelector('.hero video');
+		gsap.from(heroVideo, { scale: 1.12, duration: 2.2, ease: 'power3.out' });
+		gsap.from(q('.hero .inner > *'), { y: 40, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.12, delay: 0.2 });
+		gsap.to(heroVideo, { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.ysg .hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+		// 섹션 헤더와 카드류: 화면에 들어오면 아래에서 떠오른다 (같은 줄에 있는 것끼리 차례로)
+		const reveal = [
+			'.head > *', '.sub', '.glance > div', '.numbers > div',
+			'.cols figure', '.step-h', '.split > div > *:not(.ghost)', '.answer-cards article', '.concepts article',
+			'.fm-row', '.ia3 figure', '.qa-wrap', '.sitemap .col', '.timeline li', '.versus figure', '.feedback article', '.lesson',
+			'.token', '.tscale', '.comps article', '.cmp figure', '.duo > div', '.phone', '.how article',
+		].map((s) => '.ysg ' + s).join(',');
+		// 트리거는 IntersectionObserver 로 잡는다. 이미지가 늦게 불러와져 높이가 바뀌어도, 빠르게 스크롤하거나 메뉴로 건너뛰어도 놓치지 않는다
+		const items = [...root.querySelectorAll<HTMLElement>(reveal)];
+		gsap.set(items, { opacity: 0, y: 36 });
+		const seen = new IntersectionObserver(
+			(entries) => {
+				const shown = entries.filter((e) => e.isIntersecting || e.boundingClientRect.bottom < 0).map((e) => e.target);
+				if (!shown.length) return;
+				shown.forEach((el) => seen.unobserve(el));
+				gsap.to(shown, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08, overwrite: true });
+			},
+			{ rootMargin: '0px 0px -8% 0px' },
+		);
+		items.forEach((el) => seen.observe(el));
+
+		// 진단 패널의 큰 숫자는 스크롤보다 느리게 움직인다
+		q('.split .ghost').forEach((el) =>
+			gsap.fromTo(el, { yPercent: -20 }, { yPercent: 25, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }),
+		);
+
+		// 기존 사이트 화면 4열: 짝수 열이 조금 늦게 따라온다
+		q('#why .cols figure:nth-child(even)').forEach((el) =>
+			gsap.fromTo(el, { y: 60 }, { y: -20, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } }),
+		);
+
+		// 숫자 카운트업
+		q('.numbers b').forEach((b) => {
+			const end = Number(b.textContent);
+			if (!Number.isFinite(end)) return;
+			const o = { v: 0 };
+			gsap.to(o, {
+				v: end,
+				duration: 1.4,
+				ease: 'power2.out',
+				scrollTrigger: { trigger: b, start: 'top 90%', once: true },
+				onUpdate: () => (b.textContent = String(Math.round(o.v))),
+			});
+		});
+
+		// 호버 모션: 마우스가 있는 기기에서만, 작게. 이 프로젝트의 교훈(인터랙션은 필요한 만큼)에 맞춰 움직임을 아낀다
+		if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+			const hover = (sel: string, target: (el: HTMLElement) => Element | null, enter: gsap.TweenVars, leave: gsap.TweenVars) =>
+				q(sel).forEach((el) => {
+					const t = target(el);
+					if (!t) return;
+					el.addEventListener('mouseenter', () => gsap.to(t, { duration: 0.6, ease: 'power2.out', overwrite: 'auto', ...enter }));
+					el.addEventListener('mouseleave', () => gsap.to(t, { duration: 0.6, ease: 'power2.out', overwrite: 'auto', ...leave }));
+				});
+
+			// 컨셉 패널: 사진만 천천히 조금 다가온다
+			hover('.cpanel', (el) => el.querySelector('img'), { scale: 1.04, duration: 1.4 }, { scale: 1, duration: 1.2 });
+			// 화면 캡처와 폰: 몇 픽셀만 들린다
+			hover('.cols figure, .ia3 figure, .cmp figure', (el) => el.querySelector('.browser'), { y: -4 }, { y: 0 });
+			hover('.phone', (el) => el, { y: -6 }, { y: 0 });
+			// 시안 영상: 아주 살짝 확대
+			hover('.versus figure', (el) => el.querySelector('video'), { scale: 1.02, duration: 1 }, { scale: 1, duration: 1 });
+		}
+
+		// 이미지가 늦게 불러와져 높이가 바뀌면 트리거 위치를 다시 잰다
+		q('img').forEach((img) => img.complete || img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true }));
+	}
+
+	if (root) {
+		// 진행 막대와 현재 장 표시
+		const bar = root.querySelector<HTMLElement>('#bar');
+		const links = [...root.querySelectorAll<HTMLAnchorElement>('.rail nav a')];
+		const onScroll = () => {
+			const h = document.documentElement;
+			if (bar) bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
+		};
+		addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+
+		// 맨 위로 버튼
+		const top = root.querySelector<HTMLButtonElement>('#totop');
+		if (top) {
+			const toggle = () => top.classList.toggle('show', scrollY > innerHeight * 0.8);
+			addEventListener('scroll', toggle, { passive: true });
+			toggle();
+			top.addEventListener('click', () =>
+				scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }),
+			);
+		}
+		const io = new IntersectionObserver(
+			(es) =>
+				es.forEach((e) => {
+					if (!e.isIntersecting) return;
+					links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+				}),
+			{ rootMargin: '-40% 0px -55% 0px' },
+		);
+		root.querySelectorAll('section[id]').forEach((s) => io.observe(s));
+
+		// KO / EN 화면 전환
+		const lang = root.querySelector<HTMLElement>('#lang');
+		lang?.querySelectorAll<HTMLButtonElement>('.toggle button').forEach((b) =>
+			b.addEventListener('click', () => {
+				lang.querySelectorAll('.toggle button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+				lang.classList.toggle('is-en', b.dataset.l === 'en');
+			}),
+		);
+	}
+</script>

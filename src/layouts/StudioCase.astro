@@ -8,6 +8,7 @@ import { defaultLang, ui, type Lang } from '../i18n/ui';
 import ChaisaCaseStudy from '../studio/chaisa/casestudy/ChaisaCaseStudy';
 import RefineCaseStudy from '../studio/refine/RefineCaseStudy';
 import WitimBranding from '../studio/witim/WitimBranding';
+import YeosuCaseStudy from '../studio/yeosu/YeosuCaseStudy.astro';
 
 type Props = CollectionEntry<'work'>['data'] & {
 	renderer: NonNullable<CollectionEntry<'work'>['data']['renderer']>;
@@ -23,7 +24,14 @@ const closeTone = {
 	refine: 'border-black bg-white text-black hover:bg-black hover:text-white',
 	witim: 'border-white/70 bg-black/30 text-white backdrop-blur hover:bg-white hover:text-black',
 	chaisa: 'border-white/70 bg-[#0c1120]/90 text-white backdrop-blur hover:bg-white hover:text-black',
+	yeosu: 'rounded-full border-[#dde3eb] bg-white text-[#16181d] hover:border-[#16181d] hover:bg-[#16181d] hover:text-white',
 }[renderer];
+
+// 버튼 위치: 여수새고막은 상단 메뉴바(52px) 안에 세로 가운데로 넣는다
+const place =
+	renderer === 'yeosu'
+		? { site: 'right-[3.75rem] top-[6px] h-10', close: 'right-3 top-[6px] size-10 text-lg' }
+		: { site: 'right-[4.75rem] top-6 h-11 md:right-[6.25rem] md:top-12', close: 'right-6 top-6 size-11 text-xl md:right-12 md:top-12' };
 
 const pageTitle = `${title} | ${t.siteTitle}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -69,7 +77,8 @@ const ogImage = new URL((await getImage({ src: cover, width: 1200, format: 'jpg'
 			site && (
 				<a
 					class:list={[
-						'fixed right-[4.75rem] top-6 z-[100] flex h-11 items-center gap-1.5 border px-4 text-sm font-medium transition md:right-[6.25rem] md:top-12',
+						'fixed z-[100] flex items-center gap-1.5 border px-4 text-sm font-medium transition',
+						place.site,
 						closeTone,
 					]}
 					href={site}
@@ -84,7 +93,8 @@ const ogImage = new URL((await getImage({ src: cover, width: 1200, format: 'jpg'
 		<a
 			aria-label={t.backToWork}
 			class:list={[
-				'fixed right-6 top-6 z-[100] grid size-11 place-items-center border text-xl transition md:right-12 md:top-12',
+				'fixed z-[100] grid place-items-center border transition',
+				place.close,
 				closeTone,
 			]}
 			href={`/${lang}/work/`}>×</a
@@ -92,5 +102,6 @@ const ogImage = new URL((await getImage({ src: cover, width: 1200, format: 'jpg'
 		{renderer === 'refine' && <RefineCaseStudy locale={lang} client:load />}
 		{renderer === 'witim' && <WitimBranding locale={lang} client:load />}
 		{renderer === 'chaisa' && <ChaisaCaseStudy locale={lang} client:load />}
+		{renderer === 'yeosu' && <YeosuCaseStudy locale={lang} />}
 	</body>
 </html>
