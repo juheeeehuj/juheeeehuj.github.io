@@ -1,54 +1,15 @@
 ---
-title: Yeosu Saegomak, a website redesigned in code with AI instead of Figma
-description: A redesign of the existing website of Yeosu Saegomak, a fishery company that processes cockles from Yeosu for food companies and restaurants at home and abroad. Starting from four diagnoses, information architecture, ageing tech, missing conversion paths and brand consistency, I briefed Codex and Claude Code with written specs instead of drawing mockups and designed directly in code, then layered in a Runway and Gemini video and GSAP motion. Home plus 28 subpages rebuilt in four weeks.
-kicker: Website Redesign · AI-assisted Build
+title: Yeosu Saegomak Redesign
+description: I redesigned the website of Yeosu Saegomak, an export-driven seafood company, around one path, an overseas buyer getting to an inquiry. I audited 34 screens of the old site and defined the problem before the first meeting, then took it through target users, IA and a design system to page design and a KO/EN frontend.
+kicker: Website Redesign
 cover: ../../../assets/work/yeosu-saegomak/cover.png
-projectType: Client project (first design round)
-duration: 4 weeks
-role: Design, copy, build (directing AI coding tools)
-tools: [Codex, Claude Code, GSAP, Runway, Gemini]
-year: '2026.05 – 06'
+projectType: Client project
+duration: 2026.05 – 07
+role: Design, Frontend
+tools: [Codex, Claude Code, GSAP]
+renderer: yeosu
+site: 'https://arkshell.co.kr/'
+year: '2026.05 – 07'
 order: 3.2
 featured: true
 ---
-
-<Block kicker="Background" title="Redesigning a website that was driving visitors away" sub="Four diagnoses: information architecture, ageing technology, no conversion path, no brand consistency. And this time, designed in code instead of Figma." layout="side" big>
-Yeosu Saegomak is a fishermen-owned company that processes cockles from Yeoja Bay and supplies food companies and restaurants in Korea and overseas. An audit of the existing site surfaced four problems. Information architecture: four business-area cards on the home page all led to the same page, and the bulletin-board structure leaked into the URLs. Ageing technology: no HTTPS, an eight-year-old Bootstrap 4 base, and pinch-zoom blocked on mobile. Conversion: no purchase or inquiry button anywhere, so B2B and B2C leads had nowhere to go. Brand consistency: a generic bulletin-board template with no brand identity, so assets like clean waters and fishermen shareholders never came across.
-
-The redesign took four directions: user-first design, mobile first, data-driven information architecture and a design system the client can operate. And I skipped the Figma mockup stage. I gave Codex and Claude Code written planning and design specs and had them build the screens directly in code, while I set the direction and corrected the results.
-
-<Figure slot="media" src="yeosu-saegomak/home-hero.jpg" caption="Home hero. GSAP text reveal over a video made with Runway and Gemini" />
-</Block>
-
-<Block kicker="How I worked" title="Twelve spec documents first, decisions in conversation, variations in code" layout="side">
-The proposal offered two directions, a refined, trustworthy and balanced A and a solid, professional and global B, and recommended A as the base with B's big typography and motion borrowed in. In the build, documents came before code. I analysed the old site's information architecture and wrote twelve spec files, including DESIGN, SITEMAP, COPY, TONE and MOTION, before any implementation started. I told the AI to stop and ask whenever a decision was not covered by the specs, settled each one in a short conversation, and then handed over the build. When a result did not work, I rolled back to the previous version and asked for a different variation. For the production-process banner alone I had four versions built, floating cards, a diagonal split, a timeline and an accordion, compared them side by side and kept one. A design-system document written midway became the reference for every later change.
-
-<Figure slot="media" src="yeosu-saegomak/home-company.jpg" caption="Company overview section. Founding year and partner count animate with number counters" />
-</Block>
-
-<Block id="home" toc="Home" kicker="Home" title="A home page that moves through five full-screen scenes" big>
-Video hero, company overview, main brand, origin and quality, product lineup. The home page steps through five scenes one screen at a time. Brand orange accents sit on the deep navy of clean water, with information carried on glass cards.
-
-<Grid slot="media" cols={3} items={[
-  { src: 'yeosu-saegomak/home-brand.jpg', label: 'Main Brand', caption: 'Partner brand Umjine Pocha. An orange panel and a food photo split the screen in half' },
-  { src: 'yeosu-saegomak/home-origin.jpg', label: 'Origin & Quality', caption: 'Three cards for harvest, processing and distribution rise with the scroll' },
-  { src: 'yeosu-saegomak/home-products.jpg', label: 'Products', caption: 'Brand filters and product cards. Two columns move at different speeds as a parallax' },
-]} />
-</Block>
-
-<Block id="sub" toc="Subpages" kicker="Subpages" title="Twenty-eight subpages, from company overview to contact">
-Company overview, history, production process and quality, three brands, products, export information, news and IR, and contact: 28 subpages built on the same rules. Page intros, section labels, cards and the badge system are unified, and press articles from the old bulletin board were migrated only where the original external links were still alive.
-
-<Grid slot="media" cols={4} items={[
-  { src: 'yeosu-saegomak/sub-overview.jpg', label: 'Company Overview' },
-  { src: 'yeosu-saegomak/sub-facility.jpg', label: 'Production Process' },
-  { src: 'yeosu-saegomak/sub-products.jpg', label: 'Products' },
-  { src: 'yeosu-saegomak/sub-news.jpg', label: 'News & IR' },
-]} />
-</Block>
-
-<Block kicker="Motion and video" title="I took apart the motion on four reference sites and chose GSAP" layout="side">
-I inspected the actual scripts on four reference sites, CJ, Hoban Cultural Foundation, Samsung Welstory and Haatz, to see which libraries drove which motion, and picked GSAP ScrollTrigger, which three of the four use. The hero text reveal, product-card parallax, scroll-linked movement in the brand section and the number counters all came from that audit. The hero video was generated with Runway and Gemini and placed as the background.
-
-<Figure slot="media" src="yeosu-saegomak/live-home" caption="The site in motion. A recording that steps through the five home scenes and scrolls the production-process page" />
-</Block>
