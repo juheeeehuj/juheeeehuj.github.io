@@ -4,8 +4,8 @@
     <nav aria-label="Jump to section">
       <a href="#overview">Overview</a>
       <a href="#why">Problem</a>
-      <a href="#concept">Concept</a>
       <a href="#target">Target</a>
+      <a href="#concept">Concept</a>
       <a href="#ia">IA</a>
       <a href="#flow">User Flow</a>
       <a href="#drafts">Drafts</a>
@@ -40,10 +40,9 @@
 
   <section id="overview" class="section wrap" aria-labelledby="ov-h">
     <div class="inner head">
-      <div><span class="label">Overview</span></div>
       <div style="display:grid;gap:16px">
-        <h2 id="ov-h">An export company whose website gave buyers no way to get in touch.</h2>
-        <p class="lede body-m">Yeosu Saegomak processes cockles from Yeoja Bay in Yeosu and exports them overseas. Its old website had no path from seeing a product to sending an inquiry. I defined that problem and proposed it before our first meeting, then took the work through information architecture and a design system to page design and frontend build.</p>
+        <div><span class="label">Overview</span><h2 id="ov-h">An export company whose website made it hard for buyers to get in touch.</h2></div>
+        <p class="lede body-m">Yeosu Saegomak processes cockles from Yeoja Bay in Yeosu and exports them overseas. On its old website, the path from seeing a product to sending an inquiry was hard to find. I defined that problem and proposed it before our first meeting, then took the work through information architecture and a design system to page design and frontend build.</p>
         <div class="numbers">
           <div><b>34</b><span>old screens audited</span></div>
           <div><b>4</b><span>core problems</span></div>
@@ -58,24 +57,24 @@
   <section id="why" class="section" aria-labelledby="why-h" style="padding-block:0">
     <div class="band wrap" style="padding-top:var(--sp-section)">
       <div class="inner head center" style="margin-bottom:0">
-        <div><span class="label">01 · Problem Definition</span><h2 id="why-h">I walked into the first meeting with the problem already defined</h2></div>
-        <p class="lede">The proposal opened with a diagnosis, not a mockup. I audited 34 screens of the old site, grouped what I found into four problems, and paired each with a direction. What follows is that proposal, rebuilt for this page.</p>
+        <div><span class="label">Problem Definition</span><h2 id="why-h">I started by defining the problem</h2></div>
+        <p class="lede">I audited 34 screens of the old site, grouped what I found into four problems, and paired each with a direction. What follows is that proposal, rebuilt for this page.</p>
       </div>
     </div>
 
     <div class="band wrap">
       <div class="inner" style="padding-block:var(--sp-block) var(--sp-section)">
-        <div class="sub center"><h3>The old site</h3><p style="opacity:.7;font-size:var(--fs-small)">Home, menu, production process and recipes, out of 34 screens</p></div>
-        <div class="cols c4">
-          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/oldf-home.jpg" alt="Old home page, full length" loading="lazy"></div><figcaption class="cap" style="color:rgba(255,255,255,.6)">Home</figcaption></figure>
-          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/oldf-menu.jpg" alt="Old menu, full length" loading="lazy"></div><figcaption class="cap" style="color:rgba(255,255,255,.6)">Menu</figcaption></figure>
-          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/oldf-facility.jpg" alt="Old production page, full length" loading="lazy"></div><figcaption class="cap" style="color:rgba(255,255,255,.6)">R&amp;D · Production</figcaption></figure>
-          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/oldf-recipe.jpg" alt="Old recipes page, full length" loading="lazy"></div><figcaption class="cap" style="color:rgba(255,255,255,.6)">Recipes</figcaption></figure>
+        <div class="sub center"><h3>The old site</h3></div>
+        <div class="cols c4 zigzag">
+          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/oldf-home.jpg" alt="Old home page, full length" loading="lazy"></div><figcaption class="cap" style="color:rgba(255,255,255,.6);text-align:center">Home</figcaption></figure>
+          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/oldf-menu.jpg" alt="Old menu, full length" loading="lazy"></div><figcaption class="cap" style="color:rgba(255,255,255,.6);text-align:center">Menu</figcaption></figure>
+          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/oldf-recipe.jpg" alt="Old recipes page, full length" loading="lazy"></div><figcaption class="cap" style="color:rgba(255,255,255,.6);text-align:center">Recipes</figcaption></figure>
+          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/oldf-facility.jpg" alt="Old production page, full length" loading="lazy"></div><figcaption class="cap" style="color:rgba(255,255,255,.6);text-align:center">R&amp;D · Production</figcaption></figure>
         </div>
       </div>
     </div>
     <div class="split">
-      <div class="dark"><span class="ghost" aria-hidden="true">01</span><span class="num">01</span><h3>Visual and technical decay</h3><ul><li>No HTTPS, so browsers showed security warnings</li><li>Built on Bootstrap 4, eight years old</li><li>Pinch-zoom blocked on mobile (an accessibility violation)</li><li>Unoptimized JPGs everywhere, slowing every page</li></ul></div>
+      <div class="dark"><span class="ghost" aria-hidden="true">01</span><span class="num">01</span><h3>Visual and technical decay</h3><ul><li>No HTTPS, so browsers showed security warnings</li><li>Built on an eight-year-old web framework (Bootstrap 4)</li><li>Pinch-zoom blocked on mobile (an accessibility violation)</li><li>Unoptimized JPGs everywhere, slowing every page</li></ul></div>
       <div class="lite"><span class="ghost" aria-hidden="true">02</span><span class="num">02</span><h3>Misleading information architecture</h3><ul><li>Four "Business" cards on the home page all led to the same page</li><li>Desktop, mobile and footer menus were defined separately</li><li>Bulletin-board structure leaked into URLs, confusing users and maintainers</li></ul></div>
     </div>
     <div class="split">
@@ -85,7 +84,7 @@
 
     <div class="band wrap">
       <div class="inner slide" style="align-items:start">
-        <div style="display:grid;gap:12px"><span class="label">Our Answer</span><p class="slide-title">Cut, reduce,<br>rebuild.</p></div>
+        <div style="display:grid;gap:12px"><span class="label">UX Solution</span><p class="slide-title">Cut, reduce,<br>rebuild.</p></div>
         <div class="answer-cards">
           <article><b>01</b><div><h3>User-first design</h3><p>Drop the supplier-centered menu and rebuild navigation around the tasks visitors look for first.</p></div></article>
           <article><b>02</b><div><h3>Mobile first</h3><p>Mobile is 70% of traffic, so design for it first and deliver a fully responsive view.</p></div></article>
@@ -96,22 +95,11 @@
     </div>
   </section>
 
-  <section id="concept" class="section band light wrap" aria-labelledby="concept-h" style="padding-block:0">
-      <div class="inner slide" style="align-items:start">
-        <div style="display:grid;gap:12px"><span class="label">02 · Design Concept</span><h2 id="concept-h" class="slide-title">Solid, expert,<br>and global.</h2><p class="lede body-m" style="max-width:38em">These are the keywords of direction B, the one the client chose. The focus was on looking like a supplier an overseas buyer can trust.</p></div>
-        <div class="concepts">
-          <article><div class="cpanel"><img src="/work/yeosu-saegomak/cs/concept-solid.jpg" alt="" loading="lazy"><div class="word"><strong>Solid.</strong></div></div><p>Deep navy, a blue gradient and heavy headlines for a trustworthy first impression.</p></article>
-          <article><div class="cpanel"><img src="/work/yeosu-saegomak/cs/concept-expert.jpg" alt="" loading="lazy"><div class="word"><strong>Expert.</strong></div></div><p>The HACCP facility and 13-step production process, shown in real photos.</p></article>
-          <article><div class="cpanel"><img src="/work/yeosu-saegomak/cs/concept-global.jpg" alt="" loading="lazy"><div class="word"><strong>Global.</strong></div></div><p>An export catalog, markets and certifications that answer a buyer’s questions first.</p></article>
-        </div>
-      </div>
-  </section>
-
   <section id="target" class="section wrap" aria-labelledby="target-h">
     <div class="inner">
       <div class="head center">
-        <div><span class="label">03 · Target</span><h2 id="target-h">Who comes in, what they check, where they go</h2></div>
-        <p class="lede">Each kind of visitor wanted to check something different and go somewhere different. The goal was to get all three through the information they need and straight to their next step.</p>
+        <div><span class="label">Target</span><h2 id="target-h">Who comes in, what they check, where they go</h2></div>
+        <p class="lede">Visitors fell into three groups: overseas buyers, domestic partners and consumers. Each wanted to check something different and go somewhere different. The goal was to get every one of them through the information they need and straight to their next step.</p>
       </div>
       <div class="flowmap" role="table" aria-label="Paths by visitor type">
         <div class="fm-row fm-head" role="row"><span role="columnheader">WHO</span><i></i><span role="columnheader">CHECKS</span><i></i><span role="columnheader">GOES TO</span></div>
@@ -122,22 +110,34 @@
     </div>
   </section>
 
-  <section id="ia" class="section alt wrap" aria-labelledby="ia-h">
+  <section id="concept" class="section band light wrap" aria-labelledby="concept-h" style="padding-block:0">
+      <div class="inner slide" style="align-items:start;padding-bottom:40px">
+        <div style="display:grid;gap:12px"><span class="label">Design Concept</span><h2 id="concept-h" class="slide-title">Solid, expert,<br>and global.</h2><p class="lede narrow body-m">I set three impressions as the design criteria, so an overseas buyer seeing the company for the first time could judge whether it was worth doing business with.</p></div>
+      </div>
+    <div class="concepts bleed">
+      <article><div class="cpanel"><img src="/work/yeosu-saegomak/cs/concept-solid.jpg" alt="" loading="lazy"><div class="word"><strong>Solid.</strong></div></div><p>Deep navy, a blue gradient and heavy headlines for a trustworthy first impression.</p></article>
+      <article><div class="cpanel"><img src="/work/yeosu-saegomak/cs/concept-expert.jpg" alt="" loading="lazy"><div class="word"><strong>Expert.</strong></div></div><p>The HACCP facility and 13-step production process, shown in real photos.</p></article>
+      <article><div class="cpanel"><img src="/work/yeosu-saegomak/cs/concept-global.jpg" alt="" loading="lazy"><div class="word"><strong>Global.</strong></div></div><p>An export catalog, markets and certifications that answer a buyer’s questions first.</p></article>
+    </div>
+  </section>
+
+  <section id="ia" class="section wrap" aria-labelledby="ia-h">
     <div class="inner">
       <div class="head center">
-        <div><span class="label">04 · Information Architecture</span><h2 id="ia-h">Rebuilt around brands, products and inquiries</h2></div>
-        <p class="lede">The details were settled by trading a Q&amp;A list with the client.</p>
+        <div><span class="label">Information Architecture</span><h2 id="ia-h">Rebuilt around brands, products and inquiries</h2></div>
+        <p class="lede">Rather than taking the client's requests as they were, I made the case for the structure from the buyer's point of view.</p>
       </div>
 
       <div class="sub center"><h3>Three principles</h3></div>
       <div class="ia3">
         <figure><div class="browser crop"><img src="/work/yeosu-saegomak/cs/d-brands-umjine.jpg" alt="Brand page" loading="lazy"></div><figcaption><b>01</b><h3>Brands tell a story</h3><p>Brands became a top-level menu</p></figcaption></figure>
         <figure><div class="browser crop"><img src="/work/yeosu-saegomak/cs/d-products.jpg" alt="Product page with type tabs" loading="lazy"></div><figcaption><b>02</b><h3>Products are found by type</h3><p>Meal kit · Ingredient · Raw tabs</p></figcaption></figure>
-        <figure><div class="browser crop"><img src="/work/yeosu-saegomak/cs/d-contact-buyer.jpg" alt="Inquiry page" loading="lazy"></div><figcaption><b>03</b><h3>Inquiries are one step away</h3><p>An inquiry button on every page</p></figcaption></figure>
+        <figure><div class="browser crop"><img src="/work/yeosu-saegomak/cs/d-contact-buyer.jpg" alt="Inquiry page" loading="lazy"></div><figcaption><b>03</b><h3>Inquiries are one step away</h3><p>An inquiry button in the GNB on every page</p></figcaption></figure>
       </div>
 
-      <div class="sub center" style="margin-top:var(--sp-block)"><h3>The Q&amp;A list we traded with the client</h3><p class="cap">2026.05.20 · Account details are redacted.</p></div>
-      <div class="qa-wrap">
+      <!-- Q&amp;A 리스트: 일단 숨겨 둠 -->
+      <div class="sub center" style="margin-top:var(--sp-block)" hidden><h3>The Q&amp;A list we traded with the client</h3><p class="cap">2026.05.20 · Account details are redacted.</p></div>
+      <div class="qa-wrap" hidden>
         <table class="qa">
           <thead><tr><th>No.</th><th>Question</th><th>Client answer</th><th>What it changed</th></tr></thead>
           <tbody>
@@ -182,18 +182,18 @@
     </div>
   </section>
 
-  <section id="flow" class="section wrap" aria-labelledby="flow-h">
+  <section id="flow" class="section alt wrap" aria-labelledby="flow-h">
     <div class="inner">
       <div class="head center">
-        <div><span class="label">05 · User Flow</span><h2 id="flow-h">From brand to inquiry, a buyer’s four steps</h2></div>
+        <div><span class="label">User Flow</span><h2 id="flow-h">From brand to inquiry, a buyer’s four steps</h2></div>
         <p class="lede">These are the live pages a buyer moves through: see the brand, pick products, check export terms, and send an inquiry.</p>
       </div>
       <div>
         <div class="cols c4 steps-row">
-          <div class="step-h"><span class="n">1</span><h3>Brands</h3><p>A page for each export brand</p></div>
-          <div class="step-h"><span class="n">2</span><h3>Products</h3><p>Filter by type with tabs</p></div>
-          <div class="step-h"><span class="n">3</span><h3>Export catalog</h3><p>Products, markets, certifications and OEM in one place</p></div>
-          <div class="step-h goal"><span class="n">4</span><h3>Buyer inquiry</h3><p>Inquiry types split, with a button on every page</p></div>
+          <div class="step-h"><span class="n">1</span><h3>Brands</h3><p>See each export brand on its own page</p></div>
+          <div class="step-h"><span class="n">2</span><h3>Products</h3><p>Filter products by type with tabs</p></div>
+          <div class="step-h"><span class="n">3</span><h3>Export catalog</h3><p>See products, markets, certifications and OEM in one place</p></div>
+          <div class="step-h goal"><span class="n">4</span><h3>Buyer inquiry</h3><p>Ask straight from the GNB</p></div>
         </div>
         <div class="cols c4">
           <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/f-brands-umjine.jpg" alt="Umjine Pocha brand page, full length" loading="lazy"></div></figure>
@@ -206,11 +206,11 @@
   </section>
 
   <!-- 03 전환점 -->
-  <section id="drafts" class="section alt wrap" aria-labelledby="turn-h">
+  <section id="drafts" class="section wrap" aria-labelledby="turn-h">
     <div class="inner">
       <div class="head center">
-        <div><span class="label">06 · Drafts</span><h2 id="turn-h">First draft and second draft</h2></div>
-        <p class="lede">In the first meeting the client asked for plenty of interaction and chose direction B of the two we proposed. I built the first draft to that brief, and the feedback came back that there was too much interaction.</p>
+        <div><span class="label">Drafts</span><h2 id="turn-h">First draft and second draft</h2></div>
+        <p class="lede">In the first meeting the client asked for a site as dynamic as a big corporation's. I built the first draft to that brief, with a video hero, and the feedback came back that it felt cramped, with far too much scrolling. I reworked the second draft around that feedback.</p>
       </div>
       <ol class="timeline">
         <li><time>2026.05</time><b>Proposal</b></li>
@@ -219,10 +219,12 @@
         <li class="hot"><time>2026.06</time><b>Feedback</b></li>
         <li><time>2026.07</time><b>Second draft · Live</b></li>
       </ol>
-      <div class="versus">
-        <figure><div class="media"><video src="/work/yeosu-saegomak/live-home.mp4" poster="/work/yeosu-saegomak/live-home.jpg" autoplay muted loop playsinline aria-label="First draft home, screen recording"></video></div><figcaption><b>First draft</b><span class="cap">Heavy on interaction</span></figcaption></figure>
+    </div>
+    <div class="versus bleed">
+        <figure><div class="media"><video src="/work/yeosu-saegomak/live-home.mp4" poster="/work/yeosu-saegomak/live-home.jpg" autoplay muted loop playsinline aria-label="First draft home, screen recording"></video></div><figcaption><b>First draft</b><span class="cap">Heavy on video and motion</span></figcaption></figure>
         <figure><div class="media"><video src="/work/yeosu-saegomak/cs/draft2.mp4" poster="/work/yeosu-saegomak/cs/draft2.jpg" autoplay muted loop playsinline aria-label="Second draft live home, scroll recording"></video></div><figcaption><b>Second draft · Live</b><span class="cap">Pared back</span></figcaption></figure>
-      </div>
+    </div>
+    <div class="inner">
       <div class="feedback">
         <article><b>01</b><h3>Loading speed</h3><p>With buyers loading the site from abroad, I proposed cutting the heavy interactions.</p></article>
         <article><b>02</b><h3>Fewer scrolls</h3><p>Fewer full-screen scenes, so visitors reach what they want faster.</p></article>
@@ -230,17 +232,17 @@
       </div>
       <div class="lesson">
         <span class="label">What I learned</span>
-        <p>Even when the brief asked for lots of interaction, the yardstick should have been the problem defined in the proposal. Interaction only needed to carry a buyer as far as the inquiry.</p>
+        <p>When the client asked for a site as dynamic as a big corporation's, what they really wanted was less the motion itself than to look like a company buyers could trust. I learned to confirm the goal behind a request before acting on its wording.</p>
       </div>
     </div>
   </section>
 
   <!-- 04 디자인 시스템 -->
-  <section id="system" class="section wrap" aria-labelledby="sys-h">
+  <section id="system" class="section alt wrap" aria-labelledby="sys-h">
     <div class="inner">
       <div class="head">
-        <div><span class="label">07 · Design System</span><h2 id="sys-h">Design System</h2></div>
-        <p class="lede">In the second draft the typeface changed to Noto Sans KR and the base color to blue. Instead of redrawing pages from scratch, I realigned every page to a system organized by role.</p>
+        <div><span class="label">Design System</span><h2 id="sys-h">Design System</h2></div>
+        <p class="lede">To give overseas buyers a solid, trustworthy impression, I built the color and type rules around blue and navy. As a global site made under an export voucher program, it uses Noto Sans KR, which covers many languages evenly. And since this is a food brand, inquiry buttons and active tabs get an appetizing orange.</p>
       </div>
       <div class="sub"><span class="label">Color</span></div>
       <div class="tokens">
@@ -275,10 +277,10 @@
   </section>
 
   <!-- 05 화면 -->
-  <section id="ui" class="section alt wrap" aria-labelledby="scr-h">
+  <section id="ui" class="section wrap" aria-labelledby="scr-h">
     <div class="inner">
       <div class="head center">
-        <div><span class="label">08 · UI</span><h2 id="scr-h">The production page, old and new</h2></div>
+        <div><span class="label">UI</span><h2 id="scr-h">The production page, old and new</h2></div>
         <p class="lede">On the left, the old page. On the right, the full new page. As you scroll, the old page stays put while the new one runs to the end.</p>
       </div>
       <div class="cmp">
@@ -291,23 +293,28 @@
         <div class="cols c3">
           <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/f-about-quality.jpg" alt="Quality page, full length" loading="lazy"></div><figcaption class="cap">About · Quality</figcaption></figure>
           <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/f-export-countries.jpg" alt="Export markets page, full length" loading="lazy"></div><figcaption class="cap">Export · Markets</figcaption></figure>
-          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/f-en-products.jpg" alt="English products page, full length" loading="lazy"></div><figcaption class="cap">Products · English</figcaption></figure>
+          <figure><div class="browser"><img src="/work/yeosu-saegomak/cs/f-en-products.jpg" alt="English product detail page, full length" loading="lazy"></div><figcaption class="cap">Product Detail · English</figcaption></figure>
         </div>
+        <div class="site-cta"><a href="https://arkshell.co.kr/" target="_blank" rel="noopener">Visit the site <span aria-hidden="true">↗</span></a></div>
       </div>
 
-      <div class="duo" style="margin-top:var(--sp-block)">
-        <div>
-          <span class="label">Mobile First</span>
-          <h3 style="margin-top:8px">70% of traffic is mobile, so mobile came first</h3>
-          <p class="body-m" style="margin-top:6px;font-size:15px">Pinch-zoom, blocked on the old site, works again, and sub-menu tabs scroll sideways.</p>
-          <div class="phones">
-            <div class="phone"><img src="/work/yeosu-saegomak/cs/m-home.jpg" alt="Mobile home" loading="lazy"></div>
-            <div class="phone"><img src="/work/yeosu-saegomak/cs/m-brands-umjine.jpg" alt="Mobile brand page" loading="lazy"></div>
-            <div class="phone"><img src="/work/yeosu-saegomak/cs/m-export-catalog.jpg" alt="Mobile export catalog" loading="lazy"></div>
-            <div class="phone"><img src="/work/yeosu-saegomak/cs/m-contact-buyer.jpg" alt="Mobile buyer inquiry" loading="lazy"></div>
-            <div class="phone"><img src="/work/yeosu-saegomak/cs/m-en-export-catalog.jpg" alt="Mobile export catalog in English" loading="lazy"></div>
-          </div>
+    </div>
+    <div class="mobile-band">
+      <div class="inner">
+        <span class="label">Mobile First</span>
+        <h3 style="margin-top:8px">70% of traffic is mobile, so I designed for mobile first</h3>
+        <div class="phones">
+          <figure><div class="phone"><img src="/work/yeosu-saegomak/cs/m-home.jpg" alt="Mobile home" loading="lazy"></div><figcaption class="cap">Home</figcaption></figure>
+          <figure><div class="phone"><img src="/work/yeosu-saegomak/cs/m-brands-umjine.jpg" alt="Mobile brand page" loading="lazy"></div><figcaption class="cap">Brand · Umjine Pojangmacha</figcaption></figure>
+          <figure><div class="phone"><img src="/work/yeosu-saegomak/cs/m-export-catalog.jpg" alt="Mobile export catalog" loading="lazy"></div><figcaption class="cap">Export catalog</figcaption></figure>
+          <figure><div class="phone"><img src="/work/yeosu-saegomak/cs/m-contact-buyer.jpg" alt="Mobile buyer inquiry" loading="lazy"></div><figcaption class="cap">Buyer inquiry</figcaption></figure>
+          <figure><div class="phone"><img src="/work/yeosu-saegomak/cs/m-en-export-catalog.jpg" alt="Mobile export catalog in English" loading="lazy"></div><figcaption class="cap">Export catalog · English</figcaption></figure>
         </div>
+        <p class="cap phones-hint">Hover over a phone to scroll its screen</p>
+      </div>
+    </div>
+    <div class="inner">
+      <div class="duo">
         <div id="lang">
           <span class="label">KO / EN</span>
           <h3 style="margin-top:8px">One language button, the same page in English</h3>
@@ -326,17 +333,17 @@
   </section>
 
   <!-- 06 작업 방식 -->
-  <section id="how" class="section wrap" aria-labelledby="how-h">
+  <section id="how" class="section alt wrap" aria-labelledby="how-h">
     <div class="inner">
       <div class="head">
-        <div><span class="label">09 · How I Worked</span><h2 id="how-h">AI was the tool. I set the direction and the standards</h2></div>
-        <p class="lede">Instead of Figma mockups, I designed directly in code with Codex and Claude Code. Building fast also makes it easy to drift, so I set the standards first and kept the AI inside them.</p>
+        <div><span class="label">How I Worked</span><h2 id="how-h">AI was the design tool. I set the direction and the standards</h2></div>
+        <p class="lede">Instead of Figma mockups, I designed directly in code with Codex and Claude Code. I set the design rules first and kept the AI inside them.</p>
       </div>
       <div class="how">
-        <article><b>01 · Specs first</b><h3>I wrote documents before code</h3><p>Before building, I wrote specs such as <code>DESIGN</code> <code>SITEMAP</code> <code>COPY</code> <code>TONE</code> <code>MOTION</code>, plus an audit of the old site’s structure. Every later change was measured against them.</p></article>
-        <article><b>02 · People decide</b><h3>Anything outside the spec, the AI had to stop and ask</h3><p>So the AI wouldn’t fill gaps on its own, it stopped and asked whenever a decision was needed. We talked briefly, I set the direction, and then it built.</p></article>
-        <article><b>03 · Compare variations</b><h3>If it wasn’t right, roll back and try another</h3><p>Even for one production-process banner, I had four versions built (floating cards, diagonal split, timeline, accordion) and chose side by side.</p></article>
-        <article><b>04 · Motion with a reason</b><h3>I checked the references’ actual code</h3><p>I opened the scripts of four reference sites (CJ, Hoban Foundation, Samsung Welstory, Haatz) to see which libraries drove their motion, and chose GSAP ScrollTrigger, which three of them used.</p></article>
+        <article><b>01 · AI Agents</b><h3>From research to QA, split by role and run at once</h3><p>I ran separate AI agents for research, planning, design, frontend and QA in parallel, so work that would take a long time in sequence moved forward together.</p></article>
+        <article><b>02 · DESIGN.md</b><h3>I wrote documents before code</h3><p>Before building, I wrote specs such as <code>DESIGN</code> <code>SITEMAP</code> <code>COPY</code> <code>TONE</code> <code>MOTION</code>, plus an audit of the old site’s structure. Every later change was measured against them.</p></article>
+        <article><b>03 · Human in the Loop</b><h3>Anything outside the spec, the AI had to stop and ask</h3><p>So the AI wouldn’t fill gaps on its own, it stopped and asked whenever a decision was needed. We talked briefly, I set the direction, and then it built.</p></article>
+        <article><b>04 · Variations</b><h3>AI made the options. I made the call</h3><p>Even for a single production banner, I had four versions built (floating cards, diagonal split, timeline and accordion), put them side by side and picked one.</p></article>
       </div>
     </div>
   </section>

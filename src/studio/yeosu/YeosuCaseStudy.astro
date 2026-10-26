@@ -39,7 +39,7 @@ const html = locale === 'en' ? en : ko;
 			'.head > *', '.sub', '.glance > div', '.numbers > div',
 			'.cols figure', '.step-h', '.split > div > *:not(.ghost)', '.answer-cards article', '.concepts article',
 			'.fm-row', '.ia3 figure', '.qa-wrap', '.sitemap .col', '.timeline li', '.versus figure', '.feedback article', '.lesson',
-			'.token', '.tscale', '.comps article', '.cmp figure', '.duo > div', '.phone', '.how article',
+			'.token', '.tscale', '.comps article', '.cmp figure', '.duo > div', '.phones > figure', '.how article',
 		].map((s) => '.ysg ' + s).join(',');
 		// 트리거는 IntersectionObserver 로 잡는다. 이미지가 늦게 불러와져 높이가 바뀌어도, 빠르게 스크롤하거나 메뉴로 건너뛰어도 놓치지 않는다
 		const items = [...root.querySelectorAll<HTMLElement>(reveal)];
@@ -64,6 +64,41 @@ const html = locale === 'en' ? en : ko;
 		q('#why .cols figure:nth-child(even)').forEach((el) =>
 			gsap.fromTo(el, { y: 60 }, { y: -20, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } }),
 		);
+
+		// 모바일 화면: 긴 캡처가 영상처럼 위에서 아래로 스크롤된다.
+		// 마우스가 있으면 올린 폰만 움직이고, 터치 기기에서는 한 번에 한 대씩 차례로 돈다 (화면에 보일 때만)
+		const phones = q('.phone').map((phone) => ({ phone, img: phone.querySelector('img') })).filter((p): p is { phone: HTMLElement; img: HTMLImageElement } => !!p.img);
+		const dist = (p: { phone: HTMLElement; img: HTMLImageElement }) => Math.max(0, p.img.offsetHeight - p.phone.clientHeight);
+		if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+			phones.forEach((p) => {
+				let run: gsap.core.Timeline | undefined;
+				const play = () => {
+					const from = -Number(gsap.getProperty(p.img, 'y'));
+					run = gsap.timeline({ onComplete: play })
+						.to(p.img, { y: -dist(p), duration: Math.max(1, (dist(p) - from) / 220), ease: 'none' })
+						.to(p.img, { opacity: 0, duration: 0.3, delay: 0.8 })
+						.set(p.img, { y: 0 })
+						.to(p.img, { opacity: 1, duration: 0.3, delay: 0.1 });
+				};
+				p.phone.addEventListener('mouseenter', () => { run?.kill(); play(); });
+				p.phone.addEventListener('mouseleave', () => {
+					run?.kill();
+					gsap.to(p.img, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', overwrite: true });
+				});
+			});
+		} else if (phones.length) {
+			Promise.all(phones.map(({ img }) => (img.complete ? null : new Promise((r) => img.addEventListener('load', r, { once: true }))))).then(() => {
+				const tl = gsap.timeline({ repeat: -1, paused: true });
+				phones.forEach((p) => {
+					tl.to(p.img, { y: () => -dist(p), duration: Math.max(5, dist(p) / 160), ease: 'power1.inOut', delay: 0.6 })
+						.to(p.img, { opacity: 0, duration: 0.3, delay: 0.8 })
+						.set(p.img, { y: 0 })
+						.to(p.img, { opacity: 1, duration: 0.3 });
+				});
+				ScrollTrigger.create({ trigger: '.ysg .phones', start: 'top bottom', end: 'bottom top', onToggle: (self) => (self.isActive ? tl.play() : tl.pause()) });
+				ScrollTrigger.addEventListener('refreshInit', () => tl.invalidate());
+			});
+		}
 
 		// 숫자 카운트업
 		q('.numbers b').forEach((b) => {
@@ -96,6 +131,27 @@ const html = locale === 'en' ? en : ko;
 			hover('.phone', (el) => el, { y: -6 }, { y: 0 });
 			// 시안 영상: 아주 살짝 확대
 			hover('.versus figure', (el) => el.querySelector('video'), { scale: 1.02, duration: 1 }, { scale: 1, duration: 1 });
+			// 해결 방향 카드: 유리처럼 마우스 쪽으로 살짝 기울고, 커서 자리에 빛이 맺힌다
+			q('.answer-cards article').forEach((el) => {
+				gsap.set(el, { transformPerspective: 900 });
+				const rx = gsap.quickTo(el, 'rotationX', { duration: 0.5, ease: 'power3.out' });
+				const ry = gsap.quickTo(el, 'rotationY', { duration: 0.5, ease: 'power3.out' });
+				el.addEventListener('mouseenter', () => gsap.to(el, { y: -6, '--glow': 1, duration: 0.5, ease: 'power2.out', overwrite: 'auto' }));
+				el.addEventListener('mousemove', (e) => {
+					const r = el.getBoundingClientRect();
+					const x = (e.clientX - r.left) / r.width;
+					const y = (e.clientY - r.top) / r.height;
+					rx((0.5 - y) * 6);
+					ry((x - 0.5) * 6);
+					el.style.setProperty('--mx', x * 100 + '%');
+					el.style.setProperty('--my', y * 100 + '%');
+				});
+				el.addEventListener('mouseleave', () => {
+					rx(0);
+					ry(0);
+					gsap.to(el, { y: 0, '--glow': 0, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+				});
+			});
 		}
 
 		// 이미지가 늦게 불러와져 높이가 바뀌면 트리거 위치를 다시 잰다
