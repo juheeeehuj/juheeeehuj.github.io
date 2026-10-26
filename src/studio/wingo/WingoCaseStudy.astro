@@ -1,0 +1,114 @@
+---
+// WITIM 윙고 브랜드 리뉴얼 케이스스터디. 여수새고막처럼 React 없이 마크업(ko.html / en.html)과 작은 스크립트로만 그린다.
+// 문구를 고칠 때는 ko.html 을 고치고 en.html 의 같은 자리를 맞춘다. 이미지·영상은 public/work/wingo/ 에 있다.
+import './wingo.css';
+import ko from './ko.html?raw';
+import en from './en.html?raw';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	locale: Lang;
+}
+
+const { locale } = Astro.props;
+const html = locale === 'en' ? en : ko;
+---
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" />
+<div class="wgo" set:html={html} />
+
+<script>
+	import gsap from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	const root = document.querySelector<HTMLElement>('.wgo');
+	const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	if (root) {
+		// 영상은 화면에 보일 때만 돈다. 움직임을 줄인 설정이면 첫 장면에 멈춰 둔다
+		const videos = [...root.querySelectorAll<HTMLVideoElement>('video')];
+		if (still) {
+			videos.forEach((v) => {
+				v.removeAttribute('autoplay');
+				v.pause();
+			});
+		} else {
+			const watch = new IntersectionObserver((es) =>
+				es.forEach((e) => {
+					const v = e.target as HTMLVideoElement;
+					if (e.isIntersecting) v.play().catch(() => {});
+					else v.pause();
+				}),
+			);
+			videos.forEach((v) => watch.observe(v));
+		}
+	}
+
+	// GSAP 모션. 스크립트가 돌 때만 숨겼다가 보여 주므로, 스크립트가 없어도 내용은 그대로 보인다.
+	if (root && !still) {
+		gsap.registerPlugin(ScrollTrigger);
+		const q = (sel: string) => [...root.querySelectorAll<HTMLElement>(sel)];
+
+		// 히어로: 영상이 살짝 줌아웃되며 들어오고, 글자가 아래에서 차례로 올라온다. 스크롤하면 영상이 천천히 밀려난다
+		const heroVideo = root.querySelector('.hero video');
+		gsap.from(heroVideo, { scale: 1.12, duration: 2.2, ease: 'power3.out' });
+		gsap.from(q('.hero .inner > *'), { y: 40, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.12, delay: 0.2 });
+		gsap.to(heroVideo, { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.wgo .hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+		// 섹션 헤더와 카드류: 화면에 들어오면 아래에서 떠오른다 (같은 줄에 있는 것끼리 차례로)
+		const reveal = ['.head > *', '.glance > div', '.problems article', '.facts > div', '.steps li', '.verbal .copy > *', '.shot', '.swatch', '.retro article']
+			.map((s) => '.wgo ' + s)
+			.join(',');
+		// 트리거는 IntersectionObserver 로 잡는다. 이미지가 늦게 불러와져 높이가 바뀌어도 놓치지 않는다
+		const items = [...root.querySelectorAll<HTMLElement>(reveal)];
+		gsap.set(items, { opacity: 0, y: 36 });
+		const seen = new IntersectionObserver(
+			(entries) => {
+				const shown = entries.filter((e) => e.isIntersecting || e.boundingClientRect.bottom < 0).map((e) => e.target);
+				if (!shown.length) return;
+				shown.forEach((el) => seen.unobserve(el));
+				gsap.to(shown, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08, overwrite: true });
+			},
+			{ rootMargin: '0px 0px -8% 0px' },
+		);
+		items.forEach((el) => seen.observe(el));
+
+		// 브랜드 언어 패널: 배경이 글자보다 느리게 움직인다
+		q('.verbal .bg').forEach((el) =>
+			gsap.fromTo(el, { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: el.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } }),
+		);
+
+		// 이미지가 늦게 불러와져 높이가 바뀌면 트리거 위치를 다시 잰다
+		q('img').forEach((img) => img.complete || img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true }));
+	}
+
+	if (root) {
+		// 진행 막대와 현재 장 표시
+		const bar = root.querySelector<HTMLElement>('#bar');
+		const links = [...root.querySelectorAll<HTMLAnchorElement>('.rail nav a')];
+		const onScroll = () => {
+			const h = document.documentElement;
+			if (bar) bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
+		};
+		addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+
+		// 맨 위로 버튼
+		const top = root.querySelector<HTMLButtonElement>('#totop');
+		if (top) {
+			const toggle = () => top.classList.toggle('show', scrollY > innerHeight * 0.8);
+			addEventListener('scroll', toggle, { passive: true });
+			toggle();
+			top.addEventListener('click', () => scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' }));
+		}
+		const io = new IntersectionObserver(
+			(es) =>
+				es.forEach((e) => {
+					if (!e.isIntersecting) return;
+					links.forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+				}),
+			{ rootMargin: '-40% 0px -55% 0px' },
+		);
+		root.querySelectorAll('section[id]').forEach((s) => io.observe(s));
+	}
+</script>
