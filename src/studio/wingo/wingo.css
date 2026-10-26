@@ -1,0 +1,183 @@
+/* WITIM 윙고 케이스스터디 전용. 모든 규칙을 .wgo 안에 가둬 studio.css(Tailwind)와 섞이지 않게 한다.
+   색은 윙고안의 컬러 시스템(Ink · Signal · Paper)을 그대로 쓴다. 바탕이 원래 어두운 브랜드라 다크 하나로만 그린다. */
+.wgo {
+  --ink: #131e21;
+  --ink-2: #1a272b;
+  --ink-3: #0b1416;
+  --signal: #26d5ff;
+  --paper: #f8fcfd;
+  --text: #e8f1f3;
+  --mute: #93a6ab;
+  --line: #27363a;
+  --paper-mute: #5b6b70;
+  --paper-line: #dde7ea;
+
+  --body: "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+  --latin: "Montserrat", "Noto Sans KR", system-ui, sans-serif;
+
+  --fs-hero: clamp(36px, 5vw, 72px);
+  --fs-slide: clamp(30px, 4.2vw, 64px);
+  --fs-h2: clamp(24px, 2.6vw, 38px);
+  --fs-h3: 20px;
+  --fs-lede: 18px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-cap: 13px;
+  --fs-label: 12px;
+
+  --sp-section: clamp(80px, 10vw, 140px);
+  --sp-block: clamp(40px, 5vw, 64px);
+  --r: 20px;
+  color-scheme: dark;
+}
+.wgo * { box-sizing: border-box; }
+
+.wgo { background: var(--ink); color: var(--text); font-family: var(--body); font-size: var(--fs-body); line-height: 1.8; word-break: keep-all; -webkit-font-smoothing: antialiased; }
+.wgo img, .wgo video { display: block; max-width: 100%; }
+.wgo h1, .wgo h2, .wgo h3 { margin: 0; text-wrap: balance; }
+.wgo p, .wgo ul, .wgo ol, .wgo dl, .wgo figure { margin: 0; }
+.wgo ul, .wgo ol { padding: 0; list-style: none; }
+.wgo a { color: inherit; }
+.wgo :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+.wgo .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wgo .inner { max-width: 1200px; margin: 0 auto; }
+.wgo .label { display: block; font-family: var(--latin); font-size: var(--fs-label); font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--signal); }
+.wgo h2 { font-size: var(--fs-h2); font-weight: 800; line-height: 1.35; letter-spacing: -.02em; }
+.wgo h3 { font-size: var(--fs-h3); font-weight: 700; line-height: 1.45; letter-spacing: -.01em; }
+.wgo .lede { font-size: var(--fs-lede); line-height: 1.85; max-width: 720px; color: var(--mute); }
+.wgo .cap { font-size: var(--fs-cap); color: var(--mute); line-height: 1.6; margin-top: 12px; }
+.wgo .accent { color: var(--signal); }
+.wgo .section { padding-block: var(--sp-section); scroll-margin-top: 52px; }
+.wgo .section.paper { background: var(--paper); color: var(--ink); --mute: var(--paper-mute); --line: var(--paper-line); }
+.wgo .section.paper .label { color: #0a86a8; }
+.wgo .head { display: grid; gap: 16px; margin-bottom: var(--sp-block); }
+.wgo .head > * { max-width: 760px; }
+.wgo .head .label { margin-bottom: 12px; }
+
+/* 상단 메뉴 */
+.wgo .rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--ink) 86%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+/* 메뉴는 화면 가운데, 제목은 왼쪽 끝. 양옆 칸을 같은 폭(1fr)으로 둬서 메뉴가 정확히 가운데 온다 */
+.wgo .rail .inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; height: 52px; padding-inline: 56px; }
+.wgo .rail strong { font-size: var(--fs-small); font-weight: 700; white-space: nowrap; }
+.wgo .rail nav { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.wgo .rail nav::-webkit-scrollbar { display: none; }
+.wgo .rail nav a { text-decoration: none; font-size: var(--fs-cap); font-weight: 500; color: var(--mute); padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+.wgo .rail nav a.on { background: var(--signal); color: var(--ink-3); }
+.wgo .rail .bar { position: absolute; left: 0; bottom: -1px; height: 2px; background: var(--signal); width: 0; }
+
+/* 히어로 */
+.wgo .hero { position: relative; height: min(88vh, 860px); min-height: 520px; background: var(--signal); overflow: hidden; }
+.wgo .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.wgo .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,20,22,0) 45%, rgba(11,20,22,.78)); }
+.wgo .hero .wrap { position: absolute; z-index: 1; left: 0; right: 0; bottom: clamp(28px, 5vw, 72px); color: #fff; }
+.wgo .hero .inner { display: grid; gap: 14px; }
+.wgo .hero .label { color: #fff; opacity: .85; }
+.wgo .hero h1 { font-family: var(--latin); font-size: var(--fs-hero); font-weight: 700; line-height: 1.05; letter-spacing: -.01em; }
+.wgo .hero p { font-size: var(--fs-lede); max-width: 32em; opacity: .92; }
+
+/* 한눈에 */
+.wgo .glance { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+.wgo .glance > div { padding: 28px 24px 28px 0; }
+.wgo .glance dt { font-family: var(--latin); font-size: var(--fs-label); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; }
+.wgo .glance dd { margin: 0; font-size: var(--fs-small); font-weight: 500; line-height: 1.6; }
+
+/* 개요 */
+.wgo .problems { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.wgo .problems article { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r); padding: 28px; display: grid; gap: 10px; align-content: start; }
+.wgo .problems b { font-family: var(--latin); font-size: var(--fs-label); letter-spacing: .16em; color: var(--signal); }
+.wgo .problems p { color: var(--mute); font-size: var(--fs-small); }
+.wgo .problems .to { color: var(--text); font-weight: 500; padding-top: 10px; border-top: 1px solid var(--line); }
+.wgo .facts { display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 16px; margin-top: 16px; align-items: stretch; }
+.wgo .facts > div { border: 1px solid var(--line); border-radius: var(--r); padding: 24px 28px; display: grid; gap: 4px; align-content: center; }
+.wgo .facts span { font-size: var(--fs-cap); color: var(--mute); }
+.wgo .facts strong { font-family: var(--latin); font-size: clamp(22px, 2.2vw, 30px); font-weight: 700; line-height: 1.2; }
+.wgo .facts .icons { padding: 16px 20px; background: #000; }
+.wgo .facts .icons img { width: 100%; max-width: 300px; height: auto; }
+
+/* 브랜드 필름 */
+.wgo .film video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r); background: #dfe3e6; }
+.wgo .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; counter-reset: step; }
+.wgo .steps li { border-top: 2px solid var(--line); padding-top: 16px; display: grid; gap: 6px; }
+.wgo .steps b { font-family: var(--latin); font-size: var(--fs-label); letter-spacing: .16em; color: var(--signal); }
+.wgo .steps p { color: var(--mute); font-size: var(--fs-small); }
+
+/* 브랜드 언어: 이미지 위 글자 패널 */
+.wgo .verbal { position: relative; min-height: min(100vh, 900px); display: grid; align-items: center; overflow: hidden; background: #000; }
+.wgo .verbal .bg { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; }
+.wgo .verbal::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.6); }
+.wgo .verbal .wrap { position: relative; z-index: 1; width: 100%; padding-block: var(--sp-section); }
+.wgo .verbal .copy { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 90px); align-items: start; color: #fff; }
+.wgo .verbal .copy .label { grid-column: 1 / -1; color: #fff; font-size: clamp(14px, 1.4vw, 20px); letter-spacing: .08em; text-transform: none; font-weight: 500; }
+/* 큰 제목은 줄간격 위 여백이 본문보다 커서, 글자 윗선을 본문 첫 줄에 맞추려고 조금 끌어올린다 */
+.wgo .verbal h2 { font-size: var(--fs-slide); font-weight: 500; line-height: 1.3; letter-spacing: -.02em; margin-top: -.12em; }
+.wgo .verbal p { font-size: clamp(16px, 1.25vw, 19px); line-height: 1.9; opacity: .92; }
+.wgo .verbal p + p { margin-top: 1em; }
+/* 에센스·슬로건 묶음: 배경은 화면에 붙어 있고, 두 패널의 글자만 그 위로 스크롤된다 */
+.wgo .pair { position: relative; background: #000; }
+.wgo .pair-bg { position: sticky; top: 0; height: 100vh; height: 100svh; margin-bottom: -100vh; margin-bottom: -100svh; overflow: hidden; }
+.wgo .pair-bg img { width: 100%; height: 100%; object-fit: cover; }
+/* 이 배경 이미지는 피그마에서 이미 50% 검정이 덮인 채로 나와서, 여기서는 살짝만 더 어둡게 한다 */
+.wgo .pair-bg::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.35); }
+.wgo .pair .verbal { background: transparent; }
+.wgo .pair .verbal::after { content: none; }
+/* 슬로건 패널은 에센스와 엇갈리게: 라벨과 제목을 오른쪽 칸에, 본문을 왼쪽 칸에 둔다 */
+.wgo .verbal.flip .copy { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+.wgo .verbal.flip .copy .label, .wgo .verbal.flip .copy h2 { grid-column: 2; }
+.wgo .verbal.flip .copy > div { grid-column: 1; grid-row: 2; }
+
+/* 아이덴티티 */
+.wgo .shot { border-radius: var(--r); overflow: hidden; }
+.wgo .shot img { width: 100%; height: auto; }
+.wgo .section.paper .shot { box-shadow: 0 1px 0 var(--paper-line), 0 18px 48px rgba(19,30,33,.08); }
+.wgo .colors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: var(--sp-block); }
+.wgo .swatch { border-radius: var(--r); padding: 24px 28px; min-height: 220px; display: grid; align-content: space-between; gap: 32px; border: 1px solid var(--paper-line); }
+.wgo .swatch small { font-family: var(--latin); font-size: var(--fs-label); letter-spacing: .16em; text-transform: uppercase; }
+.wgo .swatch strong { display: block; font-size: 22px; font-weight: 700; line-height: 1.3; }
+.wgo .swatch span { font-size: var(--fs-small); font-variant-numeric: tabular-nums; }
+.wgo .swatch.ink { background: var(--ink); color: #fff; border-color: var(--ink); }
+.wgo .swatch.ink small { color: var(--signal); }
+.wgo .swatch.signal { background: var(--signal); color: var(--ink-3); border-color: var(--signal); }
+.wgo .swatch.paper { background: var(--paper); color: var(--ink); }
+.wgo .swatch.paper small { color: var(--paper-mute); }
+
+/* 터치포인트 */
+.wgo .stack { display: grid; gap: 16px; }
+.wgo .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.wgo .duo img { aspect-ratio: 3 / 4; object-fit: cover; }
+.wgo .trio { display: grid; grid-template-columns: 1fr 1.48fr; gap: 16px; }
+.wgo .trio .col { display: grid; gap: 16px; }
+.wgo .trio .tall img { height: 100%; object-fit: cover; }
+
+/* 회고 */
+.wgo .retro { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.wgo .retro article { background: var(--ink-2); border: 1px solid var(--line); border-radius: var(--r); padding: 28px; display: grid; gap: 10px; align-content: start; }
+.wgo .retro b { font-family: var(--latin); font-size: var(--fs-label); letter-spacing: .16em; color: var(--signal); }
+.wgo .retro p { color: var(--mute); }
+
+.wgo .totop { position: fixed; right: 20px; bottom: 20px; z-index: 30; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line); background: var(--ink-2); color: var(--text); display: grid; place-items: center; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.wgo .totop.show { opacity: 1; pointer-events: auto; }
+
+@media (max-width: 900px) {
+  .wgo .glance { grid-template-columns: 1fr 1fr; }
+  .wgo .problems, .wgo .steps, .wgo .colors, .wgo .retro { grid-template-columns: 1fr; }
+  .wgo .facts { grid-template-columns: 1fr 1fr; }
+  .wgo .facts > div { padding: 18px 20px; }
+  .wgo .facts .icons { grid-column: 1 / -1; }
+  .wgo .verbal { min-height: 0; }
+  .wgo .verbal .copy { grid-template-columns: 1fr; gap: 24px; }
+  .wgo .verbal.flip .copy { grid-template-columns: 1fr; }
+  .wgo .verbal.flip .copy .label, .wgo .verbal.flip .copy h2, .wgo .verbal.flip .copy > div { grid-column: 1; grid-row: auto; }
+  .wgo .trio { grid-template-columns: 1fr; }
+  .wgo .rail strong { display: none; }
+  .wgo .rail .inner { display: flex; padding-left: 0; }
+}
+@media (max-width: 520px) {
+  .wgo .duo { grid-template-columns: 1fr; }
+  .wgo .swatch { min-height: 160px; }
+}
+@media (min-width: 1560px) { .wgo .rail .inner { padding-inline: 0; } }
+
+/* 엔딩: 윙고가 날아가는 영상 위에 슬로건 한 줄 */
+.wgo .outro { position: relative; height: max(360px, 43.75vw); overflow: hidden; background: #f2f4f5; }
+.wgo .outro video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.wgo .outro p { position: absolute; left: 0; right: 0; bottom: clamp(24px, 5vw, 64px); text-align: center; font-size: var(--fs-h2); font-weight: 700; letter-spacing: -.02em; color: var(--ink); }
