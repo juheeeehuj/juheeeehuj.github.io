@@ -1,13 +1,15 @@
 ---
 // 단계 흐름도: 단계 이름 칸이 화살표로 이어지고, 아래에 단계별 항목.
 // 그림이 아니라 글이라서 한/영 번역이 된다.
+// plain 이면 화살표 없이 나란히 놓는다 (순서가 아니라 비교·분류일 때).
 interface Props {
 	stages: { title: string; points: string[] }[];
+	plain?: boolean;
 }
-const { stages } = Astro.props;
+const { stages, plain = false } = Astro.props;
 ---
 
-<ol class="case-stages" style={`--n: ${stages.length}`}>
+<ol class:list={['case-stages', { plain }]} style={`--n: ${stages.length}`}>
 	{
 		stages.map((s) => (
 			<li>
