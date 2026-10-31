@@ -1,10 +1,187 @@
 ---
-title: 'NGO Proposal / WWF Proposal'
-description: 'Design proposal (option C) for WWF.'
-kicker: 'Proposal'
-cover: ../../../assets/work/private-cover.png
-duration: '2026.07 – 08'
+title: 'WWF: Beyond the First Donation'
+description: I reviewed how WWF Korea's website connects conservation content to donations. For four of six animal pages, the donation button led to a general campaign without carrying over the selected animal. I used these findings to reorganize the information architecture and propose a way for supporters to choose, review, and manage donations across the causes they care about. I built the key screens as an interactive web prototype.
+kicker: Donation Platform Proposal
+cover: ../../../assets/work/wwf/cover.png
+projectType: Proposal for WWF Korea
+duration: 2 Weeks
+role: Research, Information Architecture, UI Design
+tools: [Claude Code, Codex]
 year: '2026.07 – 08'
-locked: true
-order: 11
+site: https://nature-project.codeb.kr/
+order: 2.75
+featured: true
 ---
+
+<Block kicker="Background" title="Can supporters see what their donations support?" layout="side" big>
+WWF Korea reported total revenue of KRW 10.462 billion in FY2025, up 37% from the previous year. It was also running participation channels such as the Click to Give app, Earth Hour, and the Wonderple campaign. My research focused on what happens after someone donates. On the public website, it was difficult to find a flow for reviewing their chosen donations alongside related conservation work and adjusting their choices.
+
+The goal was to propose **a way for supporters to choose and keep managing the causes they support**. The prototype screens are in Korean, matching the proposed service.
+
+<Figure slot="media" src="wwf/live-home" caption="Proposed homepage" width={480} />
+</Block>
+
+<Block kicker="Key Features" title="Choose what to protect and build a donation mix">
+I created a flow for choosing causes and animals, then adjusting the amount for each. Each item was proposed as a separate designated donation, with the interface showing the full mix and each item's share.
+
+<Figure slot="media" src="wwf/builder-flow" caption="Amount → Causes → Proportions → Review · Projected impact in the prototype is illustrative." />
+</Block>
+
+<Block title="A place to return, review, and adjust">
+I designed the account page as a starting point for reviewing donations alongside related conservation work and changing the selected causes and amounts. Donation history and certificate downloads sit in the same place, with the aim of giving supporters **a reason to return after donating**.
+
+<Figure slot="media" src="wwf/mypage.png" caption="Account page · Donation mix and impact (sample data)" />
+</Block>
+
+<Block title="Share the choice, not the amount" layout="side">
+To reduce the pressure of disclosing a donation amount, I put the selected causes on the certificate instead. Its sharing link was designed to open the donation flow with the same mix selected.
+
+<Figure slot="media" src="wwf/certificate.png" caption="Donation certificate (sample name)" width={400} />
+</Block>
+
+<Phase id="discover" label="Discover">Can people donate to exactly what they came to support?</Phase>
+
+<Block kicker="Public-source Research" title="Grounding the research in published figures">
+I used annual reports, press releases, and the website to map the organization's income, spending, and digital assets. Individual donations accounted for 50% of income, and the annual report already listed a membership program and initiatives to encourage return visits as future plans. I shaped the proposal around **making those stated plans concrete**.
+
+<Stages slot="media" stages={[
+  { title: 'Awareness', points: ['Multiple channels and campaigns'] },
+  { title: 'Entry points', points: ['New routes such as Click to Give'] },
+  { title: 'First donation', points: ['Separate flows for each campaign', 'Handoff to an external payment page'] },
+  { title: 'After donating', points: ['Hard to review choices alongside activities', 'Donation adjustment flow needs work'] },
+]} />
+</Block>
+
+<Block kicker="Website Audit" title="Following the donation journey, link by link">
+I defined the audit scope to ground the proposal in the live site. I collected 51 official pages listed in sitemap.xml and classified 219 homepage links by destination. I checked the responses and content behind navigation and footer links, then followed donation buttons on animal pages through to the payment screen.
+
+<Stages slot="media" stages={[
+  { title: 'Sitemap audit', points: ['51 official pages', 'Baseline inventory'] },
+  { title: 'Homepage links', points: ['219 links', 'Classified by destination'] },
+  { title: 'Navigation and footer', points: ['Checked 25 menu items', 'Response status and content'] },
+  { title: 'Donation paths', points: ['Six animal pages → donation buttons', 'Checked payment destinations'] },
+]} />
+</Block>
+
+<Block kicker="Finding 1" title="Click Support Sea Turtles. The sea turtle is missing." layout="side">
+If someone reads about otters and clicks the donation button, is the otter already selected on the next screen? I checked this for all six animals. Only two passed. The other four led to the same general campaign, regardless of the animal named on the button.
+
+This made preserving the selected animal from the detail page through to the donation screen a clear design task.
+
+<Stages plain slot="media" stages={[
+  { title: 'Selection preserved: 2', points: ['Otter', 'Snow leopard'] },
+  { title: 'General campaign: 4', points: ['Spotted seal', 'Sea turtle', 'Black woodpecker', 'Asiatic black bear'] },
+]} />
+</Block>
+
+<Block kicker="Finding 2" title="The animal pages already existed">
+Detail pages for all six animals and a link format for opening specific donation campaigns were already in place. Reaching an animal page required two levels of navigation. The homepage also retained 124 links to an old bulletin board, even though the content had moved to new addresses.
+
+I prioritized **making existing content easier to find and fixing its connections**. I proposed moving animal pages higher in the navigation and updating the old bulletin board links to point to the relocated content.
+</Block>
+
+<Phase id="define" label="Define">The same work appeared under different names.</Phase>
+
+<Block kicker="Taxonomy Audit" title="Conservation categories and donation categories did not line up">
+WWF Global used six areas, the website navigation used four, and the annual report used three. I found three pairs of related categories with different names, such as Biodiversity in the activity menu and Endangered Animal Protection in the donation menu. I saw this mismatch as a barrier to understanding how a chosen donation connects to reported conservation work.
+
+<Stages plain slot="media" stages={[
+  { title: 'WWF Global', points: ['Climate and energy, oceans, wildlife', 'Forests, freshwater, food (6)'] },
+  { title: 'Website navigation', points: ['Climate, plastics, biodiversity, and more', '(4 areas + corporate partnerships)'] },
+  { title: '2025 annual report', points: ['Climate, nature conservation, resource circulation (3)'] },
+]} />
+</Block>
+
+<Statement label="Problem Statement">
+Connect conservation and donation categories, and give supporters one place to review their choices, see related activities, and adjust their donations after giving.
+</Statement>
+
+<Block kicker="Information Architecture" title="Carry the choice from conservation content into the donation flow">
+The guiding principle was to let people choose a cause while reading about it, then carry that choice into the donation flow. I reorganized five top-level menus and 25 submenus into four menus and a Donate button. The annual report's three-area structure informed the proposal, while the interface used Climate, Resource Circulation, and Biodiversity. I placed the six animals directly under Our Work and moved participation campaigns into Get Involved. I also mapped each of the 25 existing menu items to its proposed location.
+
+<Stages plain slot="media" stages={[
+  { title: 'About', points: ['Organization and history', 'Transparency and people', 'Jobs and volunteering together'] },
+  { title: 'Our Work', points: ['Climate, resource circulation, biodiversity', 'Direct access to six animal pages', 'Corporate partnerships'] },
+  { title: 'Get Involved', points: ['Surface Anystay', 'Earth Hour and Happy Anniversary', 'Conservation education and online participation'] },
+  { title: 'News and Resources', points: ['News and resources together', 'Press coverage, reports, and videos'] },
+  { title: 'Donate button', points: ['Individuals, businesses, and schools', 'Surface Click to Give', 'Donation receipts and inquiries'] },
+]} />
+</Block>
+
+<Block kicker="Nonprofit Constraints" title="Define the boundaries before adding features">
+Designing a donation experience meant considering both the evidence behind impact claims and the units in which funds are spent. I created a plain-language glossary covering greenwashing, designated donations, and benefits offered in return for donations, then turned those considerations into design principles for the proposal.
+
+<Stages plain slot="media" stages={[
+  { title: 'Evidence for impact', points: ['Base actual results on public sources', 'Label prototype data separately'] },
+  { title: 'Match program units', points: ['Align designated donations with spending units', 'Include a Where Most Needed option'] },
+  { title: 'No material rewards', points: ['No gifts tied to donation tiers', 'Keep giving distinct from buying'] },
+  { title: 'Real imagery', points: ['No AI-generated images', 'Avoid portraying animals as human characters'] },
+]} />
+</Block>
+
+<Phase id="develop" label="Develop">What screens would let supporters build their own donation mix?</Phase>
+
+<Block kicker="Core Concept" title="Adjust the mix on screen. Manage each donation separately." layout="side">
+The initial concept split one monthly donation across activities by percentage. To reduce the integration burden on the existing donor management system, I revised the proposal so that **each item would be a separate designated donation, displayed together in one place**. Sliders and a donut chart let supporters adjust individual amounts and review their relative shares. Whether this model could work in practice remained dependent on integration with the donor management system.
+
+<Figure slot="media" src="wwf/donate-2-category.png" caption="Choosing causes" width={480} />
+</Block>
+
+<Block kicker="Naming" title="A name that reflects what supporters choose to protect">
+The prototype used Donation Portfolio to explain how several donations were grouped together. For a live service, I also proposed names such as What I Protect and My Pledge. The aim was to emphasize conservation choices and commitments while reducing financial language that could suggest an investment return.
+</Block>
+
+<Phase id="deliver" label="Deliver">Let reviewers try the proposal for themselves.</Phase>
+
+<Block kicker="Interactive Proposal" title="I deployed the key screens before writing the proposal" big>
+I built and deployed the key screens as a web prototype, then wrote the proposal. Reviewers could open a link to try choosing causes, adjusting amounts, and reviewing the donation mix. Payments and the existing donor management system were not connected, and the proposal explicitly identified the screens as a prototype for reviewing the flow.
+</Block>
+
+<Block kicker="Hero Video" title="Korean waterways, wildlife, and the people protecting them">
+I chose tidal flats and otters to connect WWF Korea's work to familiar local nature. The hero video combines three live-action shots with slow camera movement into a 20-second sequence, designed for muted autoplay with text overlaid. No AI-generated footage was used.
+
+<Figure slot="media" src="wwf/hero" caption="Footage: Fritz Geller-Grimm / Wikimedia Commons (CC BY-SA 4.0), Wikimedia Commons (CC BY 2.0), USDA Forest Service (Public domain)" />
+</Block>
+
+<Block id="final-designs" toc="Final Proposal" kicker="Final Proposal" title="From conservation content to a donation" big />
+
+<Block kicker="Activity Detail" title="Keep the chosen cause selected on the next screen">
+Activity pages follow a shared sequence: the problem, its causes, current figures, conservation work, and results. I implemented the donation button so it opens the builder with that activity already selected. This addressed the loss of context found on four of the six animal donation paths.
+
+<Figure slot="media" src="wwf/activity-climate.png" caption="Our Work · Climate" />
+</Block>
+
+<Block kicker="Donation Builder" title="Amount → Causes → Proportions → Review">
+I divided the flow into four steps: donation frequency and amount, cause selection, proportion adjustments, and final review. A summary card stays on the right to keep the full mix visible at each step. Projected impact in the prototype illustrates activities related to the selected causes; it does not calculate or guarantee actual outcomes for a given donation amount.
+
+<Grid slot="media" cols={2} caption="Prototype for reviewing the flow · Donation amounts and projected impact are sample data." items={[
+  { src: 'wwf/donate-1-amount.png', label: '1. Amount' },
+  { src: 'wwf/donate-2-category.png', label: '2. Causes' },
+  { src: 'wwf/donate-3-ratio.png', label: '3. Proportions' },
+  { src: 'wwf/donate-4-confirm.png', label: '4. Review', accent: true },
+]} />
+</Block>
+
+<Block kicker="Sharing" title="One person's choices become someone else's starting point">
+I implemented a prototype flow that generates a certificate after the donation completion step and opens a preselected donation mix from its sharing link. The recipient can keep that mix or change it. The aim was to extend participation-sharing practices, such as Earth Hour's lights-off posts and Wonderple's plastic-bottle collection posts, into the donation experience.
+</Block>
+
+<Block kicker="Outcome" title="Completed as a proposal">
+I completed the website audit, information architecture redesign, and an interactive prototype of the key screens. The project ended at the proposal stage because integration with the existing donor management system (CRM) was difficult. Operating the proposed model would require the existing system to process each supporter's selected causes and amounts.
+
+This case study documents proposal work, not a contracted deliverable for WWF Korea. The photos and videos in the prototype are external materials used temporarily to illustrate the proposal.
+</Block>
+
+<Takeaways kicker="Takeaways" title="What I learned from this project">
+<Takeaway n="01" title="Direct observation gives a proposal a clearer foundation">
+Comparing animal pages with their donation destinations let me explain exactly which connections needed to change. Checking existing content and links helped define the proposal's scope and priorities.
+</Takeaway>
+
+<Takeaway n="02" title="Check the system behind the screens first">
+Grouping separate designated donations changed the concept, but it did not resolve integration with the existing system. Next time, I would first check how donation items and amounts can be registered and changed. Knowing those constraints earlier would have changed the proposal's scope.
+</Takeaway>
+
+<Takeaway n="03" title="Nonprofit constraints become concrete design principles">
+I distinguished actual results from sample data and put chosen causes on certificates instead of donation amounts. Understanding the context of nonprofit giving led to specific decisions about impact claims and sharing.
+</Takeaway>
+</Takeaways>
