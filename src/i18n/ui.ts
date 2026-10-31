@@ -1,5 +1,9 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Category } from '../categories';
+import { selectPortfolio } from '../portfolio.mjs';
+export { portfolioSection } from '../portfolio.mjs';
+export type { PortfolioSection } from '../portfolio.mjs';
+import type { PortfolioSection } from '../portfolio.mjs';
 
 export const languages = {
 	en: 'English',
@@ -19,6 +23,7 @@ export const ui = {
 		navHome: 'Home',
 		navAbout: 'About',
 		navWork: 'Work',
+		navCaseStudies: 'Case Studies',
 		navBlog: 'Blog',
 		blogIntro: 'Notes on product, design, and AI.',
 		allCategories: 'All',
@@ -34,7 +39,11 @@ export const ui = {
 		recentPosts: 'Recent Posts',
 		allPosts: 'All posts',
 		workTitle: 'Work',
-		workIntro: 'Case studies in research, UX/UI design, and usability testing.',
+		workIntro: 'Selected work in branding, digital design, and implementation.',
+		caseStudiesTitle: 'Case Studies',
+		caseStudiesIntro: 'Research, design decisions, and lessons from each project.',
+		moreCaseStudies: 'More Case Studies',
+		backToCaseStudies: '← All case studies',
 		projectType: 'Project type',
 		duration: 'Duration',
 		role: 'Role',
@@ -79,6 +88,7 @@ export const ui = {
 		navHome: '홈',
 		navAbout: '소개',
 		navWork: '작업',
+		navCaseStudies: '케이스스터디',
 		navBlog: '블로그',
 		blogIntro: '프로덕트, 디자인, AI에 대해 씁니다.',
 		allCategories: '전체',
@@ -94,7 +104,11 @@ export const ui = {
 		recentPosts: '최근 글',
 		allPosts: '전체 글',
 		workTitle: '작업',
-		workIntro: '리서치, UX/UI 디자인, 사용성 테스트까지 해온 프로젝트들입니다.',
+		workIntro: '브랜딩부터 디지털 디자인과 구현까지, 주요 작업을 모았습니다.',
+		caseStudiesTitle: '케이스스터디',
+		caseStudiesIntro: '문제를 살펴보고, 설계하고, 배운 과정을 정리했습니다.',
+		moreCaseStudies: '다른 케이스스터디',
+		backToCaseStudies: '← 전체 케이스스터디',
 		projectType: '프로젝트 유형',
 		duration: '기간',
 		role: '역할',
@@ -201,16 +215,20 @@ export function workUrl(lang: Lang, slug: string): string {
 	return `/${lang}/work/${slug}/`;
 }
 
+export function portfolioIndexUrl(lang: Lang, section: PortfolioSection): string {
+	return `/${lang}/${section}/`;
+}
+
 // 케이스스터디 페이지가 있는 작업인지 (PDF 로 여는 작업, 비공개 작업은 페이지가 없다)
 export const hasPage = (w: CollectionEntry<'work'>) => !w.data.link && !w.data.locked;
 
 // 작업 목록은 order 순. 배포 빌드에서는 draft 와 비공개(locked) 작업을 뺀다.
 // 비공개 작업은 개발 서버에서만 보인다 (정리 중인 목록을 확인하는 용도)
-export async function getWork(lang?: Lang): Promise<CollectionEntry<'work'>[]> {
+export async function getWork(lang?: Lang, section?: PortfolioSection): Promise<CollectionEntry<'work'>[]> {
 	const work = await getCollection(
 		'work',
 		(w) =>
 			(import.meta.env.DEV || (!w.data.draft && !w.data.locked)) && (!lang || langFromId(w.id) === lang),
 	);
-	return work.sort((a, b) => a.data.order - b.data.order);
+	return selectPortfolio(work, section).sort((a, b) => a.data.order - b.data.order);
 }

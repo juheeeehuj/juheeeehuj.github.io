@@ -15,7 +15,7 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: Lang };
 const t = ui[lang];
-const work = await getWork(lang);
+const work = await getWork(lang, 'work');
 const featured = work.filter((w) => w.data.featured && hasPage(w)).slice(0, 4);
 // 줄 목록은 최근 5개만. 나머지는 /work 에서
 const allMore = work.filter((w) => !hasPage(w));
