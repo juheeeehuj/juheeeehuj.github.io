@@ -1,6 +1,6 @@
 ---
-// 홈: 고른 작업(Selected Work)이 먼저, 그 아래 최근 블로그 글, 맨 아래 페이지 없는 작업(PDF·비공개) 줄 목록
-//   - 작업은 frontmatter 에 featured: true 인 것 중 order 순 앞 4개를 2×2 로. 나머지는 아래 '더보기' 로 /work 에서
+// 홈: 주요 작업 → 케이스스터디 → 최근 글 → 페이지 없는 작업(PDF·비공개) 줄 목록
+//   - featured 항목을 order 순으로 작업 4개, 케이스스터디 2개 보여준다
 //   - 글은 최신 3개
 import MoreWork from '../../components/MoreWork.astro';
 import PostGrid from '../../components/PostGrid.astro';
@@ -17,6 +17,9 @@ const { lang } = Astro.params as { lang: Lang };
 const t = ui[lang];
 const work = await getWork(lang, 'work');
 const featured = work.filter((w) => w.data.featured && hasPage(w)).slice(0, 4);
+const caseStudies = (await getWork(lang, 'case-studies'))
+	.filter((w) => w.data.featured && hasPage(w))
+	.slice(0, 2);
 // 줄 목록은 최근 5개만. 나머지는 /work 에서
 const allMore = work.filter((w) => !hasPage(w));
 const more = allMore.slice(0, 5);
@@ -39,6 +42,24 @@ const recent = (await getPosts(lang)).slice(0, 3);
 			<a class="more-button" href={`/${lang}/work/`}>{t.viewMoreWork}</a>
 		</p>
 	</section>
+
+	{
+		caseStudies.length > 0 && (
+			<section class="container home-section" aria-labelledby="case-studies">
+				<SectionHeader id="case-studies" title={t.caseStudiesTitle} />
+				<ul class="work-list">
+					{caseStudies.map((w) => (
+						<li>
+							<WorkCard lang={lang} work={w} as="h3" />
+						</li>
+					))}
+				</ul>
+				<p class="more-cta">
+					<a class="more-button" href={`/${lang}/case-studies/`}>{t.viewMoreCaseStudies}</a>
+				</p>
+			</section>
+		)
+	}
 
 	{
 		recent.length > 0 && (
