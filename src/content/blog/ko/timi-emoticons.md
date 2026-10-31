@@ -5,7 +5,6 @@ pubDate: 2026-06-01
 category: design
 heroImage: '../../../assets/blog/timi-emoticons/hero.png'
 tags: ['witim', 'emoticon', 'ai-workflow', 'brand-design']
-draft: true
 ---
 
 위팀에서 쓸 티미 이모티콘을 만들었어요. 직장인용과 학생용 정적 이모티콘, 그리고 움직임을 더한 모션 이모티콘까지 만들었습니다. 기존 티미 이미지를 GPT에 넣어 상황에 맞는 표정과 동작을 만들고, 모션 버전은 사내 도구로 제작했어요. 완성된 이모티콘은 개발자분의 도움으로 위팀에 등록해 실제 대화에서 사용하고 있습니다.
