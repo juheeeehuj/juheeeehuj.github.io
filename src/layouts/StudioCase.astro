@@ -4,7 +4,7 @@
 import '../studio/studio.css';
 import { getImage } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { defaultLang, ui, type Lang } from '../i18n/ui';
+import { defaultLang, portfolioIndexUrl, ui, type Lang, type PortfolioSection } from '../i18n/ui';
 import ChaisaCaseStudy from '../studio/chaisa/casestudy/ChaisaCaseStudy';
 import RefineCaseStudy from '../studio/refine/RefineCaseStudy';
 import WitimBranding from '../studio/witim/WitimBranding';
@@ -14,10 +14,11 @@ import YeosuCaseStudy from '../studio/yeosu/YeosuCaseStudy.astro';
 type Props = CollectionEntry<'work'>['data'] & {
 	renderer: NonNullable<CollectionEntry<'work'>['data']['renderer']>;
 	lang: Lang;
+	section: PortfolioSection;
 	hreflang: Partial<Record<Lang, string>>;
 };
 
-const { title, description, cover, renderer, site, lang, hreflang } = Astro.props;
+const { title, description, cover, renderer, site, lang, section, hreflang } = Astro.props;
 const t = ui[lang];
 
 // 닫기 버튼 색: 케이스스터디 첫 화면 바탕에 맞춘다
@@ -93,13 +94,13 @@ const ogImage = new URL((await getImage({ src: cover, width: 1200, format: 'jpg'
 			)
 		}
 		<a
-			aria-label={t.backToWork}
+			aria-label={section === 'work' ? t.backToWork : t.backToCaseStudies}
 			class:list={[
 				'fixed z-[100] grid place-items-center border transition',
 				place.close,
 				closeTone,
 			]}
-			href={`/${lang}/work/`}>×</a
+			href={portfolioIndexUrl(lang, section)}>×</a
 		>
 		{renderer === 'refine' && <RefineCaseStudy locale={lang} client:load />}
 		{renderer === 'witim' && <WitimBranding locale={lang} client:load />}

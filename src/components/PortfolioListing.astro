@@ -1,0 +1,95 @@
+---
+// 작업·케이스스터디 공통 목록. 페이지 없는 작업은 아래 줄 목록으로.
+import MoreWork from './MoreWork.astro';
+import WorkCard from './WorkCard.astro';
+import { getWork, hasPage, ui, type Lang, type PortfolioSection } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+	lang: Lang;
+	section: PortfolioSection;
+}
+
+const { lang, section } = Astro.props;
+const t = ui[lang];
+const isWork = section === 'work';
+const title = isWork ? t.workTitle : t.caseStudiesTitle;
+const description = isWork ? t.workIntro : t.caseStudiesIntro;
+const all = await getWork(lang, section);
+const work = all.filter(hasPage);
+const more = all.filter((w) => !hasPage(w));
+---
+
+<BaseLayout title={`${title} | ${t.siteTitle}`} description={description} lang={lang}>
+	<section class="page-header">
+		<div class="container">
+			<h1>{title}</h1>
+			<p>{description}</p>
+		</div>
+	</section>
+
+	<div class="container">
+		<ul class="work-list">
+			{
+				work.map((w) => (
+					<li>
+						<WorkCard lang={lang} work={w} />
+					</li>
+				))
+			}
+		</ul>
+		{
+			more.length > 0 && (
+				<section class="more" aria-label={isWork ? t.moreWork : t.moreCaseStudies}>
+					<MoreWork lang={lang} work={more} />
+				</section>
+			)
+		}
+	</div>
+</BaseLayout>
+
+<style>
+	.page-header {
+		padding-top: 40px;
+		text-align: center;
+	}
+	/* 아래 구분선: 카드와 모서리가 맞도록 콘텐츠 폭에만 */
+	.page-header .container::after {
+		content: '';
+		display: block;
+		height: 1px;
+		margin-top: 40px;
+		background: var(--border);
+	}
+	.page-header h1 {
+		margin: 0 0 6px;
+		font-size: 32px;
+	}
+	.page-header p {
+		margin: 0;
+		color: var(--body);
+		font-size: 15px;
+	}
+
+	.work-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 30px;
+		margin: 60px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.more {
+		margin-top: 80px;
+	}
+	@media (max-width: 767px) {
+		.work-list {
+			grid-template-columns: minmax(0, 1fr);
+			margin-top: 40px;
+		}
+	}
+</style>
+
+<script>
+	import '../scripts/motion';
+</script>

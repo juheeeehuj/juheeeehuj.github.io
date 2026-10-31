@@ -26,6 +26,7 @@ const blog = blogUrl(lang);
 const links = [
 	{ href: home, label: t.navHome, active: path === home },
 	{ href: `/${lang}/work/`, label: t.navWork, active: path.startsWith(`/${lang}/work`) },
+	{ href: `/${lang}/case-studies/`, label: t.navCaseStudies, active: path.startsWith(`/${lang}/case-studies/`) },
 	// 카테고리(프로덕트·디자인·AI)와 글은 모두 블로그 안에 있다
 	{ href: blog, label: t.navBlog, active: path.startsWith(blog) },
 	{ href: `/${lang}/about/`, label: t.navAbout, active: path.startsWith(`/${lang}/about`) },

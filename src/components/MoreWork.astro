@@ -133,6 +133,13 @@ const t = ui[lang];
 	}
 	[aria-disabled='true'] {
 		cursor: default;
+		color: var(--text-subtle);
+		opacity: 0.5;
+	}
+	[aria-disabled='true'] .brand,
+	[aria-disabled='true'] .meta,
+	[aria-disabled='true'] .state {
+		color: inherit;
 	}
 
 	/* 커서를 따라오는 커버 미리보기 (스크립트가 body 아래로 옮기므로 전역 스타일) */
@@ -183,7 +190,7 @@ const t = ui[lang];
 	// 마우스가 있는 기기에서만: 줄에 올리면 그 작업의 커버가 커서 옆에서 따라온다
 	if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
 		const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-		for (const row of document.querySelectorAll<HTMLElement>('[data-more-work] .row')) {
+		for (const row of document.querySelectorAll<HTMLElement>('[data-more-work] a.row')) {
 			const preview = row.querySelector<HTMLElement>('.preview')!;
 			// 화면 기준으로 떠 있도록 body 바로 아래로 옮긴다 (조상의 transform 영향을 받지 않게)
 			document.body.append(preview);

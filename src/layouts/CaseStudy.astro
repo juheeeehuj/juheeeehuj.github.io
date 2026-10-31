@@ -5,11 +5,12 @@
 import { Image } from 'astro:assets';
 import Lightbox from '../components/work/Lightbox.astro';
 import type { CollectionEntry } from 'astro:content';
-import { slugFromId, ui, workUrl, type Lang } from '../i18n/ui';
+import { portfolioIndexUrl, slugFromId, ui, workUrl, type Lang, type PortfolioSection } from '../i18n/ui';
 import BaseLayout from './BaseLayout.astro';
 
 type Props = CollectionEntry<'work'>['data'] & {
 	lang: Lang;
+	section: PortfolioSection;
 	alternates: Record<Lang, string>;
 	hreflang: Partial<Record<Lang, string>>;
 	others: CollectionEntry<'work'>[];
@@ -26,11 +27,15 @@ const {
 	tools,
 	pdf,
 	lang,
+	section,
 	alternates,
 	hreflang,
 	others,
 } = Astro.props;
 const t = ui[lang];
+const parentUrl = portfolioIndexUrl(lang, section);
+const parentTitle = section === 'work' ? t.workTitle : t.caseStudiesTitle;
+const backLabel = section === 'work' ? t.backToWork : t.backToCaseStudies;
 const facts = [
 	[t.projectType, projectType],
 	[t.duration, duration],
@@ -53,14 +58,14 @@ const toc = [
 	hreflang={hreflang}
 	type="article"
 	image={cover}
-	navActive={`/${lang}/work/`}
+	navActive={parentUrl}
 >
 	<article class="case">
 		<header class="container case-hero">
 			<nav aria-label={t.breadcrumb}>
 				<ol class="breadcrumb">
 					<li><a href={`/${lang}/`}>{t.navHome}</a></li>
-					<li><a href={`/${lang}/work/`}>{t.workTitle}</a></li>
+					<li><a href={parentUrl}>{parentTitle}</a></li>
 					<li class="current" aria-current="page">{title}</li>
 				</ol>
 			</nav>
@@ -125,7 +130,7 @@ const toc = [
 							</li>
 						))}
 					</ul>
-					<a class="back" href={`/${lang}/work/`}>{t.backToWork}</a>
+					<a class="back" href={parentUrl}>{backLabel}</a>
 				</section>
 			)
 		}

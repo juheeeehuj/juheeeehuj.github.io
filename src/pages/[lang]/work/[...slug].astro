@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content';
 import * as components from '../../../components/work';
-import { getWork, hasPage, langFromId, otherLang, slugFromId, workUrl, type Lang } from '../../../i18n/ui';
+import { getWork, hasPage, langFromId, otherLang, portfolioIndexUrl, portfolioSection, slugFromId, workUrl, type Lang } from '../../../i18n/ui';
 import CaseStudy from '../../../layouts/CaseStudy.astro';
 
 export async function getStaticPaths() {
@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 	return work.map((entry) => {
 		const lang = langFromId(entry.id);
 		const slug = slugFromId(entry.id);
+		const section = portfolioSection(slug);
 		const other = otherLang(lang);
 		const hasTranslation = ids.has(`${other}/${slug}`);
 
@@ -22,22 +23,22 @@ export async function getStaticPaths() {
 		// 번역본이 없으면 토글은 상대 언어 작업 목록으로
 		const alternates = {
 			[lang]: workUrl(lang, slug),
-			[other]: hasTranslation ? workUrl(other, slug) : `/${other}/work/`,
+			[other]: hasTranslation ? workUrl(other, slug) : portfolioIndexUrl(other, section),
 		} as Record<Lang, string>;
 
-		const others = all.filter((w) => langFromId(w.id) === lang && w.id !== entry.id);
+		const others = all.filter((w) => langFromId(w.id) === lang && w.id !== entry.id && portfolioSection(slugFromId(w.id)) === section);
 
 		return {
 			params: { lang, slug },
-			props: { entry, lang, alternates, hreflang, others },
+			props: { entry, lang, section, alternates, hreflang, others },
 		};
 	});
 }
 
-const { entry, lang, alternates, hreflang, others } = Astro.props;
+const { entry, lang, section, alternates, hreflang, others } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<CaseStudy {...entry.data} lang={lang} alternates={alternates} hreflang={hreflang} others={others}>
+<CaseStudy {...entry.data} lang={lang} section={section} alternates={alternates} hreflang={hreflang} others={others}>
 	<Content components={components} />
 </CaseStudy>
