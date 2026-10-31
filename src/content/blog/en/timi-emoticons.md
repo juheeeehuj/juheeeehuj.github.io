@@ -5,7 +5,6 @@ pubDate: 2026-06-01
 category: design
 heroImage: '../../../assets/blog/timi-emoticons/hero.png'
 tags: ['witim', 'emoticon', 'ai-workflow', 'brand-design']
-draft: true
 ---
 
 I made TIMI emoticons to use in WITIM: static sets for work and school, plus a set with animation. I gave GPT an existing TIMI image to create expressions and poses for different situations, then used an internal tool to add motion. A developer helped add the finished emoticons to WITIM, where we now use them in real conversations.
