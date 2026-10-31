@@ -48,6 +48,17 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 				<h1 class="heading">블로그 글 수정</h1>
 				<p class="file" id="file"></p>
 
+				{lang === 'ko' && (
+					<section class="translation-panel" id="translationPanel" aria-label="영어판 업데이트" hidden>
+						<div>
+							<h2>영어판 번역</h2>
+							<p>현재 한글 글을 저장한 뒤 영어판을 갱신해요. 공개 상태와 대표 이미지도 함께 맞춥니다.</p>
+						</div>
+						<button class="ghost" id="translate" type="button" disabled>영어판도 업데이트</button>
+						<a id="englishPreview" hidden>영어판 보기 →</a>
+					</section>
+				)}
+
 				<span class="label">대표 이미지</span>
 				<div class="hero" id="hero">
 					<img class="hero-img" id="heroImg" alt="" hidden />
@@ -160,6 +171,7 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 			const dateEl = $<HTMLInputElement>('pubDate');
 			const saveBtn = $<HTMLButtonElement>('save');
 			const statusEl = $('status');
+			const translateBtn = document.getElementById('translate') as HTMLButtonElement | null;
 
 			// 글 안의 그림 주소는 마크다운 파일 기준 상대경로다. 화면에 보여줄 때만 dev 서버 주소로 바꾼다.
 			const postDir = `${location.origin}/src/content/blog/${lang}/`;
@@ -352,6 +364,14 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 			let editor: Editor | undefined;
 			let bodyTouched = false;
 			let dirty = false;
+			let changeVersion = 0;
+			let saving = false;
+			let translating = false;
+
+			function refreshActions() {
+				saveBtn.disabled = !editor || !dirty || saving || translating;
+				if (translateBtn) translateBtn.disabled = !editor || saving || translating;
+			}
 
 			function setStatus(text: string, error = false) {
 				statusEl.textContent = text;
@@ -360,7 +380,8 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 
 			function markDirty() {
 				dirty = true;
-				saveBtn.disabled = false;
+				changeVersion++;
+				refreshActions();
 				setStatus('저장 안 된 변경이 있습니다');
 			}
 
@@ -414,11 +435,16 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 					},
 				});
 				refreshToolbar();
+				refreshActions();
+				if (translateBtn) $('translationPanel').hidden = false;
 			}
 
 			async function save() {
-				if (!editor || !dirty) return;
-				saveBtn.disabled = true;
+				if (!editor || saving || translating) return false;
+				if (!dirty) return true;
+				saving = true;
+				const savedVersion = changeVersion;
+				refreshActions();
 				setStatus('저장 중…');
 				const payload: Record<string, unknown> = {
 					title: titleEl.value,
@@ -441,14 +467,54 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 					});
 					const data = await res.json();
 					if (!res.ok) throw new Error(data.error);
-					dirty = false;
-					bodyTouched = false;
-					setStatus('저장했습니다');
+					// Changes made while the request is running must remain unsaved.
+					if (changeVersion === savedVersion) {
+						dirty = false;
+						bodyTouched = false;
+					}
+					setStatus(dirty ? '저장 안 된 변경이 있습니다' : '저장했습니다');
+					return !dirty;
 				} catch (err) {
-					saveBtn.disabled = false;
 					setStatus(`저장 실패: ${(err as Error).message}`, true);
+					return false;
+				} finally {
+					saving = false;
+					refreshActions();
 				}
 			}
+
+			async function updateEnglish() {
+				if (lang !== 'ko' || !translateBtn || translating || saving) return;
+				if (!(await save())) return;
+				translating = true;
+				refreshActions();
+				$('layout').inert = true;
+				$('translationPanel').setAttribute('aria-busy', 'true');
+				translateBtn.textContent = '번역하는 중…';
+				setStatus('영어판을 업데이트하고 있습니다…');
+				try {
+					const res = await fetch(`/__editor/translate?lang=ko&slug=${encodeURIComponent(slug)}`, {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: '{}',
+					});
+					const data = await res.json();
+					if (!res.ok) throw new Error(data.error);
+					const link = $<HTMLAnchorElement>('englishPreview');
+					link.href = data.url;
+					link.hidden = false;
+					setStatus('영어판을 업데이트했습니다');
+				} catch (err) {
+					setStatus(`영어판 업데이트 실패: ${(err as Error).message}`, true);
+				} finally {
+					translating = false;
+					$('layout').inert = false;
+					$('translationPanel').removeAttribute('aria-busy');
+					translateBtn.textContent = '영어판도 업데이트';
+					refreshActions();
+				}
+			}
+			translateBtn?.addEventListener('click', updateEnglish);
 
 			const commands: Record<string, { run: (e: Editor) => void; active?: (e: Editor) => boolean }> = {
 				undo: { run: (e) => e.chain().focus().undo().run() },
@@ -545,8 +611,10 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 				display: flex;
 				align-items: center;
 				gap: 14px;
+				min-width: 0;
 			}
 			.status {
+				min-width: 0;
 				color: var(--text-subtle);
 				font-size: 13px;
 			}
@@ -554,6 +622,7 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 				color: var(--pink);
 			}
 			.save {
+				flex-shrink: 0;
 				padding: 8px 26px;
 				border: 0;
 				border-radius: 25px;
@@ -629,6 +698,52 @@ const lang = Astro.url.pathname.split('/')[1] as Lang;
 				color: var(--text-subtle);
 				font-family: var(--font-mono);
 				font-size: 12px;
+				overflow-wrap: anywhere;
+			}
+			.translation-panel {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) auto;
+				align-items: center;
+				gap: 12px 16px;
+				margin-top: 24px;
+				padding: 16px;
+				border: 1px solid var(--border);
+				border-radius: var(--radius-sm);
+				background: var(--bg);
+			}
+			.translation-panel[hidden],
+			.translation-panel a[hidden] {
+				display: none;
+			}
+			.translation-panel h2 {
+				margin: 0;
+				font-size: 16px;
+			}
+			.translation-panel p {
+				margin: 4px 0 0;
+				color: var(--text-subtle);
+				font-size: 13px;
+			}
+			.translation-panel button {
+				min-height: 42px;
+				white-space: nowrap;
+			}
+			.translation-panel button:disabled {
+				opacity: 0.55;
+				cursor: wait;
+			}
+			.translation-panel a {
+				grid-column: 1 / -1;
+				color: var(--pink);
+				font-size: 14px;
+			}
+			@media (max-width: 600px) {
+				.translation-panel {
+					grid-template-columns: minmax(0, 1fr);
+				}
+				.translation-panel button {
+					justify-self: start;
+				}
 			}
 			.label {
 				display: block;
