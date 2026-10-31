@@ -48,7 +48,7 @@ const work = defineCollection({
 			// 실제 운영 중인 사이트 주소. AX Studio 케이스스터디의 닫기(×) 옆에 '사이트 보기' 버튼으로 붙는다
 			site: z.string().url().optional(),
 			// AX Studio 에서 옮겨 온 케이스스터디: 본문 대신 src/studio 의 컴포넌트가 화면 전체를 그린다
-			renderer: z.enum(['refine', 'witim', 'chaisa']).optional(),
+			renderer: z.enum(['refine', 'witim', 'chaisa', 'yeosu', 'wingo']).optional(),
 			// true 면 비공개: 목록에 자물쇠로만 보이고 페이지는 만들지 않는다
 			locked: z.boolean().default(false),
 			// 목록에 보이는 연도 (예: 2026)
