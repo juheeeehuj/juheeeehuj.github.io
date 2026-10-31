@@ -1,0 +1,101 @@
+---
+import { selectPostRecommendations } from '../blog-posts.mjs';
+import { blogUrl, getPosts, postUrl, slugFromId, ui, type Lang } from '../i18n/ui';
+import PostCard from './PostCard.astro';
+
+interface Props {
+  lang: Lang;
+  currentId: string;
+}
+
+const { lang, currentId } = Astro.props;
+const { previous, next, related } = selectPostRecommendations(await getPosts(lang), currentId);
+const t = ui[lang];
+---
+
+<div class="post-recommendations">
+  {(previous || next) && (
+    <nav class="post-navigation" aria-label={t.postNavigation}>
+      {previous && (
+        <a class="adjacent-post previous" href={postUrl(lang, slugFromId(previous.id))} rel="prev">
+          <span><span aria-hidden="true">←</span> {t.previousPost}</span>
+          <strong>{previous.data.title}</strong>
+        </a>
+      )}
+      {next && (
+        <a class="adjacent-post next" href={postUrl(lang, slugFromId(next.id))} rel="next">
+          <span>{t.nextPost} <span aria-hidden="true">→</span></span>
+          <strong>{next.data.title}</strong>
+        </a>
+      )}
+    </nav>
+  )}
+
+  {related.length > 0 && (
+    <section class="related-posts" aria-labelledby="related-posts-title">
+      <div class="section-heading">
+        <h2 id="related-posts-title">{t.relatedPosts}</h2>
+        <a href={blogUrl(lang)}>{t.allPosts} <span aria-hidden="true">→</span></a>
+      </div>
+      <ul class="related-grid">
+        {related.map(post => <li><PostCard lang={lang} post={post} /></li>)}
+      </ul>
+    </section>
+  )}
+</div>
+
+<style>
+  .post-recommendations { margin-top: 40px; }
+  .post-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .adjacent-post {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    transition: border-color 0.2s;
+  }
+  .adjacent-post:hover { border-color: var(--pink); }
+  .adjacent-post > span { color: var(--text-subtle); font-size: 14px; }
+  .adjacent-post strong {
+    color: var(--heading);
+    font-size: 17px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  .adjacent-post:hover strong { color: var(--pink); }
+  .next { grid-column: 2; text-align: right; }
+  .related-posts { margin-top: 40px; }
+  .section-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-heading h2 { margin: 0; color: var(--heading); font-size: 24px; }
+  .section-heading > a { color: var(--text-subtle); font-size: 14px; }
+  .section-heading > a:hover { color: var(--pink); }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .related-grid li { min-width: 0; }
+  @media (max-width: 575px) {
+    .post-navigation, .related-grid { grid-template-columns: minmax(0, 1fr); }
+    .next { grid-column: auto; text-align: left; }
+    .adjacent-post { padding: 20px; }
+  }
+</style>

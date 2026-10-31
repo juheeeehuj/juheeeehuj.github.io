@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content';
 import AuthorBox from '../components/AuthorBox.astro';
 import Avatar from '../components/Avatar.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import PostRecommendations from '../components/PostRecommendations.astro';
 import ShareLinks from '../components/ShareLinks.astro';
 import { blogUrl, categoryLabels, categoryUrl, ui, type Lang } from '../i18n/ui';
 import BaseLayout from './BaseLayout.astro';
@@ -118,6 +119,7 @@ const editUrl = import.meta.env.DEV && Astro.params.slug ? `/${lang}/edit/?slug=
 		</article>
 
 		<AuthorBox lang={lang} />
+		<PostRecommendations lang={lang} currentId={`${lang}/${Astro.params.slug}`} />
 	</div>
 </BaseLayout>
 

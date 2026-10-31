@@ -17,8 +17,9 @@ const t = ui[lang];
 const url = postUrl(lang, slugFromId(post.id));
 ---
 
-<article class="post-grid">
+<article class:list={['post-grid', { 'is-draft': post.data.draft }]}>
 	<div class="thumb">
+		{post.data.draft && <span class="draft-badge">{lang === 'ko' ? '초안' : 'Draft'}</span>}
 		{
 			category && (
 				<a class="category-badge" href={categoryUrl(lang, category)}>
@@ -59,6 +60,31 @@ const url = postUrl(lang, slugFromId(post.id));
 		border: 1px solid var(--border);
 		border-radius: var(--radius);
 		background: var(--card);
+	}
+	.is-draft {
+		opacity: 0.45;
+		filter: grayscale(1);
+		background: var(--surface);
+	}
+	.draft-badge {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		z-index: 1;
+		padding: 4px 12px;
+		border: 1px solid var(--border);
+		border-radius: 20px;
+		background: var(--card);
+		color: var(--text-subtle);
+		font-size: 12px;
+	}
+	.is-draft .category-badge {
+		background: var(--border);
+		color: var(--text-subtle);
+	}
+	.is-draft .thumb:hover :global(img),
+	.is-draft .thumb:hover .placeholder {
+		transform: none;
 	}
 	.thumb {
 		position: relative;
