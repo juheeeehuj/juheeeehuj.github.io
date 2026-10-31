@@ -1,0 +1,57 @@
+---
+// 첫 주소('/'): 언어를 골라 /ko/ 또는 /en/ 으로 바로 보낸다.
+//   GitHub Pages 는 서버 리디렉트가 없어서, Astro 기본 스텁("Redirecting from / to /en/") 대신
+//   사이트 배경색만 칠한 빈 화면에서 스크립트로 즉시 이동한다.
+//   언어 순서: 언어 토글로 고른 언어(localStorage 'lang') → 기기 언어 목록에서 먼저 나오는 ko/en → en
+//   스크립트가 꺼져 있으면 noscript 안의 메타 새로고침과 링크로 /en/ 에 간다.
+import { defaultLang } from '../i18n/ui';
+
+const site = Astro.site!;
+const fallback = `/${defaultLang}/`;
+---
+
+<!doctype html>
+<html lang={defaultLang}>
+	<head>
+		<meta charset="utf-8" />
+		<script is:inline>
+			(() => {
+				let lang = null;
+				try {
+					lang = localStorage.getItem('lang');
+				} catch (_) {}
+				if (lang !== 'ko' && lang !== 'en') {
+					const prefs = navigator.languages?.length ? navigator.languages : [navigator.language || ''];
+					lang = prefs.map((l) => l.toLowerCase().split('-')[0]).find((l) => l === 'ko' || l === 'en') ?? 'en';
+				}
+				location.replace(`/${lang}/${location.search}${location.hash}`);
+			})();
+		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex" />
+		<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#0f1a2c" media="(prefers-color-scheme: dark)" />
+		<title>Juhee Oh</title>
+		<link rel="canonical" href={new URL(fallback, site).href} />
+		<link rel="alternate" hreflang="en" href={new URL('/en/', site).href} />
+		<link rel="alternate" hreflang="ko" href={new URL('/ko/', site).href} />
+		<link rel="alternate" hreflang="x-default" href={new URL(fallback, site).href} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<noscript><meta http-equiv="refresh" content={`0;url=${fallback}`} /></noscript>
+		<style>
+			html { background: #ffffff; color-scheme: light dark; }
+			@media (prefers-color-scheme: dark) { html { background: #0f1a2c; } }
+			html.dark { background: #0f1a2c; }
+			html.light { background: #ffffff; }
+		</style>
+		<script is:inline>
+			try {
+				const theme = localStorage.getItem('theme');
+				if (theme === 'dark' || theme === 'light') document.documentElement.classList.add(theme);
+			} catch (_) {}
+		</script>
+	</head>
+	<body>
+		<noscript><a href={fallback}>Juhee Oh — {fallback}</a></noscript>
+	</body>
+</html>

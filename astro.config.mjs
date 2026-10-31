@@ -47,9 +47,9 @@ export default defineConfig({
 		},
 	},
 
-	// GitHub Pages 는 서버 리디렉트가 없어서 '/' 는 기본 언어로 보내는 스텁 페이지가 된다
+	// '/' 는 src/pages/index.astro 가 기기 언어를 보고 /ko/ 또는 /en/ 으로 보낸다
+	//   (GitHub Pages 는 서버 리디렉트가 없어 Astro 기본 스텁은 'Redirecting…' 화면이 잠깐 보였다)
 	redirects: {
-		'/': '/en/',
 		// 카테고리가 블로그 안으로 들어가기 전 주소
 		'/[lang]/category/[category]': '/[lang]/blog/category/[category]',
 	},
